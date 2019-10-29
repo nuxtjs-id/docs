@@ -1,9 +1,14 @@
-# Properti Mode
+---
+title: "API: Properti mode"
+description: Merubah mode default nuxt
+---
 
-- Tipe: `String`
-  - Nilai awal: `universal`
-  - Nilai yang dapat di gunakan :
-      - `'spa'`: Tanpa penyediaan halaman dari sisi server (hanya menggunakan navigasi sisi klien).
-      - `'universal'`: Aplikasi *Isomorphic* (penyediaan halamn dari sisi server dan navigasi sisi klien).
+- Type: `string`
+  - Default: `universal`
+  - Possible values:
+    - `'spa'`: Tanpa render dari sisi server (hanya navigasi pada sisi klien)
+    - `'universal'`: Aplikasi isomorfik (render sisi server + navigasi sisi klien)
 
-*Kamu bisa mengganti nilai awal mode dengan menambahkan pilihan properti mode pada `nuxt.config.js`*
+> Anda dapat menggunakan opsi ini untuk mengubah mode default dari nuxt untuk proyek Anda menggunakan `nuxt.config.js`
+
+
