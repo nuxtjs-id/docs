@@ -3,70 +3,132 @@ title: 'API: Properti generate'
 description: Konfigurasikan generasi aplikasi web universal Anda ke aplikasi web statis.
 ---
 
-# Properti generate
-
 - Type: `Object`
 
 > Konfigurasikan generasi aplikasi web universal Anda ke aplikasi web statis.
 
-Ketika meluncurkan `nuxt generate` atau memanggil `nuxt.generate()` , Nuxt.js akan menggunakan konfigurasi yang didefinisikan dalam properti `generate` .
+Ketika menjalankan `nuxt generate` atau `nuxt.generate()`, Nuxt.js akan menggunakan konfigurasi yang sudah didefinisikan didalam properti `generate`.
+
+nuxt.config.js 
+```js
+export default {
+  generate: {
+    ...
+  }
+}
+```
+
+## concurrency
+
+- Type: `Number`
+- Default: `500`
+
+Generasi rute konkuren, `generate.concurrency` menentukan jumlah rute yang berjalan dalam satu thread.
+
 
 ## dir
 
 - Type: `String`
 - Default: `'dist'`
 
-Nama direktori dibuat oleh `nuxt generate` .
+Nama direktori dibuat oleh `nuxt generate`.
+
+## devtools
+
+- Type: `boolean`
+- Default: `false`
+
+Konfigurasikan apakah akan mengizinkan inspeksi [vue-devtools](https://github.com/vuejs/vue-devtools).
+
+Jika Anda sudah mengaktifkannya melalui nuxt.config.js ataupun yang lainnya, devtools akan mengaktifkan apa pun sesuai flag.
+
+## exclude
+
+- Type: `Array`
+
+Ini menerima array ekspresi reguler (regex) dan akan mencegah pembuatan rute yang cocok dengan mereka. Rute masih dapat diakses saat `generate.fallback` digunakan.
+
+Secara default, menjalankan `nuxt generate` akan otomatis membuat file untuk masing-masing rute.
+
+```bash
+-| dist/
+---| index.html
+---| ignore/
+-----| about.html
+-----| item.html
+```
+
+Saat menambahkan ekspresi reguler (regex) untuk semua rute yang cocok dengan kata "ignore", itu akan mencegah pembuatan rute ini.
+
+nuxt.config.js 
+```js
+export default {
+  generate: {
+    exclude: [
+      /^(?=.*\bignore\b).*$/
+    ]
+  }
+}
+```
+
+```bash
+-| dist/
+---| index.html
+```
 
 ## fallback
 
 - Type: `String` or `Boolean`
-- Default: `'200.html'`
+- Default: `200.html`
 
-Jalur (path) menuju fallback SPA. File ini bisa digunakan ketika melakukan deploy website statis ke hosting statis. Ini akan dikembalikan ke mode `: 'spa' {/ code0} ketika rute tidak di-generate.`
+```js
+export default {
+  generate: {
+    fallback: true
+  }
+}
+```
 
+Jalur fallback ke file HTML. Ini harus ditetapkan sebagai halaman eror, sehingga rute yang tidak dikenal juga dirender melalui Nuxt.
+Jika tidak diatur atau diatur menjadi nilai falsy, nama file fallback HTML akan menjadi `200.html`. Jika `true`, maka nama file akan menjadi `404.html`. Jika Anda memberikan nilai string, maka akan digunakan sebagai gantinya.
+
+Ketika menjalankan mode SPA akan lebih idiomatis menggunakan `200.html`, karena itu adalah satu-satunya file yang diperlukan ketika tidak ada rute lain yang dihasilkan.
+
+```js
+fallback: false
+```
+
+Jika bekerja dengan halaman yang dihasilkan secara statis maka disarankan untuk menggunakan `404.html` untuk menampilkan halaman eror yang dicakup oleh [excludes](https://nuxtjs.org/api/configuration-generate#exclude) (file yang tidak ingin Anda hasilkan sebagai halaman statis).
+
+```js
+fallback: true
+```
+
+Namun, Nuxt memungkinkan Anda untuk mengonfigurasi halaman mana pun yang Anda suka, jadi jika Anda tidak ingin menggunakan `200.html` atau` 404.html` Anda dapat menambahkan string dan kemudian Anda hanya perlu memastikan bahwa Anda mengarahkan ulang ke halaman tersebut. Tentusaja ini tidak diperlukan dan lebih baik tetap di redirect ke `200.html`/`404.html`.
+
+```js
+fallback: 'fallbackPage.html'
+```
+
+ *Catatan: Berbagai layanan (seperti Netlify) mendeteksi file `404.html` secara otomatis. Jika Anda mengkonfigurasi server web Anda sendiri, silakan baca dokumentasinya untuk mengetahui cara mengatur halaman eror (dan atur itu supaya mengarah ke file `404.html`) * 
+ 
 ## interval
 
 - Type: `Number`
 - Default: `0`
 
-Interval antara 2 render agar tidak membanjiri panggilan API yang dibuat ke API potensial dari aplikasi web.
+Interval antara dua siklus render untuk menghindari potensi membanjiri API dengan panggilan API dari aplikasi web.
 
 ## minify
 
-- Type: `Object`
-- Default:
-
-```js
-minify: {
-  collapseBooleanAttributes: true,
-  collapseWhitespace: false,
-  decodeEntities: true,
-  minifyCSS: true,
-  minifyJS: true,
-  processConditionalComments: true,
-  removeAttributeQuotes: false,
-  removeComments: false,
-  removeEmptyAttributes: true,
-  removeOptionalTags: true,
-  removeRedundantAttributes: true,
-  removeScriptTypeAttributes: false,
-  removeStyleLinkTypeAttributes: false,
-  removeTagWhitespace: false,
-  sortAttributes: true,
-  sortClassName: false,
-  trimCustomFragments: true,
-  useShortDoctype: true
-}
-```
-
-Anda dapat mengubah konfigurasi default dari [html-minifier](https://github.com/kangax/html-minifier) yang digunakan oleh Nuxt.js untuk memperkecil (minify) file html yang diciptakan selama proses generate.
+- **Deprecated!**
+- Gunakan [build.html.minify](/api/configuration-build#html-minify) sebagai gantinya
 
 ## routes
 
 - Type: `Array`
 
-[Dynamic routes](/guide/routing#dynamic-routes) akan terabaikan oleh perintah `generate`.
+[Dynamic routes](/guide/routing#dynamic-routes) akan diabaikan ketika menggunakan perintah `generate` (yarn generate). Nuxt tidak akan tahu rute seperti apa, sehingga tidak dapat melakukan generate.
 
 Contoh:
 
@@ -77,14 +139,14 @@ Contoh:
 -----| _id.vue
 ```
 
-Hanya route `/` yang akan di-generate oleh Nuxt.js.
+Hanya rute `/` yang akan di generate oleh Nuxt.js.
 
-Jika Anda ingin Nuxt.js melakukan `generate route` dengan parameter dinamis (dynamic params), Anda perlu mengatur array pada rute dinamis (dynamic route).
+Apabila Anda ingin Nuxt.js melakukan generate dengan parameter dinamis, Anda harus mengatur properti `generate.routes` menjadi rute dinamis berbentuk array.
 
-Kita tambahkan rute untuk `/users/:id` di dalam file `nuxt.config.js`:
+Kita tambahkan rute untuk `/users/:id` didalam `nuxt.config.js`:
 
 ```js
-module.exports = {
+export default {
   generate: {
     routes: [
       '/users/1',
@@ -95,7 +157,7 @@ module.exports = {
 }
 ```
 
-Kemudian, ketika kita jalankan `nuxt generate`:
+Kemudian ketika kita menjalankan `nuxt generate`:
 
 ```bash
 [nuxt] Generating...
@@ -112,19 +174,19 @@ nuxt:generate HTML Files generated in 7.6s +6ms
 [nuxt] Generate done
 ```
 
-Kerenkan, bagaimana jika kita punya **parameter dinamis (dynamic route)**?
+Mantap, tapi bagaimana jika kita mempunyai **parameter dinamis**?
 
-1. Gunakan `Function` yang akan mengembalikan `Promise`.
+1. Gunakan `Function` yang mengembalikan (return) `Promise`.
 2. Gunakan `Function` dengan `callback(err, params)`.
 
-### Function yang akan mengembalikan Promise
+### Fungsi yang mengembalikan Promise
 
 `nuxt.config.js`
 
 ```js
-const axios = require('axios')
+import axios from 'axios'
 
-module.exports = {
+export default {
   generate: {
     routes () {
       return axios.get('https://my-api/users')
@@ -138,14 +200,14 @@ module.exports = {
 }
 ```
 
-### Function dengan menggunakan callback
+### Fungsi dengan callback
 
 `nuxt.config.js`
 
 ```js
-const axios = require('axios')
+import axios from 'axios'
 
-module.exports = {
+export default {
   generate: {
     routes (callback) {
       axios.get('https://my-api/users')
@@ -163,14 +225,14 @@ module.exports = {
 
 ### Mempercepat proses generate dynamic route menggunakan `payload`
 
-Pada contoh di atas, kita menggunakan `user.id` dari server untuk melakukan `generate` rute, tetapi ini akan menyia-nyiakan data lainnya. Biasanya, kita perlu melakukan `fetch` kembali di dalam file `/users/_id.vue`. Sementara kita melakukan itu, kita bisa juga mengatur `generate.interval` menjadi `100` supaya tidak membanjiri server. Karena ini akan mempercepat waktu dari proses `generate`, dan lebih baik untuk melewati objek `user` pada context di dalam file `_id.vue`. Kita akan melakukannya dengan memodifikasi kode di atas menjadi seperti berikut:
+Pada contoh di atas, kita menggunakan `user.id` dari server untuk melakukan `generate` rute, tetapi ini akan menyia-nyiakan data lainnya. Biasanya, kita perlu melakukan `fetch` kembali di dalam file `/users/_id.vue`. Sementara kita melakukan itu, kita bisa juga mengatur `generate.interval` menjadi `100` supaya tidak membanjiri server. Karena ini akan mempercepat waktu dari proses `generate`, dan lebih baik untuk melewati objek `user` pada konteks didalam file `_id.vue`. Kita akan melakukannya dengan memodifikasi kode di atas menjadi seperti berikut:
 
 `nuxt.config.js`
 
 ```js
-const axios = require('axios')
+import axios from 'axios'
 
-module.exports = {
+export default {
   generate: {
     routes () {
       return axios.get('https://my-api/users')
@@ -187,7 +249,7 @@ module.exports = {
 }
 ```
 
-Sekarang kita bisa mengakses `payload` dari `/users/_id.vue` seperti ini:
+Sekarang kita dapat mengakses `payload` dari `/users/_id.vue` seperti:
 
 ```js
 async asyncData ({ params, error, payload }) {
@@ -201,7 +263,7 @@ async asyncData ({ params, error, payload }) {
 - Type: `Boolean`
 - Default: `true`
 
-Secara default, menjalankan perintah `nuxt generate` akan membuat direktori untuk masing-masing rute & bersama file `index.html`.
+Secara default, menjalankan `nuxt generate` akan membuat direktori untuk masing-masing rute dan melakukan serve file `index.html`.
 
 Contoh:
 
@@ -215,7 +277,16 @@ Contoh:
 -------| index.html
 ```
 
-Ketika di-set menjadi false, file-file HTML akan di-generate berdasarkan path pada rute:
+Ketika di set false, File-file HTML yang dihasilkan akan sesuai dengan jalur rute:
+
+nuxt.config.js 
+```js
+export default {
+  generate: {
+    subFolders: false
+  }
+}
+```
 
 ```bash
 -| dist/
@@ -225,4 +296,5 @@ Ketika di-set menjadi false, file-file HTML akan di-generate berdasarkan path pa
 -----| item.html
 ```
 
-*Catatan: cara ini akan lebih bermanfaat ketika kita menggunakan [Netlify](https://netlify.com) atau hosting statis menggunakan HTML fallbacks.*
+
+

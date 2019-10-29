@@ -1,7 +1,7 @@
 ---
 title: 'API: Properti build'
 description: Nuxt.js memungkinkan Anda menyesuaikan konfigurasi webpack untuk membangun
-  aplikasi web Anda sesuai keinginan.
+  aplikasi web sesuai keinginan Anda.
 ---
 
 # Properti build
@@ -15,7 +15,7 @@ description: Nuxt.js memungkinkan Anda menyesuaikan konfigurasi webpack untuk me
 - Type: `Boolean` atau `Object`
 - Default: `false`
 
-Jika itu merupakan Object, lihat properti yang tersedia [di sini](https://github.com/th0r/webpack-bundle-analyzer#as-plugin).
+Jika itu merupakan Object, lihat properti yang tersedia [disini](https://github.com/th0r/webpack-bundle-analyzer#as-plugin).
 
 Contoh (`nuxt.config.js`):
 
@@ -33,13 +33,13 @@ module.exports = {
 
 <div class="Alert Alert--teal">
 
-**Info:** anda bisa menggunakan perintah `nuxt build --analyze` atau `nuxt build -a` untuk mem'build aplikasi dan menjalankan bundle analyzer pada [http://localhost:8888](http://localhost:8888).
+**Info:** anda bisa menggunakan perintah `nuxt build --analyze` atau `nuxt build -a` untuk melakukan build aplikasi dan menjalankan bundle analyzer pada [http://localhost:8888](http://localhost:8888).
 
 </div>
 
 ## babel
 
-> Kostumisasi konfigurasi Babel untuk file-file JavaScript dan Vue.
+> Kustomisasi Konfigurasi Babel untuk file-file JavaScript dan Vue.
 
 - Type: `Object`
 
@@ -111,11 +111,11 @@ Jika anda ingin melihat lebih lanjut mengenai konfigurasi default webpack, lihat
 - Type: `Boolean`
 - Default: `false`
 
-Menggunakan [`extract-css-chunks-webpack-plugin`](https://github.com/faceyspacey/extract-css-chunks-webpack-plugin) untuk mengekstrak CSS menjadi beberapa bagian file-file CSS (otomatis terinjeksi dengan template), yang memungkinkan file ter-cache secara terpisah. Ini disarankan bila ada banyak CSS bersama (shared CSS). CSS di dalam komponen async akan tetap digabung sebagai string JavaScript dan ditangani oleh vue-style-loader.
+Menggunakan [`extract-css-chunks-webpack-plugin`](https://github.com/faceyspacey/extract-css-chunks-webpack-plugin) untuk mengekstrak CSS menjadi beberapa bagian file-file CSS (otomatis terinjeksi dengan template), yang memungkinkan file ter-cache secara terpisah. Ini disarankan bila ada banyak CSS (shared CSS). CSS di dalam komponen async akan tetap digabung sebagai string JavaScript dan ditangani oleh vue-style-loader.
 
 ## filenames
 
-> Kostumisasi bundle filenames (nama-nama file).
+> Kustomisasi bundle filenames (nama-nama file).
 
 - Type: `Object`
 
@@ -176,7 +176,7 @@ module.exports = {
 
 ## postcss
 
-> Kostumisasi plugin-plugin [PostCSS Loader](https://github.com/postcss/postcss-loader#usage).
+> Kustomisasi plugin-plugin [PostCSS Loader](https://github.com/postcss/postcss-loader#usage).
 
 - Type: `Array`, `Object` (direkomendasikan), `Function` atau `Boolean`
 
@@ -201,10 +201,10 @@ module.exports = {
   build: {
     postcss: {
       plugins: {
-        // Disable `postcss-url`
+      // Non-aktifkan `postcss-url`
       'postcss-url': false
 
-      // Kostumisasi `postcss-cssnext` default options
+      // Kustomisasi opsi standar `postcss-cssnext`
       'postcss-cssnext': {
         features: {
           customProperties: false
@@ -223,7 +223,7 @@ module.exports = {
 
 ## publicPath
 
-> Nuxt.js memungkinkan Anda mengunggah file dist Anda ke CDN Anda untuk performa yang maksimal, cukup dengan atur `publicPath` ke CDN Anda.
+> Nuxt.js memungkinkan Anda mengunggah file-file didalam direktori dist Anda ke CDN untuk performa yang maksimal, cukup dengan mengatur `publicPath` ke CDN Anda.
 
 - Type: `String`
 - Default: `'/_nuxt/'`
@@ -238,11 +238,11 @@ module.exports = {
 }
 ```
 
-Kemudian, saat meluncurkan (launcing) `nuxt build` , unggah konten dari direktori `.nuxt/dist/` ke CDN dan lihat hasilnya!
+Kemudian, saat meluncurkan (launching) `nuxt build` , unggah konten dari direktori `.nuxt/dist/` ke CDN dan lihat hasilnya!
 
 ## ssr
 
-> Membuat bundel webpack khusus untuk perender SSR.
+> Membuat bundel webpack khusus untuk prerender SSR.
 
 - Type: `Boolean`
 - Default: `true` untuk mode Universal dan `false` untuk mode SPA
@@ -262,9 +262,9 @@ module.exports = {
   build: {
     templates: [
       {
-        src: '~/modules/support/plugin.js', // `src` can be absolute or relative
-        dst: 'support.js', // `dst` is relative to project `.nuxt` dir
-        options: { // Options are provided to template as `options` key
+        src: '~/modules/support/plugin.js', // `src` dapat berupa absolute atau relative
+        dst: 'support.js', // `dst` relative direktori untuk project `.nuxt`
+        options: { // Opsi untuk template disediakan sebagai key `options`
           live_chat: false
         }
       }
@@ -273,7 +273,7 @@ module.exports = {
 }
 ```
 
-Template dirender menggunakan [`lodash.template`](https://lodash.com/docs/#template). Anda dapat mempelajari lebih lanjut tentang cara menggunakannya [di sini](https://github.com/learn-co-students/javascript-lodash-templates-v-000) .
+Template dirender menggunakan [`lodash.template`](https://lodash.com/docs/#template). Anda dapat mempelajari lebih lanjut tentang cara menggunakannya [disini](https://github.com/learn-co-students/javascript-lodash-templates-v-000) .
 
 ## vendor
 
@@ -281,7 +281,7 @@ Template dirender menggunakan [`lodash.template`](https://lodash.com/docs/#templ
 
 - Type: `Array`
 
-Untuk menambahkan modul/file di dalam bundel vendor, tambahkan key `build.vendor` di dalam `nuxt.config.js` :
+Untuk menambahkan modul/file di dalam bundel vendor, tambahkan key `build.vendor` pada file `nuxt.config.js` :
 
 ```js
 module.exports = {
@@ -291,7 +291,7 @@ module.exports = {
 }
 ```
 
-Anda juga bisa membuat file path, seperti kustom librari yang sudah Anda buat:
+Anda juga bisa membuat file path, seperti misalnya librari kustom yang sudah Anda buat:
 
 ```js
 module.exports = {
@@ -306,7 +306,7 @@ module.exports = {
 
 ## watch
 
-> Anda dapat menyediakan file kostum untuk dapat memantau dan memperbaruinya setelah melakukan perubahan pada file tersebut. Fitur ini sangat berguna untuk digunakan bersama [modul](/guide/modules) .
+> Anda dapat menyediakan file kustom untuk dapat memantau dan memperbaruinya setelah melakukan perubahan pada file tersebut. Fitur ini sangat berguna ketika digunakan bersama [modul](/guide/modules) .
 
 - Type: `Array<String>`
 
@@ -322,7 +322,7 @@ module.exports = {
 
 ## followSymlinks
 
-> By default, the build process does not scan files inside symlinks. This boolean includes them, thus allowing usage of symlinks inside folders such as the "pages" folder, for example. 
+> Secara default, proses build tidak akan melakukan scan terhadap file-file didalam symlinks. Boolean ini termasuk didalamnya, dengan demikian akan memungkinkan penggunaan symlink di dalam folder seperti folder "halaman".
 
 - Type: `Boolean`
 

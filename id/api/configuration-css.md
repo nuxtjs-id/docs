@@ -1,10 +1,8 @@
 ---
-title: 'API: Properti css'
+title: "API: Properti css"
 description: Nuxt.js memungkinkan Anda menentukan file/modules/libraries CSS yang
   ingin Anda atur secara global (disertakan pada setiap halaman).
 ---
-
-# Properti css
 
 > Nuxt.js memungkinkan Anda menentukan file/modules/libraries CSS yang ingin Anda atur secara global (disertakan pada setiap halaman).
 
@@ -15,12 +13,12 @@ npm install --save-dev node-sass sass-loader
 ```
 
 - Type: `Array`
-- Items: `String`
+ - Items: `string`
 
-Pada file `nuxt.config.js`, tambahkan sumber CSS:
+Pada `nuxt.config.js`, tambahkan resource CSS:
 
 ```js
-module.exports = {
+export default {
   css: [
     // Masukan node module secara langsung (di sini adalah file SASS)
     'bulma',
