@@ -1,46 +1,51 @@
 ---
-title: 'API: Properti loading'
+title: "API: Properti loading"
 description: Nuxt.js menggunakan komponennya sendiri untuk menunjukkan progress bar
-  di antara rute. Anda dapat menyesuaikannya (kostumisasi), menonaktifkannya atau
-  membuat komponen Anda sendiri.
+  di antara rute. Anda dapat menyesuaikannya (kostumisasi), menonaktifkannya atau membuat komponen Anda sendiri.
 ---
-
-# Properti loading
 
 - Type: `Boolean` or `Object` or `String`
 
-> Nuxt.js menggunakan komponennya sendiri untuk menunjukkan progress bar di antara rute. Anda dapat menyesuaikannya (kostumisasi), menonaktifkannya atau membuat komponen Anda sendiri.
+> Nuxt.js memberi Anda komponen loading progress bar yang ditampilkan di antara rute. Anda dapat menyesuaikannya, menonaktifkannya atau membuat komponen Anda sendiri.
 
-## Menonaktifkan Progress Bar
+Loading bar juga dapat dimulai secara program pada komponen Anda dengan memanggil `this.$Nuxt.$Loading.start()` untuk memulai loading bar dan `this.$Nuxt.$Loading.finish()` untuk membuatnya selesai.
+
+Selama proses pemasangan komponen halaman Anda, properti `$loading` tidak selalu tersedia dengan segera untuk dapat diakses. Untuk mengatasi ini, jika Anda ingin memulai pemuat dalam metode `mounted`, pastikan untuk melakukan pembungkusan (wrap) metode`$loading` Anda dipanggil di dalam ` this.$nextTick` seperti berikut:
+
+```javascript
+export default {
+  mounted () {
+    this.$nextTick(() => {
+      this.$nuxt.$loading.start()
+
+      setTimeout(() => this.$nuxt.$loading.finish(), 500)
+    })
+  }
+}
+```
+
+## Non-aktifkan the Progress Bar
 
 - Type: `Boolean`
 
 Jika Anda tidak ingin menampilkan progress bar, cukup tambahkan `loading: false` di dalam file `nuxt.config.js`:
 
 ```js
-module.exports = {
+export default {
   loading: false
 }
 ```
 
-## Kostumisasi Progress Bar
+## Memodifikasi Progress Bar
 
 - Type: `Object`
 
-Daftar properti untuk mengkostumisasi progress bar.
+Di antara properti lainnya, warna, ukuran, durasi dan arah dari progress bar dapat di modifikasi sesuai dengan kebutuhan aplikasi Anda. Ini dilakukan dengan memperbarui properti `loading` pada `nuxt.config.js` dengan properti yang sesuai.
 
-Key | Tipe | Default | Keterangan
---- | --- | --- | ---
-`color` | String | `'black'` | Warna CSS dari progress bar
-`failedColor` | String | `'red'` | Warna CSS dari progress bar saat terjadi error ketika me-render rute (misalnya jika `data` atau `fetch` mengembalikan error).
-`height` | String | `'2px'` | Ketinggian progress bar (digunakan pada properti `style` progress bar)
-`duration` | Number | `5000` | Dalam ms (miliseconds), durasi maksimum progress bar, Nuxt.js mengasumsikan bahwa rute akan di-render sebelum 5 detik.
-`rtl` | Boolean | `false` | Atur arah progress bar dari kanan ke kiri.
-
-Untuk progress bar warna biru dengan tinggi 5px, kita bisa memperbarui `nuxt.config.js` menjadi seperti berikut:
+For example, to set a blue progress bar with a height of 5px, we update the `nuxt.config.js` to the following:
 
 ```js
-module.exports = {
+export default {
   loading: {
     color: 'blue',
     height: '5px'
@@ -48,23 +53,50 @@ module.exports = {
 }
 ```
 
-## Komponen Custom Loading
+Daftar properti untuk memodifikasi progress bar.
+
+| Key | Tipe | Default | Penjelasan |
+|-----|------|---------|-------------|
+| `color` | String | `'black'` | Warna CSS the progress bar |
+| `failedColor` | String | `'red'` | Warna CSS progress bar ketika terjadi eror selama me-render route (sebagai contoh, jika `data` atau `fetch` memunculkan error). |
+| `height` | String | `'2px'` | Tinggi dari progress bar (digunakan di dalam properti `style` pada progress bar) |
+| `throttle` | Number | `200` | Dalam milliseconds, waktu tunggu yang ditentukan sebelum menampilkan progress bar. Berguna untuk mencegah progressbar berkedip. |
+| `duration` | Number | `5000` | Dalam milliseconds, durasi maksimal duration progress bar, Nuxt.js mengasumsikan bahwa rute akan di-render sebelum 5 detik. |
+| `continuous` | Boolean | `false` | Membuat progress bar berkelanjutan secara terus menerus ketika waktu loading melebihi `duration`. |
+| `css` | Boolean | `true` | Set menjadi false untuk menghapus style default progress bar (dan tambahkan style css milik Anda). |
+| `rtl` | Boolean | `false` | Mengatur arah progress bar dari kanan ke kiri. |
+
+
+## Progress Bar Internal
+
+Sayangnya, tidak mungkin bagi komponen Loading untuk mengetahui berapa lama waktu memuat halaman baru. Oleh sebab itu, tidak mungkin untuk secara akurat menggerakkan bilah kemajuan hingga 100% dari waktu loading.
+
+Komponen loading Nuxt akan menyelesaikan ini dengan memungkinkan Anda mengatur `duration`, hendaknya di set ke _guestimate_ tentang berapa lama proses loading process akan diambil. Unless you use a custom loading component, the progress bar will always move from 0% to 100% in `duration` time (regardless of actual progression). When the loading takes longer than `duration` time, the progress bar will stay at 100% until the loading finishes.
+
+Anda dapat mengubah perilaku default dengan mengatur `continuous` menjadi true, kemudian setelah mencapai 100% progress bar akan menyusut kembali menjadi 0% dalam waktu `duration`. Ketika loading masih belum selesai setelah mencapai 0% akan memulai progress dari 0% ke 100% lagi, yang mana akan terus diulang sampai loading selesai.
+
+*Contoh progressbar berkelanjutan:*
+
+
+<img src="/api-continuous-loading.gif" alt="continuous loading"/>
+
+
+## Menggunakan Komponen Loading secara Kustom
 
 - Type: `String`
 
-Anda dapat membuat komponen Anda sendiri, yang mana Nuxt.js akan memanggilnya sebagai pengganti komponen defaultnya. Untuk melakukannya, Anda perlu memberikan (path) di komponen Anda pada opsi `loading`. Kemudian, komponen Anda akan dipanggil langsung oleh Nuxt.js.
+Anda juga bisa membuat komponen Anda sendiri, Nuxt.js akan memanggilnya dan mengabaikan komponen progressbar default loading. Untuk melakukannya, Anda perlu memberikan path ke komponen Anda di opsi `loading`. Lalu, komponen milik Anda akan dipanggil secara langsung oleh Nuxt.js.
 
-**Komponen Anda harus mengekspos beberapa metode berikut:**
+**Komponen Anda harus memaparkan beberapa metode ini:**
 
-Method | Required | Keterangan
---- | --- | ---
-`start()` | Required | Dipanggil ketika sebuah route berpindah, di sini di mana Anda menampilkan komponen Anda.
-`finish()` | Required | Dipanggil ketika rute dimuat (dan data diambil (fetch)), di sini tempat Anda menyembunyikan komponen Anda.
-`fail()` | *Optional* | Dipanggil ketika route tidak dapat dimuat (misalnya ketika gagal untuk mengambil data).
-`increase(num)` | *Optional* | Dipanggil pada saat memuat komponen route, `num` adalah Integer 
+| Metode | Required | Penjelasan |
+|--------|----------|-------------|
+| `start()` | Required | Dipanggil ketika route berubah, disini dimana Anda menampilkan komponen loading. |
+| `finish()` | Required | Dipanggil ketika route ter-load (dan data berhasil diambil), disini tempat Anda menyembunyikan komponen loading. |
+| `fail()` | *Optional* | Dipanggil ketika route tidak bisa di load (gagal mengambil data). |
+| `increase(num)` | *Optional* | Dipanggil selama loading komponen route, `num` adalah Integer < 100. |
 
-Kita dapat membuat komponen kustom pada `components/loading.vue` :
-
+Kita akan membuat komponen kustom pada file `components/loading.vue`:
 ```html
 <template lang="html">
   <div class="loading-page" v-if="loading">
@@ -104,10 +136,10 @@ export default {
 </style>
 ```
 
-Kemudian, kita perbarui `nuxt.config.js` untuk memberitahukan Nuxt.js supaya menggunakan komponen kita:
+Lalu, kita update `nuxt.config.js` untuk memberitahukan Nuxt.js untuk menggunakan komponen kita:
 
 ```js
-module.exports = {
+export default {
   loading: '~/components/loading.vue'
 }
 ```

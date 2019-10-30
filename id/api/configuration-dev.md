@@ -3,7 +3,7 @@ title: 'API: Properti dev'
 description: Menentukan mode pengembangan (development) atau produksi (production).
 ---
 
-# The Properti dev
+# Properti dev
 
 - Type: `Boolean`
 - Default: `true`
@@ -12,10 +12,10 @@ description: Menentukan mode pengembangan (development) atau produksi (productio
 
 Properti ini ditimpa oleh [perintah-perintah (commands) nuxt](/guide/commands) :
 
-- `dev` akan menjadi `true` oleh `nuxt`
-- `dev` akan menjadi `false` dengan perintah `nuxt build`, `nuxt start` dan `nuxt generate`
+- `dev` akan dijadikan `true` oleh `nuxt`
+- `dev` akan menjadi `false` ketika melakukan perintah `nuxt build`, `nuxt start` dan `nuxt generate`
 
-Properti ini hendaknya digunakan ketika menggunakan [nuxt.js secara programatik (programmatically)](/api/nuxt):
+Properti ini hendaknya digunakan ketika menggunakan [nuxt.js secara programatis (programmatically)](/api/nuxt):
 
 Contoh:
 
@@ -34,17 +34,17 @@ const { Nuxt, Builder } = require('nuxt')
 const app = require('express')()
 const port = process.env.PORT || 3000
 
-// We instantiate Nuxt.js with the options
+// Kita instansiasikan Nuxt.js dengan opsi berikut
 const config = require('./nuxt.config.js')
 const nuxt = new Nuxt(config)
 app.use(nuxt.render)
 
-// Build only in dev mode
+// Build hanya pada mode dev
 if (config.dev) {
   new Builder(nuxt).build()
 }
 
-// Listen the server
+// Listen server
 app.listen(port, '0.0.0.0').then(() => {
   console.log(`Server is listening on port: ${port}`)
 })
@@ -62,4 +62,4 @@ Kemudian pada `package.json`:
 }
 ```
 
-Catatan: Anda harus menjalankan `npm install --save-dev cross-env` pada contoh di atas supaya bisa bekerja. Jika Anda *tidak* bekerja menggunakan Windows, Anda dapat mengabaikan cross-env dil uar dari script `start` milik Anda dan mengatur `NODE_ENV` secara langsung.
+Catatan: Anda harus menjalankan `npm install --save-dev cross-env` pada contoh di atas supaya bisa bekerja. Jika Anda *tidak* bekerja menggunakan Windows, Anda dapat mengabaikan cross-env diluar dari script `start` milik Anda dan mengatur `NODE_ENV` secara langsung.

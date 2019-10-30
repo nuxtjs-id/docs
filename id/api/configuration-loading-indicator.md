@@ -1,20 +1,15 @@
 ---
-title: 'API: Properti loading indicator'
-description: Tampilkan loading indicator pada saat halaman SPA dimuat!
+title: "API: Properti loading indicator"
+description: Menampilkan loading indicator pada saat halaman SPA dimuat!
 ---
 
-# Properti loadingIndicator
+> Menampilkan loading indicator pada saat halaman SPA dimuat!
 
-> Memunculkan loading indicator ketika halaman SPA dimuat!
+Ketika menjalankan Nuxt.js pada mode SPA, disana tidak ada konten dari sisi server pada saat pertamakali load. Jadi, daripada menampilkan halaman kosong, lebih baik menampilkan semacam spinner.
 
-Saat menjalankan nuxt.js dalam mode SPA, tidak ada konten dari server side pada saat halaman pertama dimuat, Jadi, selama proses menampilkan halaman kosong dimuat, kita bisa menampilkan spiner.
+Properti ini memiliki 3 perbedaan tipe: `string` atau `false` atau `object`. Jika nilai string diberikan maka akan di konversi menjadi object.
 
-Properti ini bisa memiliki 3 tipe yang berbeda:
- `string` atau `false` atau `object`.
-Jika nilai string telah ditetapkan, itu akan diubah menjadi objek style.
-
-Nilai defaultnya adalah:
-
+Nilai default nya adalah:
 ```js
 {
   name: 'circle',
@@ -25,7 +20,7 @@ Nilai defaultnya adalah:
 
 ## Indikator Built-in
 
-Indikator ini di-porting dari proyek [Spinkit](http://tobiasahlin.com/spinkit) yang awesome. Anda bisa menggunakan halaman demo untuk melihatnya.
+Indikator ini di-porting dari proyek [Spinkit](http://tobiasahlin.com/spinkit) project. Anda bisa menggunakan halaman demo untuk melihatnya.
 
 - circle
 - cube-grid
@@ -39,10 +34,10 @@ Indikator ini di-porting dari proyek [Spinkit](http://tobiasahlin.com/spinkit) y
 - three-bounce
 - wandering-cubes
 
-Indikator built-in mendukung opsi `color` dan `background` .
+Indikator built-in mendukung opsi `color` dan opsi `background`.
 
 ## Indikator custom
 
 Jika Anda memerlukan indikator milik Anda sendiri, nilai String atau Name key juga bisa menjadikannya sebagai path pada templat html dari kode sumber (source code) indikator! Semua pengaturan juga melewati templat.
 
-[Kode sumber](https://github.com/nuxt/nuxt.js/tree/dev/packages/vue-app/template/views/loading) Nuxt Built-ins juga tersedia jika Anda memerlukan base!
+Nuxt's built-in [sumber kode](https://github.com/nuxt/nuxt.js/tree/dev/packages/vue-app/template/views/loading) juga tersedia jika Anda membutuhkan dasar!

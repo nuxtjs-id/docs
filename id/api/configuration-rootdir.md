@@ -3,8 +3,6 @@ title: 'API: Properti rootDir'
 description: Menentukan ruang kerja pada aplikasi Nuxt.js
 ---
 
-# Properti rootDir
-
 - Type: `String`
 - Default: `process.cwd()`
 
