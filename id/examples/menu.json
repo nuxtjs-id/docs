@@ -2,31 +2,88 @@
   {
     "title": "Intisari",
     "links": [
-      { "name": "Hello World", "to": "" },
-      { "name": "SEO HTML Head", "to": "/seo-html-head" }
+      {
+        "name": "Hello World",
+        "to": ""
+      },
+      {
+        "name": "SEO HTML Head",
+        "to": "/seo-html-head"
+      }
     ]
   },
   {
     "title": "Kustomisasi",
     "links": [
-      { "name": "Kustomisasi Loading", "to": "/custom-loading" },
-      { "name": "Kustomisasi Routes", "to": "/custom-routes" },
-      { "name": "Global CSS", "to": "/global-css" },
-      { "name": "Tata Letak", "to": "/layouts" },
-      { "name": "Middleware", "to": "/middleware" },
-      { "name": "Nested Routes", "to": "/nested-routes" },
-      { "name": "Plugins", "to": "/plugins" },
-      { "name": "Routes transitions", "to": "/routes-transitions" }
+      {
+        "name": "Kustomisasi Loading",
+        "to": "/custom-loading"
+      },
+      {
+        "name": "Kustomisasi Loading Halaman",
+        "to": "/custom-page-loading"
+      },
+      {
+        "name": "Kustomisasi Routes",
+        "to": "/custom-routes"
+      },
+      {
+        "name": "Global CSS",
+        "to": "/global-css"
+      },
+      {
+        "name": "Tata Letak (Layouts)",
+        "to": "/layouts"
+      },
+      {
+        "name": "Middleware",
+        "to": "/middleware"
+      },
+      {
+        "name": "Tampilan Bernama",
+        "to": "/named-views"
+      },
+      {
+        "name": "Rute Bersarang",
+        "to": "/nested-routes"
+      },
+      {
+        "name": "Plugins",
+        "to": "/plugins"
+      },
+      {
+        "name": "Transisi Rute",
+        "to": "/routes-transitions"
+      }
     ]
   },
   {
     "title": "Tingkat Lanjut",
     "links": [
-      { "name": "Async Data", "to": "/async-data" },
-      { "name": "Otentikasi Routes", "to": "/auth-routes" },
-      { "name": "Vuex Store", "to": "/vuex-store" },
-      { "name": "i18n", "to": "/i18n" },
-      { "name": "Testing", "to": "/testing" }
+      {
+        "name": "Async Data",
+        "to": "/async-data"
+      },
+      {
+        "name": "Otentikasi Routes",
+        "to": "/auth-routes"
+      },
+      {
+        "name": "Otentikasi API Eksternal (JWT)",
+        "to": "/auth-external-jwt"
+      },
+      {
+        "name": "Vuex Store",
+        "to": "/vuex-store"
+      },
+      {
+        "name": "i18n",
+        "to": "/i18n"
+      },
+      {
+        "name": "Pengujian",
+        "to": "/testing"
+      }
     ]
   }
 ]

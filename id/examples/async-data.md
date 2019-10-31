@@ -2,5 +2,5 @@
 title: Async Data
 description: Contoh Async Data pada Nuxt.js
 github: async-data
-documentation: "/guide/async-data"
+documentation: /guide/async-data
 ---

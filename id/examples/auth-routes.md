@@ -1,6 +1,6 @@
 ---
 title: Rute Terautentikasi (Auth Routes)
-description: Contoh rute terautentikasi (Authenticated routes) menggunakan Nuxt.js
+description: Contoh rute terautentikasi (Authenticated routes) pada Nuxt.js
 github: auth-routes
 livedemo: https://nuxt-auth-routes.gomix.me
 liveedit: https://gomix.com/#!/project/nuxt-auth-routes
@@ -9,6 +9,10 @@ liveedit: https://gomix.com/#!/project/nuxt-auth-routes
 # Dokumentasi
 
 > Nuxt.js dapat digunakan untuk membuat rute terautentikasi dengan mudah.
+
+## `auth-module` resmi
+
+Jika Anda ingin menerapkan alur otentikasi yang kompleks, misalnya OAuth2, kami sarankan untuk menggunakan [`auth-module`](https://github.com/nuxt-community/auth-module) resmi
 
 ## Menggunakan Express dan Sessions
 
@@ -22,7 +26,7 @@ yarn add express express-session body-parser whatwg-fetch
 
 *Kita akan membahas tentang `whatwg-fetch` nanti.*
 
-Kemudian buat `server.js` kita:
+Kemudian kita buat `server.js`:
 
 ```js
 const { Nuxt, Builder } = require('nuxt')
@@ -100,9 +104,9 @@ require('whatwg-fetch')
 
 const store = () => new Vuex.Store({
 
-  state: {
+  state: () => ({
     authUser: null
-  },
+  }),
 
   mutations: {
     SET_USER (state, user) {
@@ -124,11 +128,11 @@ export default store
 3. Kita membuat mutasi (mutation) `SET_USER` yang akan mengatur `state.authUser` ke pengguna yang terhubung.
 4. Kita mengekspor "store instance" ke Nuxt.js dapat memasukkannya ke aplikasi utama kita.
 
-### Aksi nuxtServerInit()
+### nuxtServerInit() action
 
 Nuxt.js akan memanggil tindakan spesifik yang disebut `nuxtServerInit` dengan konteks dalam argumen, jadi saat aplikasi akan dimuat, store akan sudah terisi dengan beberapa data yang bisa kita dapatkan dari server.
 
-Di `store/index.js`, kita dapat menambahkan aksi `nuxtServerInit`:
+Di dalam `store/index.js`, kita dapat menambahkan `nuxtServerInit` action:
 
 ```js
 nuxtServerInit ({ commit }, { req }) {
@@ -143,7 +147,7 @@ Untuk membuat metode data asinkron, Nuxt.js menawarkan beragam cara, pilih yang 
 1. mengembalikan `Promise`, Nuxt.js akan menunggu promise terselesaikan sebelum me-render komponennya.
 2. Menggunakan [proposal `async`/`await`](https://github.com/lukehoban/ecmascript-asyncawait) ([pelajari lebih lanjut](https://zeit.co/blog/async-and-await)).
 
-### Aksi login()
+### login()
 
 Kita menambahkan sebuah aksi `login` yang akan dipanggil dari komponen halaman kita untuk memasukkan (log in) pengguna:
 
@@ -174,7 +178,7 @@ login ({ commit }, { username, password }) {
 }
 ```
 
-### Metode logout()
+### logout()
 
 ```js
 logout ({ commit }) {
