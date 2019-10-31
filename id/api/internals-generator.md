@@ -1,25 +1,21 @@
 ---
-title: 'API: Kelas Generator'
+title: "API: Kelas Generator (The Generator Class)"
 description: Kelas Generator Nuxt
 ---
 
-# Kelas Generator
-
 - Sumber: **[generator/generator.js](https://github.com/nuxt/nuxt.js/blob/dev/packages/generator/src/generator.js)**
 
-## Plugin yang dapat ditukar (Tapable plugins)
+## Hooks
 
-Kita bisa mendaftarkan kait (hooks) pada peristiwa siklus hidup (life cycle) tertentu.
+Kita dapat mendaftarkan hook pada event siklus hidup (life cycle events) tertentu.
 
-```js
-nuxt.plugin('generator', generator => {
-    generator.plugin('generate', ({routes}) => {
-        // ...
-    }))
-})
-```
-
-Plugin | Argumen | Keterangan
---- | --- | ---
-`generateRoutes` | {generator, generateRoutes} | Setelah menyelesaikan rute untuk menghasilkan (generate), maka kita memiliki perubahan untuk menyesuaikannya
-`generate` | {generator, routes} | Tepat sebelum mulai menghasilkan rute. Rute didekorasi dengan payload
+Hook                    | Arguments                   | Ketika
+------------------------|-----------------------------|-----------------------------------------------
+`generate:before`       | (nuxt, generateOptions)     | Hook sebelum melakukan generate
+`generate:distRemoved`  | (nuxt)                      | Hook pada folder tujuan dibersihkan
+`generate:distCopied`   | (nuxt)                      | Hook pada salinan file yang statis dan file yang dibangun
+`generate:page`         | ({route, path, html})       | Hook untuk membiarkan pengguna memperbarui path & html
+`generate:routeCreated` | ({route, path, errors})     | Hook berhasil menyimpan generate halaman
+`generate:extendRoutes` | (routes)                    | Hook untuk memungkinkan pengguna memperbarui route yang akan dibuat
+`generate:routeFailed`  | (route, errors)             | Hook gagal menyimpan generate halaman
+`generate:done`         | (nuxt, errors)              | Hook proses generate selesai

@@ -1,31 +1,104 @@
 ---
-title: 'API: Konteks (Context)'
-description: Konteks (`context`) menyediakan objek/parameter tambahan dari Nuxt yang
-  tidak tersedia secara tradisional untuk komponen Vue. Konteks (`context`) tersedia
-  dalam area siklus (lifecycle) spesial nuxt  seperti `asyncData`, `plugins`, `middlewares`,
-  `modules`, dan `store/nuxtServerInit`.
+title: "API: Konteks"
+description: `context` menyediakan objek / params tambahan dari Nuxt yang secara default tidak tersedia pada komponen Vue. `Konteks` secara spesial tersedia di area siklus hidup nuxt seperti` asyncData`, `plugins`,` middlewares`, `modules`, dan` store/nuxtServerInit`.
 ---
 
-## Konteks (Context)
+> `context` menyediakan objek / params tambahan dari komponen Nuxt ke Vue dan tersedia di area siklus hidup nuxt secara khusus seperti[`asyncData`](/api), [`fetch`](/api/pages-fetch), [`plugins`](/guide/plugins), [`middleware`](/guide/routing#middleware) dan [`nuxtServerInit`](/guide/vuex-store#the-nuxtserverinit-action).
 
-Daftar semua kunci yang tersedia di dalam konteks `context`:
+```js
+function (context) {
+  // Universal keys
+  const {
+    app,
+    store,
+    route,
+    params,
+    query,
+    env,
+    isDev,
+    isHMR,
+    redirect,
+    error
+  } = context
+  // Sisi server
+  if (process.server) {
+    const { req, res, beforeNuxtRender } = context
+  }
+  // Sisi klien
+  if (process.client) {
+    const { from, nuxtState } = context
+  }
+}
+```
 
-Kunci | Tipe | Tersedia | Deskripsi
---- | --- | --- | ---
-`app` | Root Vue Instance | Klien & Server | Akar dari instansi Vue yang mencakup semua plugin. Misalnya, ketika menggunakan `axios`, Anda dapat mengakses `$axios` melalui `context.app.$axios`.
-`isClient` | `Boolean` | Klien & Server | Boolean yang memberitahu bahwa render dilakukan di sisi-klien.
-`isServer` | `Boolean` | Klien & Server | Boolean yang memberitahu bahwa render dilakukan di sisi-server.
-`isStatic` | `Boolean` | Klien & Server | Boolean yang memberitahu bahwa Anda sedang di dalam aplikasi yang dihasilkan (generated app) (melalui `nuxt generate`).
-`isDev` | `Boolean` | Klien & Server | Boolean yang memberitahu bahwa Anda sedang berada di dalam mode pengembangan (dev), dapat berguna untuk menyimpan (cache) beberapa data pada mode produksi.
-`isHMR` | `Boolean` | Klien & Server | Boolean yang memberitahu bahwa metode/middleware dipanggil dari "webpack hot module replacement" (*hanya pada sisi-klien dalam mode pengembangan (dev)*).
-`route` | [Rute Vue Router](https://router.vuejs.org/en/api/route-object.html) | Klien & Server | Instansi rute Vue Router.
-`store` | [Vuex Store](https://vuex.vuejs.org/en/api.html#vuexstore-instance-properties) | Klien & Server | Instansi Vuex Store. **Tersedia hanya jika [vuex store](/guide/vuex-store) telah diatur**.
-`env` | `Object` | Klien & Server | Environment variables yang diatur di `nuxt.config.js`, lihat [env api](/api/configuration-env).
-`params` | `Object` | Klien & Server | Alias dari `route.params`.
-`query` | `Object` | Klien & Server | Alias dari `route.query`.
-`req` | [`http.Request`](https://nodejs.org/api/http.html#http_class_http_incomingmessage) | Server | Permintaan (request) dari server Node.js. Jika Nuxt digunakan sebagai middleware, objek req mungkin berbeda tergantung dari framework yang Anda gunakan. <br>**Tidak tersedia melalui `nuxt generate`**.
-`res` | [`http.Response`](https://nodejs.org/api/http.html#http_class_http_serverresponse) | Server | Respon (response) dari server Node.js. Jika Nuxt digunakan sebagai middleware, objek res mungkin berbeda tergantung dari framework yang Anda gunakan.<br>**Tidak tersedia melalui `nuxt generate`**.
-`redirect` | `Function` | Klien & Server | Gunakan metode ini untuk mengalihkan (redirect) pengguna ke rute lain, kode status (status code) digunakan di sisi-server, secara default `302`. `redirect([status,] path [, query])`.
-`error` | `Function` | Klien & Server | Gunakan metode ini untuk menampilkan halaman error: `error(parameter)`. `Parameter`-nya harus memiliki properti `statusCode` dan `message`.
-`nuxtState` | `Object` | Klien | Status Nuxt, berguna untuk plugin yang menggunakan `beforeNuxtRender` untuk mendapatkan status nuxt pada sisi klien sebelum hidrasi. **Hanya tersedia dalam mode `universal`**.
-`beforeNuxtRender(fn)` | `Function` | Server | Gunakan metode ini untuk memperbarui (update) variabel `__NUXT__` yang di-render di sisi-klien, `fn` (dapat berupa asynchronous) dipanggil dengan `{ Components, nuxtState }`, lihat [contoh](https://github.com/nuxt/nuxt.js/blob/cf6b0df45f678c5ac35535d49710c606ab34787d/test/fixtures/basic/pages/special-state.vue).
+## Universal keys
+
+Keys ini tersedia di sisi klien dan di sisi server.
+
+### `app` (*NuxtAppOptions*)
+
+Opsi instance root Vue yang mencakup semua plugin Anda. Misalnya, ketika menggunakan `i18n`, Anda bisa mendapatkan akses ke`$i18n` melalui `context.app.i18n`.
+
+### `store` ([*Vuex Store*](https://vuex.vuejs.org/en/api.html#vuexstore-instance-properties))
+
+Instance Vuex Store. **Hanya tersedia jika [vuex store](/guide/vuex-store) diatur**.
+
+### `route` ([*Vue Router Route*](https://router.vuejs.org/en/api/route-object.html))
+
+Instance Rute Vue Router.
+
+### `params` (*Object*)
+
+Alias ​​dari `route.params`.
+
+### `query` (*Object*)
+
+Alias ​​dari `route.query`.
+
+### `env` (*Object*)
+
+Variabel lingkungan (environment) ditetapkan di dalam `nuxt.config.js`, lihat [env api](/api/configuration-env).
+
+### `isDev` (*Boolean*)
+
+Boolean untuk memberi tahu Anda jika Anda dalam mode dev, dapat berguna untuk menyimpan (cache) beberapa data pada mode produksi.
+
+### `isHMR` (*Boolean*)
+
+Boolean memberi tahu Anda jika metode / middleware dipanggil dari penggantian modul hot webpack (*true hanya pada sisi klien dalam mode dev*).
+
+### `redirect` (*Function*)
+
+Gunakan metode ini untuk mengarahkan ulang pengguna ke rute lain, kode status digunakan di sisi server, default ke `302`. `redirect([status,] path [, query])`.
+
+### `error` (*Function*)
+
+Gunakan metode ini untuk menampilkan halaman kesalahan: `error(params)`. `params` seharusnya mempunyai properti `statusCode` dan `message`.
+
+## Server-side keys
+
+Keys ini hanya tersedia di sisi server.
+
+### `req` ([*http.Request*](https://nodejs.org/api/http.html#http_class_http_incomingmessage))
+
+Request dari server Node.js. Jika Nuxt digunakan sebagai middleware, objek request mungkin berbeda tergantung pada kerangka yang Anda gunakan.<br>**Tidak tersedia di `nuxt generate`**.  
+
+### `res` ([*http.Response*](https://nodejs.org/api/http.html#http_class_http_serverresponse))
+
+Response dari server Node.js. Jika Nuxt digunakan sebagai middleware, objek res mungkin berbeda tergantung pada kerangka yang Anda gunakan.<br>**Tidak tersedia di `nuxt generate`**.
+
+### `beforeNuxtRender(fn)` (*Function*)
+
+Gunakan metode ini untuk memperbarui variabel `__NUXT__` yang diberikan di sisi klien, `fn` (bisa asynchronous) dipanggil dengan `{ Components, nuxtState }`, lihat [contoh](https://github.com/nuxt/nuxt.js/blob/cf6b0df45f678c5ac35535d49710c606ab34787d/test/fixtures/basic/pages/special-state.vue).
+
+## Client-side keys
+
+Keys ini hanya tersedia di sisi klien.
+
+### `from` ([*Vue Router Route*](https://router.vuejs.org/en/api/route-object.html))
+
+Darimana route di navigasi.
+
+### `nuxtState` *(Object)*
+
+State Nuxt, berguna untuk plugin yang menggunakan `beforeNuxtRender` untuk mendapatkan status nuxt di sisi klien sebelum hidrasi (hydration). **Hanya tersedia pada mode `universal`**.

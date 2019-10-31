@@ -1,30 +1,29 @@
 ---
-title: 'API: Kelas Builder'
-description: Kelas `Builder` Nuxt
+title: "API: Kelas Builder (The Builder Class)"
+description: Kelas Nuxt `Builder`
 ---
-
-# Kelas Builder
 
 - Sumber: **[builder/builder.js](https://github.com/nuxt/nuxt.js/blob/dev/packages/builder/src/builder.js)**
 
-## Plugin yang dapat ditukar (Tapable plugins)
+## Hooks
 
-Kita bisa mendaftarkan kait pada acara siklus hidup tertentu.
+Kita dapat mendaftarkan hooks pada event (life cycle) tertentu.
 
 ```js
-nuxt.plugin('build', (builder) => {
-  builder.plugin('extendRoutes', async ({ routes }) => {
-    // ...
-  })
+// Tambahkan hook untuk melakukan build
+this.nuxt.hook('build:done', (builder) => {
+  ...
 })
 ```
 
-Plugin | Argumen | Keterangan
---- | --- | ---
-`build` | builder | Pertama membangun dimulai
-`built` | builder | Pertama membangun selesai
-`extendRoutes` | {routes, templateVars, r} | Membangkitkan rute
-`generate` | {builder, templatesFiles, templateVars} | Membangkitkan file templat `.nuxt` 
-`done` | {builder, stats} | pembuatan webpack sudah selesai
-`compile` | {builder, compiler} | Sebelum kompilasi webpack (compiler adalah contoh `MultiCompiler`)
-`compiled` | builder | pembuatan webpack selesai
+Hook                 | Arguments                                  | Ketika
+---------------------|--------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------
+`build:before`       | (nuxt, buildOptions)                       | Sebelum Nuxt build dimulai
+`builder:prepared`     | (nuxt, buildOptions)                       | Direktori build telah dibuat
+`builder:extendPlugins`| (plugins)                                  | Melakukan generate plugin
+`build:templates`    | ({ templatesFiles, templateVars, resolve }) | Melakukan generate file template `.nuxt`
+`build:extendRoutes` | (routes, resolve)                          | Melakukan generate routes
+`build:config`       | (webpackConfigs)                           | Sebelum konfigurasi kompiler
+`build:compile`      | ({ name, compiler })                       | Sebelum kompilasi webpack (compiler adalah instance `Compiler` webpack), jika mode universal, dipanggil dua kali dengan nama `'client'` dan `'server'`
+`build:compiled`     | ({ name, compiler, stats })                | Build webpack selesai
+`build:done`         | (nuxt)                                     | Build Nuxt selesai

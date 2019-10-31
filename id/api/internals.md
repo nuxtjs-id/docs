@@ -1,19 +1,17 @@
 ---
-title: 'API: Pengenalan Modul Nuxt '
-description: Mengenal lebih baik mengenai bagian dalam (internal) Nuxt
+title: "API: Pengantar Modul Nuxt"
+description: Lebih memahami Nuxt internal
 ---
 
-# Bagian Dalam Nuxt
+Nuxt.js memiliki arsitektur modular sepenuhnya yang memungkinkan pengembang memperluas bagian Nuxt Core menggunakan API yang fleksibel.
 
-Nuxt.js memiliki arsitektur modular sepenuhnya yang memungkinkan developer memperluas bagian Inti Nuxt (Core) menggunakan API yang fleksibel.
+Lihat [Panduan Modules](/guide/modules) untuk informasi lebih rinci jika tertarik mengembangkan modul Anda sendiri.
 
-Silahkan lihat [Panduan Modul](/guide/modules) untuk informasi lebih lanjut jika tertarik untuk mengembangkan modul Anda sendiri.
-
-Bagian ini membantu membiasakan diri dengan bagian dalam Nuxt dan dapat digunakan sebagai referensi untuk memahaminya dengan lebih baik saat menulis modul Anda sendiri.
+Bagian ini membantu membiasakan diri dengan Nuxt internal dan dapat digunakan sebagai referensi untuk memahaminya dengan lebih baik saat menulis modul Anda sendiri.
 
 ### Core
 
-Kelas-kelas ini adalah jantung dari Nuxt dan harus ada baik ketika runtime maupun build time.
+Kelas-kelas ini adalah jantung dari Nuxt dan harus ada pada saat runtime dan pada saat build.
 
 #### Nuxt
 
@@ -32,9 +30,9 @@ Kelas-kelas ini adalah jantung dari Nuxt dan harus ada baik ketika runtime maupu
 
 ### Build
 
-Kelas-kelas ini hanya dibutuhkan ketika mode build atau dev.
+Kelas-kelas ini hanya diperlukan untuk mode build atau dev.
 
-### Builder
+#### Builder
 
 - [Kelas `Builder`](/api/internals-builder)
 - Sumber: [builder/builder.js](https://github.com/nuxt/nuxt.js/blob/dev/packages/builder/src/builder.js)
@@ -54,52 +52,50 @@ Kelas-kelas ini hanya dibutuhkan ketika mode build atau dev.
 
 - Sumber: [config/options.js](https://github.com/nuxt/nuxt.js/blob/dev/packages/config/src/options.js)
 
-## Pengemasan & Penggunaan
+## Pengemasan (Packaging) & Penggunaan
 
-Nuxt mengekspor semua kelas secara default. Cara untuk require:
+Nuxt mengekspor semua kelas secara default. Untuk mengimpornya:
 
 ```js
-const { Nuxt, Builder, Utils } = require('nuxt')
+import { Nuxt, Builder, Utils } from 'nuxt'
 ```
 
-## Bentuk Umum (Common patterns)
+## Pola umum (Common patterns)
 
-Semua kelas Nuxt merujuk pada instansi dan pilihan (options) `nuxt`. Setiap kelas meng-`extends` [`tappable`](https://github.com/nuxt/tappable), dengan cara ini kita selalu memiliki API yang konsisten di seluruh kelas untuk mengakses `options` dan `nuxt`.
+Semua kelas Nuxt memiliki referensi ke instance dan opsi `nuxt`, dengan cara ini kami selalu memiliki API yang konsisten di seluruh kelas untuk mengakses` opsi` dan `nuxt`.
 
 ```js
-const Tapable = require('tappable')
-
-class SomeClass extends Tapable {
-  constructor (nuxt, builder) {
+class SomeClass {
+  constructor (nuxt) {
     super()
     this.nuxt = nuxt
     this.options = nuxt.options
   }
 
   someFunction () {
-    // Kita memiliki akses ke `this.nuxt` dan `this.options`
+    // Kita memiliki akses ke `this.nuxt` dan` this.options`
   }
 }
 ```
 
-Kelas-kelas tersebut *plugable* sehingga mereka harus mendaftarkan (register) plugin pada wadah (container) utama `nuxt` untuk mendaftarkan (register) pengait (hooks) lainnya.
+Kelas-kelas bersifat *plugable* sehingga harus mendaftarkan sebuah plugin pada container `nuxt` utama untuk mendaftarkan lebih banyak hook.
 
 ```js
-class FooClass extends Tapable {
-  constructor (nuxt, builder) {
+class FooClass {
+  constructor (nuxt) {
     super()
     this.nuxt = nuxt
     this.options = nuxt.options
 
-    this.nuxt.applyPluginsAsync('foo', this)
+    this.nuxt.callHook('foo', this)
   }
 }
 ```
 
-Jadi kita dapat mengaitkan (hook) modul `foo` seperti ini:
+Jadi kita bisa menghubungkan ke modul `foo` seperti ini:
 
 ```js
-nuxt.plugin('foo', (foo) => {
+nuxt.hook('foo', (foo) => {
   // ...
 })
 ```

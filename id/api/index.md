@@ -1,17 +1,22 @@
 ---
-title: 'API: Metode asyncData'
-description: Anda mungkin ingin mengambil data dan me-render-nya di sisi-server. Nuxt.js
-  menambahkan metode `asyncData` yang memungkinkan Anda menangani operasi async sebelum
-  mengatur data komponen.
+title: "API: Metode asyncData"
+description: Anda mungkin ingin mengambil data dan merendernya di sisi server. Nuxt.js menambahkan metode `asyncData` yang memungkinkan Anda menangani operasi async sebelum mengatur data komponen.
 ---
 
-# Metode asyncData
-
-> Anda mungkin ingin mengambil data dan me-render-nya di sisi-server. Nuxt.js menambahkan metode `asyncData` yang memungkinkan Anda menangani operasi async sebelum mengatur data komponen.
+> Anda mungkin ingin mengambil data dan merendernya di sisi server. Nuxt.js menambahkan metode `asyncData` yang memungkinkan Anda menangani operasi async sebelum mengatur data komponen.
 
 - **Tipe:** `Function`
 
-`asyncData` dipanggil setiap saat sebelum memuat komponen (**hanya untuk komponen halaman**). Ini bisa dipanggil dari sisi-server atau sebelum menavigasi ke rute yang sesuai. Metode ini menerima objek [`context`](/api/context) sebagai argumen pertama, Anda dapat menggunakannya untuk mengambil beberapa data dan mengembalikan data komponen.
+<div class="Alert Alert--nuxt-green">
+
+<b>Info:</b> Silahkan lihat [panduan async data](/guide/async-data) juga!
+
+</div>
+
+`asyncData` akan selalu dipanggil sebelum memuat komponen **halaman** dan hanya tersedia untuk itu.
+Ini akan memanggil satu kali ke sisi server (pada request pertama ke aplikasi Nuxt) dan sisi klien saat menavigasi ke route selanjutnya. 
+Metode ini menerima objek [`context`](/api/context) sebagai argumen pertama, Anda dapat menggunakannya untuk mengambil beberapa data dan mengembalikan data komponen.
+
 
 Hasil dari asyncData akan **digabung** dengan data.
 
@@ -28,6 +33,6 @@ export default {
 
 <div class="Alert Alert--orange">
 
-Anda **TIDAK** memiliki akses instansi komponen menggunakan `this` di dalam `asyncData` karena dia dipanggil **sebelum memulai (initiating)** komponennya.
+<b>Perhatian:</b> Anda **tidak** memiliki akses ke instance komponen melalui `this` di dalam `asyncData`, karena ia dipanggil **sebelum memulai** komponen.
 
 </div>

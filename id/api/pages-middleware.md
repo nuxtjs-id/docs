@@ -1,22 +1,33 @@
 ---
-title: 'API: Properti middleware'
+title: "API: Properti middleware"
 description: Menetapkan middleware untuk halaman tertentu dari aplikasi.
 ---
 
-# Properti middleware
+- Type: `String` or `Array` or `Function`
+  - Items: `String` or `Function`
 
-- Type: `String` atau `Array`
-    - Items: `String`
+Mengatur middleware untuk halaman aplikasi tertentu.
 
-Menetapkan middleware untuk halaman tertentu dari aplikasi.
+## middleware yang diberi nama
 
-Contoh:
+Anda dapat membuat middleware yang diberi nama dengan cara membuat file di dalam direktori `middleware/`, nama file akan menjadi nama middleware.
+
+`middleware/authenticated.js`:
+
+```js
+export default function ({ store, redirect }) {
+  // Jika user tidak ter-autentikasi
+  if (!store.state.authenticated) {
+    return redirect('/login')
+  }
+}
+```
 
 `pages/secret.vue`:
 
 ```html
 <template>
-  <h1>Secret page</h1>
+  <h1>Halaman ter-autentikasi</h1>
 </template>
 
 <script>
@@ -26,15 +37,27 @@ export default {
 </script>
 ```
 
-`middleware/authenticated.js`:
+## Anonymous middleware
 
-```js
-export default function ({ store, redirect }) {
-  // Jika user tidak terautentikasi
-  if (!store.state.authenticated) {
-    return redirect('/login')
+Jika Anda perlu menggunakan middleware hanya untuk halaman tertentu, Anda dapat langsung menggunakan fungsi untuk itu (atau array fungsi):
+
+`pages/secret.vue`:
+
+```html
+<template>
+  <h1>Halaman ter-autentikasi</h1>
+</template>
+
+<script>
+export default {
+  middleware ({ store, redirect }) {
+    // Jika user tidak ter-autentikasi
+    if (!store.state.authenticated) {
+      return redirect('/login')
+    }
   }
 }
+</script>
 ```
 
 Untuk mempelajari lebih lanjut tentang middleware, lihat [panduan middleware](/guide/routing#middleware).

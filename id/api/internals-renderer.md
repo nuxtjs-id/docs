@@ -1,27 +1,23 @@
 ---
-title: 'API: Kelas Renderer'
+title: "API: Kelas Renderer (The Renderer Class)"
 description: Kelas Renderer Nuxt
 ---
 
-# Kelas Renderer
-
 - Sumber: **[vue-renderer/renderer.js](https://github.com/nuxt/nuxt.js/blob/dev/packages/vue-renderer/src/renderer.js)**
 
-Kelas ini mengekspor middleware koneksi yang menangani dan menyajikan semua permintaan SSR dan aset.
+Kelas ini mengekspor middleware terhubung yang menangani dan melayani semua permintaan SSR dan aset.
 
-## Plugin yang dapat ditukar (Tapable plugins)
+## Hooks
 
-Kita bisa mendaftarkan kait (hooks) pada peristiwa siklus hidup (life cycle) tertentu.
+Kita dapat mendaftarkan hook pada event siklus hidup (life cycle events) tertentu.
 
-```js
-nuxt.plugin('renderer', (renderer) => {
-  renderer.plugin('setupMiddleware', (app) => {
-    // ...
-  })
-})
-```
-
-Plugin | Argumen | Keterangan
---- | --- | ---
-`ready` | renderer | SSR Middleware dan semua sumbernya sudah siap
-`setupMiddleware` | sambungkan instansi (app) | Sebelum Nuxt menambahkan tumpukan middleware itu. Kita bisa menggunakannya untuk mendaftarkan middleware sisi-server kustom
+Hook                      | Arguments                | Ketika
+--------------------------|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ `render:before`          | (renderer, options)      | Sebelum menyiapkan middleware dan resources untuk kelas Renderer, berguna untuk membebani beberapa metode atau opsi.
+ `render:setupMiddleware` | (app) *connect instance* | Sebelum Nuxt menambahkan tumpukan middleware. Kita dapat menggunakannya untuk mendaftarkan middleware pada sisi server kustom.
+ `render:errorMiddleware` | (app) *connect instance* | Sebelum menambahkan middleware error Nuxt, berguna untuk menambahkan middleware Anda sendiri sebelum menggunakan Nuxt's. Lihat [Sentry module](https://github.com/nuxt-community/sentry-module/blob/master/lib/module.js#L122) untuk info lebih lanjut.
+ `render:resourcesLoaded` | (resources)              | Dipanggil setelah resources untuk renderer dimuat (client manifest, server bundle, dll).
+ `render:done`            |  (renderer)              | SSR Middleware dan semua resources sudah siap (Renderer siap)
+ `render:routeContext`    |  (context.nuxt)          | *Setiap kali sebuah rute render oleh server, dan sebelum hook `render:route`*. Dipanggil sebelum membuat serial konteks Nuxt ke dalam `window .__ NUXT__`, berguna untuk menambahkan beberapa data yang dapat Anda ambil di sisi klien.
+ `render:route`           |  (url, result, context)  | *Setiap kali rute diberikan oleh server (server-rendered)*. Dipanggil sebelum mengirim kembali request ke browser.
+ `render:routeDone`       |  (url, result, context)  | *Setiap kali rute diberikan oleh server (server-rendered)*. Dipanggil setelah response dikirim ke browser.

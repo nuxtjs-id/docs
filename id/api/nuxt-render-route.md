@@ -1,26 +1,24 @@
 ---
-title: 'API: nuxt.renderRoute(route, context)'
-description: Me-render rute tertentu dengan konteks tertentu.
+title: "API: nuxt.renderRoute(route, context)"
+description: Render rute spesifik dengan konteks yang diberikan.
 ---
 
-# nuxt.renderRoute(route, context = {})
-
 - Type: `Function`
-- Argumen:
-    1. `String` : rute untuk di-render
-    2. *Optional*, `Object`, `context` yang diberikan, kunci yang tersedia: `req` & `res`
+- Arguments:
+  1. `String` : route untuk render
+  2. *Opsional*, `Object`, context diberikan, keys yang tersedia: `req` & `res`
 - Returns: `Promise`
-    - `html`: `String`
-    - `error`: `null` atau `Object`
-    - `redirected`: `false` atau `Object`
+  - `html`: `String`
+  - `error`: `null` or `Object`
+  - `redirected`: `false` or `Object`
 
-> Me-render rute tertentu dengan konteks tertentu.
+> Render rute spesifik dengan konteks yang diberikan.
 
-Metode ini kebanyakan digunakan untuk [tujuan pengujian](/guide/development-tools#end-to-end-testing) juga dengan [`nuxt.renderAndGetWindow`](/api/nuxt-render-and-get-window).
+Metode ini harus digunakan sebagian besar untuk [tujuan pengujian](/guide/development-tools#end-to-end-testing) juga dengan [`nuxt.renderAndGetWindow`](/api/nuxt-render-and-get-window).
 
 <div class="Alert Alert--orange">
 
-`nuxt.renderRoute` dijalankan setelah proses pembangunan (build) dalam mode produksi (`dev: false`).
+`nuxt.renderRoute` harus dijalankan setelah proses build pada mode produksi (`dev: false`).
 
 </div>
 
@@ -38,12 +36,12 @@ new Builder(nuxt)
   .build()
   .then(() => nuxt.renderRoute('/'))
   .then(({ html, error, redirected }) => {
-  // `html` will be always a string
+  // `html` akan selalu string
 
-    // `error` not null when the error layout is displayed, the error format is:
+    // `error` bukan null ketika tata letak kesalahan ditampilkan, format kesalahan adalah:
     // { statusCode: 500, message: 'My error message' }
 
-  // `redirected` is not `false` when `redirect()` has been used in `data()` or `fetch()`
+  // `redirected` bukan `false` ketika `redirect()` sudah digunakan di dalam `asyncData()` atau `fetch()`
   // { path: '/other-path', query: {}, status: 302 }
   })
 ```

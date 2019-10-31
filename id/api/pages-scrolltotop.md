@@ -1,16 +1,13 @@
 ---
-title: 'API: Properti scrollToTop'
-description: Properti `scrollToTop`  memungkinkan Anda memberitahu Nuxt.js untuk menggulir
-  (scroll) ke atas sebelum me-render halaman.
+title: "API: Properti scrollToTop"
+description: Properti `scrollToTop`  memungkinkan Anda memberitahu Nuxt.js untuk menggulir (scroll) ke atas sebelum me-render halaman.
 ---
 
-# Properti scrollToTop
+> Properti scrollToTop memungkinkan Anda memberi tahu Nuxt.js untuk melakukan scroll ke atas sebelum merender halaman.
 
-> Properti scrollToTop  memungkinkan Anda memberitahu Nuxt.js untuk menggulir (scroll) ke atas sebelum me-render halaman.
+- **Type:** `Boolean` (default: `false`)
 
-- **Tipe:** `Boolean` (default: `false`)
-
-Secara default, Nuxt.js bergulir (scroll) ke atas halaman ketika Anda membuka halaman lain, tetapi dengan anak rute (children routes), Nuxt.js menyimpan posisi gulir. Jika Anda ingin memberi tahu Nuxt.js untuk menggulir ke atas saat me-render anak rute, atur `scrollToTop: true`:
+Secara default, Nuxt.js melakukan scroll ke atas ketika Anda mengunjungi halaman lain. Tetapi pada route child, Nuxt.js akan menjaga posisi scroll. Jika Anda ingin memberi tahu Nuxt.js untuk melakukan scroll ke atas saat merender route child Anda, atur `scrollToTop` menjadi `true`:
 
 ```html
 <template>
@@ -24,4 +21,6 @@ export default {
 </script>
 ```
 
-Jika Anda ingin menimpa perilaku gulir default pada Nuxt.js, lihat [opsi scrollBehavior](/api/configuration-router#scrollBehavior).
+Dan sebaliknya, Anda dapat secara manual mengatur `scrollToTop` menjadi `false` pada rute induk juga.
+
+Jika Anda ingin menimpa perilaku (memodifikasi) scroll default Nuxt.js, lihat [opsi scrollBehavior](/api/configuration-router#scrollbehavior).

@@ -1,19 +1,15 @@
 ---
-title: 'API: Metode head'
-description: Nuxt.js menggunakan vue-meta untuk memperbarui `headers` dan `HTML attributes`
-  pada aplikasi Anda.
+title: "API: Metode head"
+description: Nuxt.js menggunakan vue-meta untuk memperbarui `headers` dan `HTML attributes` pada aplikasi Anda.
 ---
 
-# Metode head
+> Nuxt.js menggunakan [vue-meta](https://github.com/nuxt/vue-meta) untuk memperbarui `header` dan` atribut html` aplikasi Anda.
 
-> Nuxt.js menggunakan [vue-meta](https://github.com/nuxt/vue-meta) untuk memperbarui `headers` dan `html attributes` pada aplikasi Anda.
-
-- **Type:** `Object` atau `Function`
+- **Type:** `Object` or `Function`
 
 Gunakan metode `head` untuk mengatur tag HTML Head untuk halaman saat ini.
 
-Your component data are available with `this` in the `head` method, you can use set custom meta tags with the page data.
-Data komponen Anda tersedia dengan `this` pada metode `head`, Anda dapat menggunakan set kustom meta tag dengan data halaman.
+Data komponen Anda tersedia dengan `this` di dalam metode `head`, Anda dapat menggunakan tag meta khusus yang disetel dengan data halaman. Pastikan juga untuk melihat [FAQ Nuxt](https://nuxtjs.org/faq/).
 
 ```html
 <template>
@@ -31,7 +27,8 @@ export default {
     return {
       title: this.title,
       meta: [
-        { hid: 'description', name: 'description', content: 'My custom description' }
+        // hid digunakan sebagai pengidentifikasi unik. Jangan gunakan `vmid` karena tidak akan berfungsi
+        { hid: 'description', name: 'description', content: 'Contoh deskripsi saya' }
       ]
     }
   }
@@ -39,8 +36,8 @@ export default {
 </script>
 ```
 
-<div class="Alert">
+<div class="Alert Alert--teal">
 
-Untuk menghindari duplikasi saat menggunakannya pada "komponen child", berikan pengenal unik dengan key `yang tersembunyi`, [baca lebih lanjut] (https://vue-meta.nuxtjs.org/api/#tagidkeyname).
+<b>Info:</b> Untuk menghindari duplikasi meta tag ketika digunakan dalam komponen child, atur pengidentifikasi unik dengan kunci `hid` untuk elemen meta Anda ([baca lebih lanjut](https://vue-meta.nuxtjs.org/api/#tagidkeyname)) .
 
 </div>

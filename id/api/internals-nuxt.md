@@ -1,27 +1,25 @@
 ---
-title: 'API: Kelas Nuxt'
-description: Kelas Inti Nuxt
+title: "API: Kelas (The Nuxt Class)"
+description: Kelas inti dari Nuxt
 ---
-
-# Kelas Nuxt
 
 - Sumber: **[core/nuxt.js](https://github.com/nuxt/nuxt.js/blob/dev/packages/core/src/nuxt.js)**
 
-Ini adalah wadah inti yang memungkinkan semua modul dan kelas berkomunikasi satu sama lain. Semua modul memiliki akses ke instansi Nuxt menggunakan `this.nuxt`.
+Ini adalah container inti yang memungkinkan semua modul dan kelas saling berkomunikasi. Semua modul memiliki akses ke Nuxt instance menggunakan `this.nuxt`.
 
-## Plugin yang dapat ditukar (Tapable plugins)
+## Hooks
 
-Kita bisa mendaftarkan kait (hooks) pada peristiwa siklus hidup (life cycle) tertentu.
+Kita dapat mendaftarkan hook pada event siklus hidup (life cycle events) tertentu.
 
 ```js
-nuxt.plugin('ready', async (nuxt) => {
-  // Kode kustom Anda di sini
+nuxt.hook('ready', async (nuxt) => {
+  // Kustomisasi kode anda di sini
 })
 ```
 
-Plugin | Argumen | Keterangan
---- | --- | ---
-`ready` | nuxt | Semua modul diinisialisasi dan sebelum menginisialisasi `renderer`
-`error` | error args | An unhandled error by one of Nuxt modules caught
-`close` | - | Instansi Nuxt ditutup dengan luwes
-`listen` | ({server, host, port}) | **Internal** server Nuxt mulai mendengarkan (listening). (Menggunakan `nuxt start` atau `nuxt dev`)
+Plugin   | Arguments              | Ketika
+---------|------------------------|------------------------------------------------------------------------------
+`ready`  | (nuxt)                 | Nuxt siap bekerja (`ModuleContainer` dan `Renderer` telah ready).
+`error`  | (error)                | Kesalahan tidak tertangani saat memanggil hook.
+`close`  | (nuxt)                 | Contoh Nuxt ditutup secara perlahan.
+`listen` | (server, {host, port}) | Server Nuxt **internal** mulai melakukan listening. (Gunakan `nuxt start` atau `nuxt dev`).

@@ -1,20 +1,25 @@
 ---
 title: 'API: Metode fetch'
-description: Metode `fetch` digunakan untuk mengisi store sebelum me-render halaman,
-  ia seperti metode `asyncData` tetapi ia tidak mengatur data komponen.
+description: Metode `fetch` digunakan untuk mengisi store sebelum me-render halaman, ia seperti metode `asyncData` tetapi ia tidak mengatur data komponen.
 ---
-
-# Metode fetch
 
 > Metode fetch digunakan untuk mengisi store sebelum me-render halaman, ia seperti metode `asyncData` tetapi ia tidak mengatur data komponen.
 
-- **Tipe:** `Function`
+- **Type:** `Function`
 
-Metode `fetch`, *jika diatur*, dipanggil setiap saat sebelum memuat komponen (**hanya untuk komponen halaman**). Dia bisa dipanggil dari sisi-server atau sebelum mengarah ke rute yang sesuai.
+Metode `fetch`, *jika diatur*, akan dipanggil setiap kali sebelum memuat komponen (**hanya untuk komponen halaman**). Ini akan dipanggil pada sisi server sekali (pada saat request pertama ke aplikasi Nuxt) dan pada sisi klien ketika menavigasi ke route selanjutnya.
 
-Metode `fetch` menerima [objek `context`](/api/context) sebagai argumen pertama, kita dapat menggunakannya untuk mengambil beberapa data dan mengisi store. Untuk membuat metode `fetch` asinkron (asynchronous), **mengembalikan sebuah Promise**, Nuxt.js akan menunggu promise selesai (resolved) sebelum me-render komponen.
+Metode `fetch` menerima objek [`context`](/api/context) sebagai argumen pertama, kita dapat menggunakannya untuk mengambil beberapa data dan mengisi store. Untuk membuat metode `fetch` asinkron, **mengembalikan Promise**, Nuxt.js akan menunggu Promise untuk diselesaikan sebelum merender komponen.
 
-Contoh dari `pages/index.vue`:
+
+<div class="Alert Alert--orange">
+
+**Peringatan**: Anda **tidak** memiliki akses instance komponen melalui `this` di dalam `fetch` karena disebut **sebelum memulai** komponen.
+
+</div>
+
+
+Contoh pada `pages/index.vue`:
 
 ```html
 <template>
@@ -75,3 +80,7 @@ export const actions = {
   }
 }
 ```
+
+## Mendengarkan (Listen) perubahan queri string
+
+Metode `fetch` **tidak dipanggil** pada saat perubahan query string secara default. Jika Anda ingin mengubah perilaku ini, misalnya saat membangun komponen pagination, Anda dapat mengatur parameter yang harus didengarkan melalui properti `watchQuery` dari komponen halaman Anda. Pelajari lebih lanjut pada [halaman API `watchQuery`](/api/pages-watchquery).

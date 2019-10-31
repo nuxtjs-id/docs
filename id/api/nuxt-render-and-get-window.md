@@ -1,19 +1,17 @@
 ---
-title: 'API: nuxt.renderAndGetWindow(url, options)'
-description: Mendapatkan `window` dari URL tertentu dari Aplikasi Nuxt.js.
+title: "API: nuxt.renderAndGetWindow(url, options)"
+description: Mendapatkan `window` dari URL yang diberikan Aplikasi Nuxt.js.
 ---
-
-# nuxt.renderAndGetWindow(url, options = {})
 
 - Type: `Function`
 - Argument: `String`
-    1. `String`: URL untuk render
-    2. *Optional*, `Object`: options
+  1. `String`: URL to render
+  2. *Optional*, `Object`: options
     - virtualConsole: `Boolean` (default: `true`)
 - Returns: `Promise`
-    - Returns: `window`
+  - Returns: `window`
 
-> Mendapatkan `window` dari URL tertentu dari Aplikasi Nuxt.js.
+> Mendapatkan `window` dari URL yang diberikan Aplikasi Nuxt.js.
 
 <div class="Alert Alert--orange">
 
@@ -21,7 +19,7 @@ Metode ini dibuat untuk [tujuan pengujian](/guide/development-tools#end-to-end-t
 
 </div>
 
-Untuk menggunakan fungsi ini, Anda harus menginstal `jsdom`:
+Untuk menggunakan fungsi ini, Anda harus menginstal `jsdom` terlebih dahulu:
 
 ```bash
 npm install --save-dev jsdom
@@ -39,7 +37,7 @@ const nuxt = new Nuxt(config)
 
 nuxt.renderAndGetWindow('http://localhost:3000')
   .then((window) => {
-  // Tampilkan `<title>` pada head
+  // Tampilkan head `<title>`
     console.log(window.document.title)
   })
 ```

@@ -1,15 +1,11 @@
 ---
-title: 'API: Nuxt(pilihan)'
-description: Anda dapat menggunakan Nuxt.js secara terprogram untuk menggunakannya
-  sebagai middleware yang memberi Anda kebebasan untuk membuat server Anda sendiri
-  untuk me-render aplikasi web Anda.
+title: "API: Menggunakan Nuxt.js Secara Program"
+description: Anda dapat menggunakan Nuxt.js secara terprogram untuk menggunakannya sebagai middleware yang memberi Anda kebebasan membuat server sendiri untuk merender aplikasi web Anda.
 ---
 
-# Menggunakan Nuxt.js secara Terprogram
+Anda mungkin ingin menggunakan server Anda sendiri dengan middleware dan API Anda. Itu sebabnya Anda dapat menggunakan Nuxt.js secara terprogram.
 
-Anda mungkin ingin menggunakan server sendiri dengan middleware dan API sendiri. Itu sebabnya Anda bisa menggunakan Nuxt.js secara terprogram.
-
-Anda bisa require Nuxt.js seperti ini:
+Anda dapat melakukan require Nuxt.js seperti ini:
 
 ```js
 const { Nuxt, Builder } = require('nuxt')
@@ -17,19 +13,19 @@ const { Nuxt, Builder } = require('nuxt')
 
 ## Konstruktor Nuxt
 
-Untuk melihat daftar pilihan yang dapat diberikan ke Nuxt.js, lihat bagian konfigurasi.
+Untuk melihat daftar opsi yang akan diberikan kepada Nuxt.js, lihat bagian konfigurasi.
 
 ```js
 // Require modul `Nuxt` dan `Builder`
 const { Nuxt, Builder } = require('nuxt')
 
-// Require konfig Nuxt
+// Require konfigurasi Nuxt
 const config = require('./nuxt.config.js')
 
-// Membuat sebuah instance Nuxt baru
+// Membuat instance new Nuxt
 const nuxt = new Nuxt(config)
 
-// Mengaktifkan pembangunan langsung (live build) & pemuatan ulang (reloading) di dev
+// Aktifkan live build & reload pada mode dev
 if (nuxt.options.dev) {
   new Builder(nuxt).build()
 }
@@ -37,11 +33,11 @@ if (nuxt.options.dev) {
 // Kita dapat menggunakan `nuxt.render(req, res)` atau `nuxt.renderRoute(route, context)`
 ```
 
-Anda dapat melihat/menggunakan [nuxt-express](https://github.com/nuxt/express) dan [adonuxt](https://github.com/nuxt/adonuxt) untuk memulai dengan cepat.
+Anda dapat melihat [nuxt-express](https://github.com/nuxt/express) and [adonuxt](https://github.com/nuxt/adonuxt) starter untuk dapat memulainya dengan cepat.
 
-### Debug log
+### Debug logs
 
-Jika Anda ingin menampilkan log Nuxt.js, Anda dapat menambahkannya ke bagian atas dari file Anda:
+Jika Anda ingin menampilkan log Nuxt.js, Anda dapat menambahkan kode di bawah ini ke bagian atas file Anda:
 
 ```js
 process.env.DEBUG = 'nuxt:*'

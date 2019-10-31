@@ -1,77 +1,97 @@
 ---
-title: 'API: Kelas ModuleContainer'
+title: "API: Kelas ModuleContainer (The ModuleContainer Class)"
 description: Kelas ModuleContainer Nuxt
 ---
 
-# Kelas ModuleContainer
-
 - Sumber: **[core/module.js](https://github.com/nuxt/nuxt.js/blob/dev/packages/core/src/module.js)**
 
-Semua [modules](/guide/modules) akan dipanggil di dalam konteks dari instansi `ModuleContainer`.
+Semua [module](/guide/modules) akan dipanggil dalam konteks instance `ModuleContainer`.
 
-## Plugin yang dapat ditukar (Tapable plugins)
+## Tapable plugins
 
-Kita bisa mendaftarkan kait (hooks) pada peristiwa siklus hidup (life cycle) tertentu.
+Kami dapat mendaftarkan hook pada event siklus hidup tertentu (life cycle events).
 
 ```js
 nuxt.moduleContainer.plugin('ready', async (moduleContainer) => {
-  // Lakukan hal ini setelah semua modul siap
+  // Lakukan disini setelah semua modul siap
 })
 ```
 
-Di dalam konteks [modules](/guide/modules) kita bisa menggunakan ini sebagai gantinya:
+Di dalam konteks [modul](/guide/modules) kita bisa menggunakan ini sebagai gantinya:
 
 ```js
 this.plugin('ready', async (moduleContainer) => {
-  // Lakukan hal ini setelah semua modul siap
+  // Lakukan disini setelah semua modul siap
 })
 ```
 
-Plugin | Argumen | Keterangan
---- | --- | ---
-`ready` | moduleContainer | Semua modul di `nuxt.config.js` telah diinisialisasi
+Plugin | Arguments       | Ketika
+-------|-----------------|-----------------------------------------------------
+`ready`| moduleContainer | Semua modul di dalam `nuxt.config.js` telah diinisialisasi
 
-## Metode
+
+## Metode (Methods)
 
 ### addVendor (vendor)
 
-Menambahkan ke `options.build.vendor` dan menerapkan filter yang unik.
+**Tidak digunakan lagi sebagai `vendor`**
+
+Tambahkan ke `options.build.vendor` dan terapkan filter unik.
 
 ### addTemplate (template)
 
-- **template**: `String` atau `Object`
+- **template**: `String` or `Object`
     - `src`
     - `options`
     - `fileName`
 
-Me-render templat yang diberikan menggunakan [lodash template](https://lodash.com/docs/4.17.4#template) selama membangun (build) ke `buildDir` proyek (`.nuxt`).
+Render diberikan template menggunakan [template lodash](https://lodash.com/docs/4.17.4#template) selama build ke dalam project `buildDir` (`.nuxt`).
 
-Jika `fileName` tidak tersedia atau `template` adalah string, nama default target berkas (file) menjadi `[dirName].[fileName].[pathHash].[ext]`.
+Jika `fileName` tidak disediakan atau `template` merupakan string, maka nama file target default adalah `[dirName].[fileName].[pathHash].[ext]`.
 
-Metode ini mengembalikan objek akhir `{ dist, src, options }`.
+Metode ini mengembalikan object final `{ dist, src, options }`.
 
 ### addPlugin (template)
 
-Mendaftarkan (register) plugin menggunakan `addTemplate` dan menambahkannya ke opsi pertama `plugins[]`.
+Mendaftarkan plugin menggunakan `addTemplate` dan menambahkannya ke opsi `plugins[]` pertama.
 
-Anda dapat menggunakan `template.ssr: false` untuk menonaktifkan plugin yang termasuk dalam paket (bundle) SSR.
+Anda dapat menggunakan `template.ssr: false` untuk me-nonaktifkan plugin yang termasuk dalam bundel SSR.
 
 ### addServerMiddleware (middleware)
 
-Memasukkan middleware ke [options.serverMiddleware](/api/configuration-servermiddleware).
+Push middleware ke [options.serverMiddleware](/api/configuration-servermiddleware).
 
 ### extendBuild (fn)
 
-Memungkinkan menambahkan/mengubah konfigurasi webpack build dengan mudah, dengan menghubungkannya pada fungsi [options.build.extend](/api/configuration-build#extend).
+Mengizinkan memperluas (extend) konfigurasi build webpack dengan melakukan (chaining) fungsi [options.build.extend](/api/configuration-build#extend).
 
 ### extendRoutes (fn)
 
-Memungkinkan menambah/mengubah rute dengan mudah, dengan menghubungkannya pada fungsi [options.build.extendRoutes](/api/configuration-router#extendroutes).
+Mengizinkan memperluas (extend) routes dengan melakukan (chaining) fungsi [options.build.extendRoutes](/api/configuration-router#extendroutes).
+
+### extendPlugins (fn)
+
+Mengizinkan memperluas (extend) plugins dengan melakukan (chaining) fungsi [options.extendPlugins](/api/configuration-extend-plugins).
 
 ### addModule (moduleOpts, requireOnce)
 
-Mendaftarkan (register) modul. `moduleOpts` dapat berupa string atau `[src, options]`. Jika `requireOnce` bernilai `true` dan modul yang ditemukan (resolved) mengekspor `meta` dapat mencegah pendaftaran modul yang sama dua kali.
+*Async function*
+
+Mendaftarkan modul. `moduleOpts` bisa berupa string atau array (`[src, options]`). 
+Jika `requireOnce` adalah `true` dan module yang di resolve melakukan exports `meta`, itu akan mencegah mendaftarkan modul yang sama dua kali (duplikasi).
 
 ### requireModule (moduleOpts)
 
-Sebuah jalan pintas untuk `addModule(moduleOpts, true)`
+*Async function*
+
+Adalah jalan pintas untuk `addModule(moduleOpts, true)`
+
+## Hooks
+
+Kita dapat mendaftarkan hook pada event siklus hidup (life cycle events) tertentu.
+
+Hook                      | Arguments                  | Ketika
+--------------------------|----------------------------|--------------------------------------------------------------------------------------
+ `modules:before`         | (moduleContainer, options) | Dipanggil sebelum membuat kelas ModuleContainer, berguna untuk membebani metode dan opsi.
+ `modules:done`           | (moduleContainer)          | Dipanggil ketika semua modul telah dimuat.
+
