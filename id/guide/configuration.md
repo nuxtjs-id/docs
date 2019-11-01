@@ -1,32 +1,31 @@
 ---
 title: Konfigurasi
-description: Secara umum, Nuxt.js dikonfigurasi untuk menutupi sebagian besar kasus
-  penggunaan. Konfigurasi default ini dapat ditimpa dengan menggunakan file `nuxt.config.js`.
+description: Secara default, Nuxt.js dikonfigurasikan untuk mencakup sebagian besar kasus penggunaan. Konfigurasi default ini dapat ditimpa dengan menggunakan file `nuxt.config.js`.
 ---
 
-> Secara umum, Nuxt.js dikonfigurasi untuk menutupi sebagian besar kasus penggunaan. Konfigurasi default ini dapat ditimpa dengan memodifikasi file `nuxt.config.js`.
+> Secara default, Nuxt.js dikonfigurasikan untuk mencakup sebagian besar kasus penggunaan. Konfigurasi default ini dapat ditimpa dengan file `nuxt.config.js`.
 
 ### build
 
-Pilihan ini memungkinkan Anda menambahkan modul ke dalam file `vendor.bundle.js` untuk mengurangi ukuran bundel aplikasi. Hal ini sangat membantu saat menggunakan modul eksternal.
+Opsi ini memungkinkan Anda mengonfigurasi berbagai pengaturan untuk langkah `build`, termasuk` loaders`, `filename`, konfigurasi `webpack` dan `transpilation`.
 
-[Dokumentasi tentang integrasi `build` ](/api/configuration-build)
+[Dokumentasi tentang integrasi `build`](/api/configuration-build)
 
 ### css
 
-Pilihan ini memungkinkan Anda mendefinisikan file/modul/librari CSS yang ingin Anda atur sebagai global (disertakan dalam setiap halaman).
+Opsi ini memungkinkan Anda menentukan file, modul, dan librari CSS yang ingin Anda sertakan secara global (pada setiap halaman).
 
 [Dokumentasi tentang integrasi `css`](/api/configuration-css)
 
 ### dev
 
-Pilihan ini memungkinkan Anda menentukan mode `development` atau `production` Nuxt.js
+Opsi ini memungkinkan Anda menentukan mode `development` atau `production` Nuxt.js
 
 [Dokumentasi tentang integrasi `dev`](/api/configuration-dev)
 
 ### env
 
-Pilihan ini memungkinkan Anda menentukan variabel lingkungan (environment) yang tersedia baik klien dan server.
+Opsi ini memungkinkan Anda menentukan variabel lingkungan (environment) yang tersedia baik klien dan server.
 
 [Dokumentasi tentang integrasi `env`.](/api/configuration-env)
 
@@ -50,36 +49,55 @@ Opsi ini memungkinkan Anda menyesuaikan komponen loading Nuxt.js secara default.
 
 ### modules
 
-Pilihan ini memungkinkan Anda menambahkan modul Nuxt ke proyek Anda.
+Dengan opsi ini memungkinkan Anda menambahkan modul Nuxt ke proyek Anda.
 
 [Dokumentasi tentang integrasi `modules`](/api/configuration-modules)
 
+### modulesDir
+
+Opsi ini memungkinkan Anda menentukan folder node_modules dari Aplikasi Nuxt.js Anda.
+
+[Dokumentasi tentang integrasi `modulesDir`](/api/configuration-modulesdir)
+
+
 ### plugins
 
-Pilihan ini memungkinkan Anda menentukan plugin JavaScript yang akan dijalankan sebelum menginstal aplikasi root Vue.js.
+Opsi ini memungkinkan Anda menentukan plugin JavaScript yang akan dijalankan sebelum menginstal aplikasi root Vue.js.
 
 [Dokumentasi tentang integrasi `plugins`](/api/configuration-plugins)
 
 ### rootDir
 
-Pilihan ini memungkinkan Anda menentukan ruang kerja Aplikasi Nuxt.js Anda.
+Opsi ini memungkinkan Anda menentukan ruang kerja Aplikasi Nuxt.js Anda.
 
 [Dokumentasi tentang integrasi `rootDir`](/api/configuration-rootdir)
 
 ### router
 
-Pilihan ini memungkinkan Anda menimpa konfigurasi Nuxt.js default dari Vue Router.
+Dengan opsi `router` Anda akan menimpa konfigurasi Nuxt.js default pada Vue Router.
 
 [Dokumentasi tentang integrasi `router`](/api/configuration-router)
 
+### server
+
+Opsi ini memungkinkan Anda mengkonfigurasi variabel koneksi untuk instance server aplikasi Nuxt.js Anda.
+
+[Dokumentasi tentang integrasi `server`](/api/configuration-server)
+
 ### srcDir
 
-Pilihan ini memungkinkan Anda menentukan direktori asal dari Aplikasi Nuxt.js Anda.
+Opsi ini memungkinkan Anda menentukan direktori asal dari Aplikasi Nuxt.js Anda.
 
 [Dokumentasi tentang integrasi `srcDir`](/api/configuration-srcdir)
 
+### dir
+
+Opsi ini memungkinkan Anda menentukan direktori secara kustom aplikasi Nuxt.js Anda.
+
+[Dokumentasi tentang integrasi `dir`](/api/configuration-dir)
+
 ### transition
 
-Pilihan ini memungkinkan Anda menentukan properti default dari transisi halaman.
+Opsi ini memungkinkan Anda menentukan properti default dari transisi halaman.
 
 [Dokumentasi tentang integrasi `transition`](/api/configuration-transition)

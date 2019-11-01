@@ -1,29 +1,27 @@
 ---
-title: Plugin
-description: Nuxt.js memungkinkan Anda menentukan plugin JavaScript yang akan dijalankan
-  sebelum menginstal Aplikasi root Vue.js. Hal ini sangat membantu saat menggunakan
-  pustaka (library) atau modul eksternal Anda sendiri.
+title: Plugins
+description: Nuxt.js allows you to define JavaScript plugins to be run before instantiating the root Vue.js Application. This is especially helpful when using your own libraries or external modules.
 ---
 
-> Nuxt.js memungkinkan Anda menentukan plugin JavaScript yang akan dijalankan sebelum menginstal Aplikasi root Vue.js. Hal ini sangat membantu saat menggunakan pustaka (library) atau modul eksternal Anda sendiri.
+> Nuxt.js allows you to define JavaScript plugins to be run before instantiating the root Vue.js Application. This is especially helpful when using your own libraries or external modules.
 
 <div class="Alert">
 
-Penting untuk diketahui bahwa dalam Vue [instance lifecycle] (https://vuejs.org/v2/guide/instance.html#Lifecycle-Diagram), hanya kait (hook) `beforeCreate` dan` created` yang dipanggil **keduanya dari sisi-klien dan sisi-server**. Semua kait (hook) lainnya hanya dipanggil dari sisi-klien.
+It is important to know that in any Vue [instance lifecycle](https://vuejs.org/v2/guide/instance.html#Lifecycle-Diagram), only `beforeCreate` and `created` hooks are called **both, from client-side and server-side**. All other hooks are called only from the client-side.
 
 </div>
 
-## Paket Eksternal
+## External Packages
 
-Kita mungkin ingin menggunakan paket/modul eksternal dalam aplikasi kita, salah satu contoh bagusnya adalah [axios](https://github.com/mzabriskie/axios) untuk membuat permintaan (request) HTTP untuk server dan klien.
+We may want to use external packages/modules in our application (one great example is [axios](https://github.com/mzabriskie/axios)) for making HTTP request for both server and client.
 
-Kita menginstalnya melalui npm:
+First, we should install it via npm:
 
 ```bash
 npm install --save axios
 ```
 
-Kemudian, kita bisa menggunakannya langsung di halaman kita:
+Then we can use it directly in our page components:
 
 ```html
 <template>
@@ -42,23 +40,11 @@ export default {
 </script>
 ```
 
-Tapi ada **satu masalah di sini**. Jika kita mengimpor axios di halaman lain, maka ia akan disertakan lagi untuk bundel halaman. Kita ingin menyertakan `axios` hanya satu kali dalam aplikasi kita. Untuk melakukan ini, kita menggunakan kunci  `build.vendor` pada `nuxt.config.js` kita:
+## Vue Plugins
 
-```js
-module.exports = {
-  build: {
-    vendor: ['axios']
-  }
-}
-```
+If we want to use Vue plugins, like [vue-notifications](https://github.com/se-panfilov/vue-notifications) to display notification in our application, we need to setup the plugin before launching the app.
 
-Kemudian, kita bisa mengimport `axios` di mana saja tanpa harus khawatir membuat bundel menjadi lebih besar!
-
-## Plugin Vue
-
-Jika kita ingin menggunakan [vue-notifications](https://github.com/se-panfilov/vue-notifications) untuk menampilkan pemberitahuan pada aplikasi kita, kita perlu menyiapkan plugin sebelum meluncurkan aplikasi.
-
-File `plugins/vue-notifications.js` :
+We create the file `plugins/vue-notifications.js`:
 
 ```js
 import Vue from 'vue'
@@ -67,75 +53,176 @@ import VueNotifications from 'vue-notifications'
 Vue.use(VueNotifications)
 ```
 
-Kemudian, kita tambahkan file di dalam kunci `plugins` `nuxt.config.js`:
+Then we add the file path inside the `plugins` key of our `nuxt.config.js`:
 
 ```js
-module.exports = {
+export default {
   plugins: ['~/plugins/vue-notifications']
 }
 ```
 
-Untuk mempelajari lebih lanjut tentang kunci konfigurasi `plugins`, lihat [plugins API](/api/configuration-plugins).
+To learn more about the `plugins` configuration key, check out the [plugins api](/api/configuration-plugins).
 
-Sebenarnya, `vue-notifications` akan disertakan dalam bundel aplikasi, tapi karena ini adalah pustaka (library), kita ingin memasukkannya ke dalam paket vendor untuk penyimpanan (caching) yang lebih baik.
+### ES6 plugins
 
-Kita dapat memperbarui `nuxt.config.js` untuk menambahkan `vue-notifications` di dalam bundel vendor:
+If the plugin is located in `node_modules` and exports an ES6 module, you may need to add it to the `transpile` build option:
 
 ```js
 module.exports = {
   build: {
-    vendor: ['vue-notifications']
-  },
-  plugins: ['~/plugins/vue-notifications']
+    transpile: ['vue-notifications']
+  }
 }
 ```
+You can refer to the [configuration build](/api/configuration-build/#transpile) docs for more build options.
 
-## Memasukkan (inject) dalam $root & context
+## Inject in $root & context
 
-Beberapa plugin perlu dimasukkan di dalam root Aplikasi untuk dapat digunakan, seperti [vue-i18n](https://github.com/kazupon/vue-i18n). Dengan Nuxt.js, Anda dapat menggunakan `app` yang tersedia ke dalam `context` saat mengekspor sebuah metode:
+Sometimes you want to make functions or values available across the app.
+You can inject those variables into Vue instances (client side), the context (server side) and even in the Vuex store.
+It is a convention to prefix those functions with a `$`.
 
-`plugins/i18n.js`:
+### Inject into Vue instances
+
+Injecting context into Vue instances works similar to when doing this in standard Vue apps.
+
+`plugins/vue-inject.js`:
 
 ```js
 import Vue from 'vue'
-import VueI18n from 'vue-i18n'
 
-Vue.use(VueI18n)
+Vue.prototype.$myInjectedFunction = string => console.log('This is an example', string)
+```
 
+`nuxt.config.js`:
+
+```js
+export default {
+  plugins: ['~/plugins/vue-inject.js']
+}
+```
+
+You can now use the function in all your Vue components.
+
+`example-component.vue`:
+
+```js
+export default {
+  mounted () {
+    this.$myInjectedFunction('test')
+  }
+}
+```
+
+
+### Inject into context
+
+Injecting context into Vue instances works similar to when doing this in standard Vue apps.
+
+`plugins/ctx-inject.js`:
+
+```js
 export default ({ app }, inject) => {
-  // Set `i18n` instance on `app`
-  // This way we can use it in middleware and pages `asyncData`/`fetch`
-  app.i18n = new VueI18n({
-    /* `VueI18n` options... */
-  })
+  // Set the function directly on the context.app object
+  app.myInjectedFunction = string => console.log('Okay, another function', string)
 }
 ```
 
 `nuxt.config.js`:
 
 ```js
-module.exports = {
-  build: {
-    vendor: ['vue-i18n']
+export default {
+  plugins: ['~/plugins/ctx-inject.js']
+}
+```
+
+The function is now available whenever you have access to the `context` (for example in `asyncData` and `fetch`).
+
+`ctx-example-component.vue`:
+
+```js
+export default {
+  asyncData (context) {
+    context.app.myInjectedFunction('ctx!')
+  }
+}
+```
+
+### Combined inject
+
+If you need the function in the `context`, Vue instances and maybe even in the Vuex store, you can use the `inject` function, which is the second parameter of the plugins exported function.
+
+Injecting content into Vue instances works similar to when doing this in standard Vue apps. The `$` will be prepended automatically to the function.
+
+`plugins/combined-inject.js`:
+
+```js
+export default ({ app }, inject) => {
+  inject('myInjectedFunction', string => console.log('That was easy!', string))
+}
+```
+
+`nuxt.config.js`:
+
+```js
+export default {
+  plugins: ['~/plugins/combined-inject.js']
+}
+```
+
+Now the function can be used from `context`, via `this` in Vue instances and via `this` in store `actions`/`mutations`.
+
+`ctx-example-component.vue`:
+
+```js
+export default {
+  mounted () {
+    this.$myInjectedFunction('works in mounted')
   },
-  plugins: ['~/plugins/i18n.js']
+  asyncData (context) {
+    context.app.$myInjectedFunction('works with context')
+  }
 }
 ```
 
-Silakan lihat [contoh i18n](/examples/i18n) untuk melihat bagaimana cara  menggunakannya.
+`store/index.js`:
 
-## Hanya pada sisi-klien (client-side only)
+```js
+export const state = () => ({
+  someValue: ''
+})
 
-Beberapa plugin mungkin **hanya berfungsi untuk browser**, Anda dapat menggunakan opsi `ssr: false` di `plugins` untuk menjalankan file hanya pada sisi-klien.
+export const mutations = {
+  changeSomeValue (state, newValue) {
+    this.$myInjectedFunction('accessible in mutations')
+    state.someValue = newValue
+  }
+}
 
-Contoh:
+export const actions = {
+  setSomeValueToWhatever ({ commit }) {
+    this.$myInjectedFunction('accessible in actions')
+    const newValue = 'whatever'
+    commit('changeSomeValue', newValue)
+  }
+}
+
+```
+
+
+## Client-side only
+
+Some plugins might work **only in the browser** because they lack SSR support.
+In these situations you can use the `mode`: `client` option in `plugins` to add the plugin only on the client-side.
+
+Example:
 
 `nuxt.config.js`:
 
 ```js
-module.exports = {
+export default {
   plugins: [
-    { src: '~/plugins/vue-notifications', ssr: false }
+    { src: '~/plugins/vue-notifications', mode: 'client' }
   ]
 }
 ```
@@ -149,6 +236,42 @@ import VueNotifications from 'vue-notifications'
 Vue.use(VueNotifications)
 ```
 
-Jika Anda memerlukan beberapa pustaka (library) hanya untuk server, Anda dapat menggunakan variabel `process.server` set ke `true` ketika webpack membuat file `server.bundle.js`.
+In case you need to import some libraries in a plugin only on *server-side*, you can check if the `process.server` variable is set to `true`.
 
-Juga, jika Anda perlu tahu apakah Anda berada di dalam aplikasi yang dihasilkan (melalui `nuxt generate`), Anda dapat memeriksa `process.static`, set ke `true` selama generasi dan sesudahnya. Untuk mengetahui keadaan ketika sebuah halaman sedang di-render pada sisi-server oleh `nuxt generate` sebelum disimpan, Anda dapat menggunakan `process.static && process.server`.
+Also, if you need to know if you are inside a generated app (via `nuxt generate`), you can check if `process.static` is set to `true`. This is only the case during and after the generation.
+
+You can also combine both options to hit the spot when a page is being server-rendered by `nuxt generate` before being saved (`process.static && process.server`).
+
+**Note**: Since Nuxt.js 2.4, `mode` has been introduced as option of `plugins` to specify plugin type, possible value are: `client` or `server`. `ssr: false` will be adapted to `mode: 'client'` and deprecated in next major release.
+
+Example:
+
+`nuxt.config.js`:
+
+```js
+export default {
+  plugins: [
+    { src: '~/plugins/both-sides.js' },
+    { src: '~/plugins/client-only.js', mode: 'client' },
+    { src: '~/plugins/server-only.js', mode: 'server' }
+  ]
+}
+```
+
+### Name conventional plugin
+
+If plugin is assumed to be run only in client or server side, `.client.js` or `.server.js` can be applied as extension of plugin file, the file will be automatically included in corresponding side.
+
+Example:
+
+`nuxt.config.js`:
+
+```js
+export default {
+  plugins: [
+    '~/plugins/foo.client.js', // only in client side
+    '~/plugins/bar.server.js', // only in server side
+    '~/plugins/baz.js' // both client & server
+  ]
+}
+```

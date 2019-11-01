@@ -1,62 +1,37 @@
 ---
-title: Vuex Store (Penyimpanan).
-description: Menggunakan store untuk mengelola state adalah penting untuk setiap aplikasi
-  besar, itulah sebabnya Nuxt.js menerapkan Vuex sebagai inti.
+title: Vuex Store
+description: Using a store to manage the state is important for every big application. That's why Nuxt.js implements Vuex in its core.
 ---
 
-> Menggunakan store untuk mengelola state adalah penting untuk setiap aplikasi besar, itulah sebabnya Nuxt.js menerapkan [Vuex](https://vuex.vuejs.org/en/) sebagai inti.
+> Using a store to manage the state is important for every big application. That's why Nuxt.js implements [Vuex](https://vuex.vuejs.org/en/) in its core.
 
-## Mengaktifkan store 
+<div class="Promo__Video">
+  <a href="https://vueschool.io/lessons/utilising-the-vuex-store-nuxtjs?friend=nuxt" target="_blank">
+    <p class="Promo__Video__Icon">
+      Watch a free lesson about <strong>Nuxt.js and Vuex</strong> on Vue School 
+    </p>
+  </a>
+</div>
 
-Nuxt.js akan mencari direktori `store`, jika ada, maka akan:
+## Activate the Store
 
-1. Mengimpor Vuex,
-2. Menambahkan modul `vuex` pada bundel vendor,
-3. Menambahkan opsi `store` ke instansi root Vue.
+Nuxt.js will look for the `store` directory, if it exists, it will:
 
-Nuxt.js memungkinkan Anda memiliki **2 mode store**, pilih yang sesuai:
+1. Import Vuex,
+2. Add the `store` option to the root Vue instance.
 
-- **Klasik:** `store/index.js` mengembalikan instansi store.
-- **Modul:** setiap file `.js` pada direktori `store` akan diubah sebagai [modul namespace](http://vuex.vuejs.org/en/modules.html) (`index` menjadi modul root).
+Nuxt.js lets you decide between **2 store modes**. You can choose the one you prefer:
 
-## Mode Klasik
+- **Modules:** every `.js` file inside the `store` directory is transformed as a [namespaced module](http://vuex.vuejs.org/en/modules.html) (`index` being the root module).
+- **Classic (__deprecated__):** `store/index.js` returns a method to create a store instance.
 
-Untuk mengaktifkan store pada mode klasik, kita buat file `store/index.js` yang mana harus mengekspor sebuah metode yang mengembalikan instansi Vuex:
+Regardless of the mode, your `state` value should **always be a `function`** to avoid unwanted *shared* state on the server side.
 
-```js
-import Vuex from 'vuex'
+## Modules mode
 
-const createStore = () => {
-  return new Vuex.Store({
-    state: {
-      counter: 0
-    },
-    mutations: {
-      increment (state) {
-        state.counter++
-      }
-    }
-  })
-}
+> Nuxt.js lets you have a `store` directory with every file corresponding to a module.
 
-export default createStore
-```
-
-> Kita tidak perlu lagi menginstal `vuex` karena sudah tersedia bersama Nuxt.js.
-
-Sekarang kita bisa menggunakan `this.$store` di dalam komponen kita:
-
-```html
-<template>
-  <button @click="$store.commit('increment')">{{ $store.state.counter }}</button>
-</template>
-```
-
-## Mode Modules
-
-> Nuxt.js memungkinkan Anda memiliki direktori `store` bersamaan dengan file-file yang sesuai dengan modul.
-
-Jika Anda ingin menerapkannya, ekspor state sebagai fungsi (function), mutasi (mutations) dan actions sebagai objek-objek di dalam `store/index.js` sebagai ganti instansi store:
+To get started, simply export the state as a function, and the mutations and actions as objects in `store/index.js`:
 
 ```js
 export const state = () => ({
@@ -70,7 +45,7 @@ export const mutations = {
 }
 ```
 
-Kemudian, Anda dapat memiliki file `store/todos.js`:
+Then, you can have a `store/todos.js` file:
 
 ```js
 export const state = () => ({
@@ -93,11 +68,13 @@ export const mutations = {
 }
 ```
 
-Store akan menjadi seperti:
+The store will be created as such:
 
 ```js
 new Vuex.Store({
-  state: { counter: 0 },
+  state: () => ({
+    counter: 0
+  }),
   mutations: {
     increment (state) {
       state.counter++
@@ -105,9 +82,10 @@ new Vuex.Store({
   },
   modules: {
     todos: {
-      state: {
+      namespaced: true,
+      state: () => ({
         list: []
-      },
+      }),
       mutations: {
         add (state, { text }) {
           state.list.push({
@@ -127,7 +105,7 @@ new Vuex.Store({
 })
 ```
 
-Dan pada file `pages/todos.vue`, dengan menggunakan modul `todos`:
+And in your `pages/todos.vue`, using the `todos` module:
 
 ```html
 <template>
@@ -145,7 +123,9 @@ import { mapMutations } from 'vuex'
 
 export default {
   computed: {
-    todos () { return this.$store.state.todos.list }
+    todos () {
+      return this.$store.state.todos.list
+    }
   },
   methods: {
     addTodo (e) {
@@ -166,15 +146,35 @@ export default {
 </style>
 ```
 
-<div class="Alert">
+> The module method also works for top-level definitions without implementing a sub-directory in the `store` directory
 
-Anda juga dapat memiliki modul-modul dengan cara mengekspor instansi store, Anda harus menambahkannya secara manual pada store Anda.
+Example for state: you create a file `store/state.js` and add the following
 
-</div>
+```js
+export default () => ({
+  counter: 0
+})
+```
+
+And the corresponding mutations can be in the file `store/mutations.js`
+
+```js
+export default {
+  increment (state) {
+    state.counter++
+  }
+}
+```
+
+### Module files
+
+You can optionally break down a module file into separate files: `state.js`, `actions.js`, `mutations.js` and `getters.js`. If you maintain an `index.js` file with state, getters and mutations while having a single separate file for actions, that will also still be properly recognized.
+
+> Note: Whilst using split-file modules, you must remember that using arrow functions, ```this``` is only lexically available. Lexical scoping simply means that the ```this``` always references the owner of the arrow function. If the arrow function is not contained then ```this``` would be undefined. The solution is to use a "normal" function which produces its own scope and thus has ```this``` available.
 
 ### Plugins
 
-Anda dapat menambahkan plugin tambahan pada store (pada mode Module) dan meletakkannya ke dalam file `store/index.js`:
+You can add additional plugins to the store (in the modules mode) by putting them into the `store/index.js` file:
 
 ```js
 import myPlugin from 'myPlugin'
@@ -192,19 +192,19 @@ export const mutations = {
 }
 ```
 
-Informasi lebih lanjut tentang plugin: [dokumentasi Vuex](https://vuex.vuejs.org/en/plugins.html).
+More information about the plugins: [Vuex documentation](https://vuex.vuejs.org/en/plugins.html).
 
-## Metode Pengambilan Data (fetch)
+## The fetch Method
 
-> Metode `fetch` digunakan untuk mengisikan data pada store sebelum me-render halaman, ia seperti metode `data`, bedanya ia tidak mengatur data komponen.
+> The `fetch` method is used to fill the store before rendering the page, it's like the `asyncData` method except it doesn't set the component data.
 
-Informasi lebih lanjut tentang metode fetch: [API Pages fetch](/api/pages-fetch).
+More information about the fetch method: [API Pages fetch](/api/pages-fetch).
 
-## Tindakan nuxtServerInit
+## The nuxtServerInit Action
 
-Jika `nuxtServerInit` terdefinisi pada store actions, Nuxt.js akan memanggilnya bersama context (hanya pada sisi-server). Itu berguna ketika kita memiliki beberapa data pada server yang ingin diberikan secara langsung pada sisi-klien.
+If the action `nuxtServerInit` is defined in the store, Nuxt.js will call it with the context (only from the server-side). It's useful when we have some data on the server we want to give directly to the client-side.
 
-Sebagai contoh, katakan kita mempunyai sessions pada sisi-server dan kita bisa mengakses user yang terkoneksi melalui `req.session.user`. Untuk memberikan user yang terotentikasi pada store, kita perbarui `store/index.js` sebagai berikut:
+For example, let's say we have sessions on the server-side and we can access the connected user through `req.session.user`. To give the authenticated user to our store, we update our `store/index.js` to the following:
 
 ```js
 actions: {
@@ -216,8 +216,57 @@ actions: {
 }
 ```
 
-> Apabila Anda menggunakan mode *Modules* Vuex store, hanya modul utama (di dalam `store/index.js`) akan menerima action ini. Anda harus mengatur modul actions Anda dari sana.
+> If you are using the _Modules_ mode of the Vuex store, only the primary module (in `store/index.js`) will receive this action. You'll need to chain your module actions from there.
 
-[Context](/api/context) akan dilemparkan ke `nuxtServerInit` sebagai argumen kedua, hal ini sama dengan `asyncData` atau metode `fetch`.
+The [context](/api/context) is given to `nuxtServerInit` as the 2nd argument, it is the same as `asyncData` or `fetch` method.
 
-> Catatan: Actions asynchronous `nuxtServerInit` harus mengembalikan (return) Promise untuk mengijinkan server `nuxt` untuk menunggunya.
+> Note: Asynchronous `nuxtServerInit` actions must return a Promise or leverage async/await to allow the `nuxt` server to wait on them.
+
+```js
+actions: {
+  async nuxtServerInit({ dispatch }) {
+    await dispatch('core/load')
+  }
+}
+```
+
+## Vuex Strict Mode
+
+Strict mode is enabled by default on dev mode and turned off in production mode. To disable strict mode in dev, follow the below example in `store/index.js`:
+
+`export const strict = false`
+
+## Classic mode
+
+> This feature is deprecated and will be removed in Nuxt 3.
+
+To activate the store with the classic mode, we create the `store/index.js` file which should export a method that returns a Vuex instance:
+
+```js
+import Vuex from 'vuex'
+
+const createStore = () => {
+  return new Vuex.Store({
+    state: () => ({
+      counter: 0
+    }),
+    mutations: {
+      increment (state) {
+        state.counter++
+      }
+    }
+  })
+}
+
+export default createStore
+```
+
+> We don't need to install `vuex` since it's shipped with Nuxt.js.
+
+We can now use `this.$store` inside our components:
+
+```html
+<template>
+  <button @click="$store.commit('increment')">{{ $store.state.counter }}</button>
+</template>
+```
