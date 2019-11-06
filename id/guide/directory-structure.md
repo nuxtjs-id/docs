@@ -1,101 +1,101 @@
 ---
-title: Directory Structure
-description: The default Nuxt.js application structure is intended to provide a great starting point for both large and small applications.
+title: Struktur Direktori
+description: Struktur aplikasi Nuxt.js default dimaksudkan untuk memberikan titik awal yang bagus untuk aplikasi besar dan kecil.
 ---
 
-> The default Nuxt.js application structure is intended to provide a great starting point for both small and large applications. Of course, you are free to organize your application however you like.
+> Struktur aplikasi Nuxt.js default dimaksudkan untuk memberikan titik awal yang bagus untuk aplikasi kecil dan besar. Tentu saja, Anda bebas mengatur aplikasi sesuka Anda.
 
 <div class="Promo__Video">
   <a href="https://vueschool.io/lessons/guided-nuxtjs-project-tour?friend=nuxt" target="_blank">
     <p class="Promo__Video__Icon">
-      Watch a free lesson about <strong>the Nuxt.js directory structure</strong> on Vue School 
+      Tonton pelajaran gratis tentang <strong>struktur direktori Nuxt.js</strong> di Vue School 
     </p>
   </a>
 </div>
 
-## Directories
+## Direktori
 
-### The Assets Directory
+### Direktori Aset
 
-The `assets` directory contains your un-compiled assets such as Stylus or Sass files, images, or fonts.
+Direktori `assets` berisi aset Anda yang belum dikompilasi seperti file, gambar, atau font Stylus atau Sass.
 
-[More documentation about Assets integration](/guide/assets)
+[Dokumentasi lebih lanjut tentang integrasi Aset](/guide/assets)
 
-### The Components Directory
+### Direktori Komponen
 
-The `components` directory contains your Vue.js Components. You can't use either `asyncData` or `fetch` in these components.
+Direktori `components` berisikan komponen Vue.js Anda. Anda tidak bisa menggunakan keduanya `asyncData` atau `fetch` dalam komponen ini.
 
-### The Layouts Directory
+### Direktori Layouts
 
-The `layouts` directory includes your application layouts. Layouts are used to change the look and feel of your page (for example by including a sidebar).
+Direktori `layouts` termasuk tata letak aplikasi Anda. Layouts digunakan untuk mengubah tampilan dan nuansa halaman Anda (misalnya dengan menyertakan sidebar).
 
-[More documentation about Layouts integration](/guide/views#layouts)
+[Dokumentasi lebih lanjut tentang integrasi Tata Letak](/guide/views#layouts)
 
-_This directory cannot be renamed without extra configuration._
+_Direktori ini tidak dapat diganti namanya tanpa konfigurasi tambahan._
 
-### The Middleware Directory
+### Direktori Middleware
 
-The `middleware` directory contains your Application Middleware. Middleware lets you define custom functions that can be run before rendering either a page or a group of pages (layouts).
+Direktori `middleware` berisi Middleware Aplikasi Anda. Middleware memungkinkan Anda menentukan fungsi khusus yang dapat dijalankan sebelum merender halaman atau grup halaman (layouts/tata letak).
 
-[More documentation about Middleware integration](/guide/routing#middleware)
+[Dokumentasi lebih lanjut tentang integrasi Middleware](/guide/routing#middleware)
 
-### The Pages Directory
+### Direktori Pages
 
-The `pages` directory contains your Application Views and Routes. The framework reads all the `.vue` files inside this directory and creates the application router.
+Direktori `pages` berisi Tampilan Aplikasi dan Rute Anda. Kerangka kerja membaca semua file `.vue` di dalam direktori ini dan membuat aplikasi router.
 
-_This directory cannot be renamed without extra configuration._
+_Direktori ini tidak dapat diganti namanya tanpa konfigurasi tambahan._
 
-[More documentation about Pages integration](/guide/views)
+[Dokumentasi lebih lanjut tentang integrasi Pages](/guide/views)
 
-### The Plugins Directory
+### Direktori Plugins
 
-The `plugins` directory contains your Javascript plugins that you want to run before instantiating the root Vue.js Application. This is the place to register components globally and to inject functions or constants.
+Direktori `plugins` berisi plugin Javascript yang ingin Anda jalankan sebelum instantiating Aplikasi root Vue.js. Ini adalah tempat untuk mendaftarkan komponen secara global dan untuk melakukan inject fungsi atau konstanta.
 
-[More documentation about Plugins integration](/guide/plugins)
+[Dokumentasi lebih lanjut tentang integrasi Plugin](/guide/plugins)
 
-### The Static Directory
+### Direktori Static
 
-The `static` directory is directly mapped to the server root (`/static/robots.txt` is accessible under `http://localhost:3000/robots.txt`) and contains files that likely won't be changed (e.g. the favicon)
+Direktori `static` langsung dipetakan ke root server (`/static/robots.txt` dapat diakses di bawah `http://localhost:3000/robots.txt`) dan berisikan file yang kemungkinan tidak akan diubah (misalnya favicon)
 
-**Example:** `/static/robots.txt` is mapped as `/robots.txt`
+**Contoh:** `/static/robots.txt` dipetakan sebagai `/robots.txt`
 
-_This directory cannot be renamed without extra configuration._
+_Direktori ini tidak dapat diganti namanya tanpa konfigurasi tambahan._
 
-[More documentation about Static integration](/guide/assets#static)
+[Dokumentasi lebih lanjut tentang integrasi statis](/guide/assets#static)
 
-### The Store Directory
+### Direktori Store
 
-The `store` directory contains your [Vuex Store](http://vuex.vuejs.org/en/) files. The Vuex Store comes with Nuxt.js out of the box but is disabled by default. Creating an `index.js` file in this directory enables the store.
+Direktori `store` berisi file-file [Vuex Store](http://vuex.vuejs.org/en/) Anda. Vuex Store include dengan Nuxt.js tetapi dinonaktifkan secara default. Jika Anda membuat file `index.js` di dalam direktori ini, maka akan mengaktifkan store.
 
-_This directory cannot be renamed without extra configuration._
+_Direktori ini tidak dapat diganti namanya tanpa konfigurasi tambahan._
 
-[More documentation about Store integration](/guide/vuex-store)
+[Dokumentasi lebih lanjut tentang integrasi Store](/guide/vuex-store)
 
-### The nuxt.config.js File
+### File nuxt.config.js
 
-The `nuxt.config.js` file contains your Nuxt.js custom configuration.
+File `nuxt.config.js` berisi konfigurasi khusus Nuxt.js Anda.
 
-_This file cannot be renamed without extra configuration._
+_File ini tidak dapat diganti namanya tanpa konfigurasi tambahan._
 
-[More documentation about `nuxt.config.js` integration](/guide/configuration)
+[Dokumentasi lebih lanjut tentang integrasi `nuxt.config.js`](/guide/configuration)
 
-### The package.json File
+### File package.json
 
-The `package.json` file contains your Application dependencies and scripts.
+File `package.json` berisi dependensi dan skrip Aplikasi Anda.
 
-_This file can not be renamed._
+_File ini tidak dapat diganti namanya._
 
-## Aliases
+## Alias
 
-| Alias | Directory |
+| Alias | Direktori |
 |-----|------|
-| `~` or `@` | [srcDir](/api/configuration-srcdir) |
-| `~~` or `@@` | [rootDir](/api/configuration-rootdir) |
+| `~` atau `@` | [srcDir](/api/configuration-srcdir) |
+| `~~` atau `@@` | [rootDir](/api/configuration-rootdir) |
 
-By default, `srcDir` is the same as `rootDir`.
+Secara default, `srcDir` sama saja dengan `rootDir`.
 
 <div class="Alert Alert--nuxt-green">
 
-<b>Info:</b> Inside your `vue` templates, if you need to link to your `assets` or `static` directory, use `~/assets/your_image.png` and `~/static/your_image.png`.
+<b>Info:</b> Di dalam template `vue` Anda, jika anda membutuhkan untuk melakukan link direktori `assets` atau `static` Anda, gunakan `~/assets/your_image.png` dan `~/static/your_image.png`.
 
 </div>
