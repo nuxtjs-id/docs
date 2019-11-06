@@ -1,9 +1,9 @@
 ---
-title: Nuxt.js Themes
-description: Nuxt.js themes made by the community.
+title: Tema Nuxt.js (Nuxt.js Themes)
+description: Tema Nuxt.js dibuat oleh komunitas.
 ---
 
-> With the themes below built by our partners from [Creative Tim](https://www.creative-tim.com/?partner=120213) and [Theme Forest](https://themeforest.net) you can see how a real world application is built, with Nuxt.js stack behind.
+> Dengan tema di bawah ini dibangun oleh mitra kami dari [Tim Creative](https://www.creative-tim.com/?partner=120213) dan [Theme Forest](https://themeforest.net) Anda dapat melihat bagaimana aplikasi pada dunia nyata dibangun, dengan stack Nuxt.js di belakangnya.
 
 <div>
   <a href="https://www.creative-tim.com/product/nuxt-argon-dashboard-pro?partner=120213" rel="nofollow" class="Promote">

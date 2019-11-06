@@ -1,17 +1,17 @@
 ---
 title: Routing
-description: Nuxt.js use the file-system to generate the routes of your web applications.
+description: Nuxt.js menggunakan sistem file untuk menghasilkan rute aplikasi web Anda.
 ---
 
-> Nuxt.js automatically generates the [vue-router](https://github.com/vuejs/vue-router) configuration based on your file tree of Vue files inside the `pages` directory.
+> Nuxt.js secara otomatis melakukan generate konfigurasi [vue-router](https://github.com/vuejs/vue-router) berdasarkan susunan file Vue Anda di dalam direktori `pages`.
 
 <div class="Alert Alert--grey">
 
-To navigate between pages, we recommend to use the [`<nuxt-link>`](/api/components-nuxt-link) component.
+Untuk menavigasi antar halaman, kami sarankan untuk menggunakan komponen [`<nuxt-link>`](/api/components-nuxt-link).
 
 </div>
 
-For example:
+Sebagai contoh:
 
 ```html
 <template>
@@ -19,9 +19,9 @@ For example:
 </template>
 ```
 
-## Basic Routes
+## Route Dasar
 
-This file tree:
+Susunan (file tree):
 
 ```bash
 pages/
@@ -31,7 +31,7 @@ pages/
 --| index.vue
 ```
 
-will automatically generate:
+akan otomatis meng-generate:
 
 ```js
 router: {
@@ -55,9 +55,9 @@ router: {
 }
 ```
 
-## Dynamic Routes
+## Route Dinamis
 
-To define a dynamic route with a parameter, you need to define a .vue file OR a directory **prefixed by an underscore**.
+Untuk menentukan rute dinamis menggunakan parameter, Anda perlu mendefinisikan file .vue atau direktori **yang di awali oleh underscore**.
 
 <div class="Promo__Video">
   <a href="https://vueschool.io/lessons/nuxtjs-dynamic-routes?friend=nuxt" target="_blank">
@@ -67,7 +67,7 @@ To define a dynamic route with a parameter, you need to define a .vue file OR a 
   </a>
 </div>
 
-This file tree:
+Susunan (file tree):
 
 ```bash
 pages/
@@ -79,7 +79,7 @@ pages/
 --| index.vue
 ```
 
-will automatically generate:
+akan otomatis meng-generate:
 
 ```js
 router: {
@@ -108,46 +108,46 @@ router: {
 }
 ```
 
-As you can see the route named `users-id` has the path `:id?` which makes it optional, if you want to make it required, create an `index.vue` file in the `users/_id` directory instead.
+Seperti yang Anda lihat rute bernama `users-id` memiliki path `:id?` yang akan membuatnya bersifat opsional, jika Anda ingin membuatnya diperlukan (required), buat file `index.vue` di dalam direktori `users/_id` sebagai gantinya.
 
 <div class="Alert Alert--orange">
 
-**Warning:** dynamic routes are ignored by the `generate` command: [API Configuration generate](/api/configuration-generate#routes)
+**Peringatan:** rute dinamis akan diabaikan oleh perintah `generate`: [API Konfigurasi Generate](/api/configuration-generate#routes)
 
 </div>
 
-### Validate Route Params
+### Validasi Parameter Route
 
-Nuxt.js lets you define a validator method inside your dynamic route component.
+Nuxt.js memungkinkan Anda menentukan metode validator di dalam komponen rute dinamis Anda.
 
-In this example: `pages/users/_id.vue`
+Sebagai contoh: `pages/users/_id.vue`
 
 ```js
 export default {
   validate ({ params }) {
-    // Must be a number
+    // Harus sebuah number
     return /^\d+$/.test(params.id)
   }
 }
 ```
 
-If the validate method does not return `true` or a `Promise` that resolve to `true`, or throws an Error, Nuxt.js will automatically load the 404 error page or 500 error page in case of an error.
+Jika metode yang divalidasi tidak mengembalikan (return) `true` atau `Promise` yang me-resolve `true`, atau throws Error, Nuxt.js akan secara otomatis memuat halaman kesalahan 404 atau halaman kesalahan 500 jika terjadi eror.
 
-More information about the validate method: [API Pages validate](/api/pages-validate)
+Informasi lebih lanjut tentang metode validasi: [API Validasi Halaman](/api/pages-validate)
 
-## Nested Routes
+## Route bersarang (nested)
 
-Nuxt.js lets you create nested route by using the children routes of vue-router.
+Nuxt.js memungkinkan Anda membuat rute bersarang dengan menggunakan rute anak (child) dari vue-router.
 
-To define the parent component of a nested route, you need to create a Vue file with the **same name as the directory** which contain your children views.
+Untuk menentukan komponen parent dari rute bersarang, Anda perlu membuat file Vue dengan **nama yang sama dengan direktori** yang mengandung tampilan (view) child Anda.
 
 <div class="Alert Alert--orange">
 
-<b>Warning:</b> don't forget to include `<nuxt-child/>` inside the parent component (<code>.vue</code> file).
+<b>Peringatan:</b> jangan lupa memasukan `<nuxt-child/>` di dalam komponen parent file (<code>.vue</code>).
 
 </div>
 
-This file tree:
+Susunan (file tree):
 
 ```bash
 pages/
@@ -157,7 +157,7 @@ pages/
 --| users.vue
 ```
 
-will automatically generate:
+akan otomatis meng-generate:
 
 ```js
 router: {
@@ -182,11 +182,11 @@ router: {
 }
 ```
 
-## Dynamic Nested Routes
+## Rute Bersarang Dinamis (Dynamic Nested Routes)
 
-This scenario should not often happen, but it is possible with Nuxt.js: having dynamic children inside dynamic parents.
+Skenario ini seharusnya tidak sering terjadi, tetapi mungkin dengan Nuxt.js: memiliki child yang dinamis di dalam parent yang dinamis.
 
-This file tree:
+Susunan (file tree):
 
 ```bash
 pages/
@@ -200,7 +200,7 @@ pages/
 --| index.vue
 ```
 
-will automatically generate:
+akan otomatis meng-generate:
 
 ```js
 router: {
@@ -241,12 +241,12 @@ router: {
 }
 ```
 
-### Unknown Dynamic Nested Routes
+### Rute Bersarang Dinamis yang Tidak Dikenal
 
-If you do not know the depth of your URL structure, you can use `_.vue` to dynamically match nested paths.
-This will handle requests that do not match a _more specific_ request.
+Jika Anda tidak tahu kedalaman struktur URL Anda, Anda dapat menggunakan `_.vue` untuk secara dinamis mencocokkan jalur bersarang (nested path).
+Ini akan menangani request yang tidak cocok dengan request yang _lebih spesifik_.
 
-This file tree:
+Susunan (file tree):
 
 ```bash
 pages/
@@ -257,7 +257,7 @@ pages/
 --| index.vue
 ```
 
-Will handle requests like this:
+Akan menangani request seperti ini:
 
 Path | File
 --- | ---
@@ -268,11 +268,11 @@ Path | File
 `/about/careers` | `_.vue`
 `/about/careers/chicago` | `_.vue`
 
-__Note:__ Handling 404 pages is now up to the logic of the `_.vue` page. [More on 404 redirecting can be found here](/guide/async-data#handling-errors).
+__Catatan:__ Menangani 404 halaman sekarang sudah sesuai dengan logic halaman `_.vue`. [Lebih lanjut tentang 404 redirect dapat ditemukan di sini](/guide/async-data#handling-errors).
 
-### Named Views
+### Tampilan Bernama (Named Views)
 
-To render named views you can use `<nuxt name="top"/>` or `<nuxt-child name="top"/>` components in your layout/page. To specify named view of page we need to extend router config in `nuxt.config.js` file:
+Untuk membuat tampilan bernama, Anda dapat menggunakan `<nuxt name="top"/>` atau komponen `<nuxt-child name="top"/>` di dalam layout/page. Untuk menentukan tampilan halaman yang bernama, kita perlu memperluas konfigurasi router file `nuxt.config.js`:
   
 ``` js
 export default {
@@ -293,52 +293,52 @@ export default {
   }
 }
 ```
-It require to extend interested route with 2 properties `components` and `chunkNames`. Named view in this config example has name `top`.
+Perlu melakukan extend rute dengan 2 properti `components` dan `chunkNames`. Tampilan bernama dalam contoh konfigurasi ini memiliki nama `top`.
 
-To see an example, take a look at the [named-views example](/examples/named-views).
+Untuk melihat contoh, silahkan lihat [contoh named-views](/examples/named-views).
 
 ### SPA fallback
 
-You can enable SPA fallbacks for dynamic routes too. Nuxt.js will output an extra file that is the same as the `index.html` that would be used in `mode: 'spa'`. Most static hosting services can be configured to use the SPA template if no file matches. It won't include the `head` info or any HTML, but it will still resolve and load the data from the API.
+Anda juga dapat mengaktifkan fallback SPA untuk rute dinamis. Nuxt.js akan menampilkan file ekstra yang sama dengan `index.html` yang akan digunakan pada `mode: 'spa'`. Sebagian besar layanan hosting statis dapat dikonfigurasi untuk menggunakan template SPA jika tidak ada file yang cocok. Itu tidak akan termasuk informasi `head` atau HTML apa pun, tetapi masih akan melakukan resolve dan memuat data dari API.
 
-We enable this in our `nuxt.config.js` file:
+Kami aktifkan ini pada file `nuxt.config.js` file:
 
 ``` js
 export default {
   generate: {
-    fallback: true, // if you want to use '404.html' instead of the default '200.html'
-    fallback: 'my-fallback/file.html' // if your hosting needs a custom location
+    fallback: true, // jika Anda ingin menggunakan '404.html' dan bukan '200.html'
+    fallback: 'my-fallback/file.html' // jika hosting Anda memerlukan lokasi khusus
   }
 }
 ```
 
-#### Implementation for Surge
+#### Implementasi untuk Surge
 
-Surge [can handle](https://surge.sh/help/adding-a-custom-404-not-found-page) both `200.html` and `404.html`. `generate.fallback` is set to `200.html` by default, so no need to change it.
+Surge [dapat menangani](https://surge.sh/help/adding-a-custom-404-not-found-page) kedua file `200.html` dan `404.html`. `generate.fallback` di atur ke `200.html` secara default, jadi tidak perlu mengubahnya.
 
-#### Implementation for GitHub Pages and Netlify
+#### Implementasi untuk Halaman GitHub dan Netlify
 
-GitHub Pages and Netlify recognize the `404.html` file automatically, so setting `generate.fallback` to `true` is all we have to do!
+GitHub Pages dan Netlify mengenali file `404.html` secara otomatis, jadi cukup set `generate.fallback` menjadi `true` yang harus kita lakukan!
 
 #### Implementation for Firebase Hosting
 
-Firebase Hosting [can handle](https://firebase.google.com/docs/hosting/full-config#404) the `404.html` file automatically, so setting `generate.fallback` to `true` will render the error page with a default response code of 404.
+Firebase Hosting [dapat menangani](https://firebase.google.com/docs/hosting/full-config#404) file `404.html` secara otomatis, jadi cukup set `generate.fallback` menjadi `true` akan merender halaman eror dengan kode respons default 404.
 
-## Transitions
+## Transisi
 
-Nuxt.js uses the [`<transition>`](http://vuejs.org/v2/guide/transitions.html#Transitioning-Single-Elements-Components) component to let you create amazing transitions/animations between your routes.
+Nuxt.js menggunakan komponen [`<transition>`](http://vuejs.org/v2/guide/transitions.html#Transitioning-Single-Elements-Components) untuk membiarkan Anda membuat transisi / animasi luar biasa di antara rute Anda.
 
-### Global Settings
+### Pengaturan Global
 
 <div class="Alert Alert--nuxt-green">
 
-<b>Info:</b> Nuxt.js default transition name is `"page"`.
+<b>Info:</b> Nama transisi default Nuxt.js adalah `"page"`.
 
 </div>
 
-To add a fade transition to every page of your application, we need a CSS file that is shared across all our routes, so we start by creating a file in the `assets` folder.
+Untuk menambahkan transisi fade ke setiap halaman aplikasi Anda, kita membutuhkan file CSS yang dibagikan di semua rute, jadi kita mulai dengan membuat file di folder `assets`.
 
-Our global css in `assets/main.css`:
+Global css kita di dalam `assets/main.css`:
 
 ```css
 .page-enter-active, .page-leave-active {
@@ -349,7 +349,7 @@ Our global css in `assets/main.css`:
 }
 ```
 
-Then we add its path to the `css` array in our `nuxt.config.js` file:
+Kemudian kita tambahkan pathnya ke dalam array `css` pada file `nuxt.config.js` kita:
 
 ```js
 export default {
@@ -359,13 +359,13 @@ export default {
 }
 ```
 
-More information about the transition key: [API Configuration transition](/api/pages-transition)
+Informasi lebih lanjut tentang key transisi: [API Konfigurasi Transisi](/api/pages-transition)
 
-### Page Settings
+### Pengaturan Halaman (Page)
 
-You can also define a custom transition for a specific page with the `transition` property.
+Anda juga dapat menentukan transisi khusus untuk halaman tertentu dengan properti `transition`.
 
-We add a new class in our global css in `assets/main.css`:
+Kita tambahkan class baru di global css kita di `assets/main.css`:
 
 ```css
 .test-enter-active, .test-leave-active {
@@ -376,7 +376,7 @@ We add a new class in our global css in `assets/main.css`:
 }
 ```
 
-Then we use the transition property to define the class name to use for this page transition:
+Kemudian kita gunakan properti transisi untuk menentukan nama class yang akan digunakan untuk transisi halaman ini:
 
 ```js
 export default {
@@ -384,30 +384,30 @@ export default {
 }
 ```
 
-More information about the transition property: [API Pages transition](/api/pages-transition)
+Informasi lebih lanjut tentang properti transisi: [API Transisi Halaman](/api/pages-transition)
 
 ## Middleware
 
-> Middleware lets you define custom functions that can be run before rendering either a page or a group of pages.
+> Middleware memungkinkan Anda menentukan fungsi khusus yang dapat dijalankan sebelum merender halaman atau grup halaman.
 
-**Every middleware should be placed in the `middleware/` directory.** The filename will be the name of the middleware (`middleware/auth.js` will be the `auth` middleware).
+**Setiap middleware harus ditempatkan di dalam direktori `middleware/`.** Nama file akan menjadi nama middleware (`middleware/auth.js` akan menjadi middleware `auth`).
 
-A middleware receives [the context](/api/context) as first argument:
+Middleware menerima [konteks](/api/context) sebagai argument pertama:
 
 ```js
 export default function (context) {
   context.userAgent = process.server ? context.req.headers['user-agent'] : navigator.userAgent
 }
 ```
-In universal mode, middlewares will be called server-side once (on the first request to the Nuxt app or when page refreshes) and client-side when navigating to further routes.  In SPA mode, middlewares will be called client-side on the first request and when navigating to further routes. 
+Pada mode Universal, middlewares akan dipanggil pada server-side sekali (pada request pertama ke aplikasi Nuxt atau pada saat halaman di refresh) dan pada sisi klien ketika melakukan navigasi route. Pada mode SPA, middlewares akan dipanggil pada sisi klien berdasarkan permintaan pertama dan saat menavigasi ke rute selanjutnya.
 
-The middleware will be executed in series in this order:
+Middleware akan dieksekusi secara berurutan seperti berikut:
 
 1. `nuxt.config.js` (in the order within the file)
-2. Matched layouts
-3. Matched pages
+2. Layout yang cocok (match)
+3. Halaman yang cocok (match)
 
-A middleware can be asynchronous. To do this, simply return a `Promise` or use the 2nd `callback` argument:
+Middleware bisa asynchronous. Untuk melakukan ini, return `Promise` sederhana atau gunakan argumen `callback` kedua:
 
 `middleware/stats.js`
 
@@ -421,7 +421,7 @@ export default function ({ route }) {
 }
 ```
 
-Then, in your `nuxt.config.js`, use the `router.middleware` key:
+Kemudian, di dalam `nuxt.config.js`, gunakan key `router.middleware`:
 
 `nuxt.config.js`
 
@@ -433,12 +433,12 @@ export default {
 }
 ```
 
-Now the `stats` middleware will be called for every route change.
+Sekarang middleware `stats` akan dipanggil pada setiap perubahan route.
 
-You can add your middleware to a specific layout or page as well:
+Anda juga dapat menambahkan middleware Anda pada layout atau halaman (page) tertentu:
 
 
-`pages/index.vue` or `layouts/default.vue`
+`pages/index.vue` atau `layouts/default.vue`
 
 ```js
 export default {
@@ -446,4 +446,4 @@ export default {
 }
 ```
 
-To see a real-life example using the middleware, please see [example-auth0](https://github.com/nuxt/example-auth0) on GitHub.
+Untuk melihat contoh penggunaan middleware secara nyata, silahkan lihat [example-auth0](https://github.com/nuxt/example-auth0) di GitHub.

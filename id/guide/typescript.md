@@ -1,6 +1,6 @@
 ---
-title: TypeScript Support
-description: Nuxt.js official TypeScript support
+title: Dukungan TypeScript
+description: Dukungan TypeScript Nuxt.js official
 ---
 
-Nuxt.js has a full support of typescript (both runtime and buildtime). For the documentation please refer to [https://typescript.nuxtjs.org/](https://typescript.nuxtjs.org/).
+Nuxt.js memiliki dukungan penuh terhadap TypeScript (runtime dan buildtime). Untuk dokumentasi silakan merujuk ke [https://typescript.nuxtjs.org/](https://typescript.nuxtjs.org/).
