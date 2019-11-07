@@ -1,20 +1,20 @@
 ---
-title: Views
-description: The Views section describes all you need to configure data and views for a specific route in your Nuxt.js Application (Document, Layouts, Pages and HTML Head).
+title: Tampilan (Views)
+description: Bagian Tampilan (view) menjelaskan semua yang Anda perlukan untuk mengonfigurasi data dan tampilan untuk rute tertentu di Aplikasi Nuxt.js Anda (Dokumen, Tata Letak, Halaman, dan HTML head).
 ---
 
-> The Views section describes all you need to configure data and views for a specific route in your Nuxt.js Application (App Template, Layouts, Pages and HTML Head).
+> Bagian Tampilan (view) menjelaskan semua yang Anda perlukan untuk mengonfigurasi data dan tampilan untuk rute tertentu di Aplikasi Nuxt.js Anda (Dokumen, Tata Letak, Halaman, dan HTML head).
 
 ![nuxt-views-schema](/nuxt-views-schema.svg)
 
-## App Template
+## Template App
 
-> You can customize the HTML app template used by Nuxt.js to include scripts or conditional CSS classes.
+> Anda dapat menyesuaikan templat aplikasi HTML yang digunakan oleh Nuxt.js untuk menyertakan skrip atau class CSS kondisional.
 
-To change the template, create an `app.html` file, in the src folder of your project. (which is the project's root directory by default).
+Untuk mengubah templat, buat file `app.html` di folder src proyek Anda. (yang merupakan direktori root proyek secara default).
 
 
-The default template used by Nuxt.js is:
+Template default yang digunakan oleh Nuxt.js adalah:
 
 ```html
 <!DOCTYPE html>
@@ -28,7 +28,7 @@ The default template used by Nuxt.js is:
 </html>
 ```
 
-One use case of using a custom app template is to add conditional CSS classes for IE:
+Satu kasus penggunaan menggunakan templat aplikasi khusus adalah menambahkan class CSS kondisional untuk IE:
 
 ```html
 <!DOCTYPE html>
@@ -45,23 +45,23 @@ One use case of using a custom app template is to add conditional CSS classes fo
 
 <!-- TODO: Load polyfills here? -->
 
-## Layouts
+## Tata Letak (Layouts)
 
-Layouts are a great help when you want to change the look and feel of your Nuxt.js app.
-Whether you want to include a sidebar or having distinct layouts for mobile and desktop
+Tata letak sangat membantu ketika Anda ingin mengubah tampilan dan nuansa aplikasi Nuxt.js Anda.
+Apakah Anda ingin menyertakan bilah sisi atau memiliki tata letak yang berbeda untuk seluler dan desktop
 
-### Default Layout
+### Tata Letak Default (Default Layout)
 
-You can extend the main layout by adding a `layouts/default.vue` file.
-It will be used for all pages that don't have a layout specified.
+Anda dapat memperluas tata letak utama (main layout) dengan menambahkan file `layouts/default.vue`.
+Ini akan digunakan untuk semua halaman yang tidak memiliki tata letak yang ditentukan.
 
 <div class="Alert Alert--nuxt-green">
 
-<b>Info:</b> Make sure to add the `<nuxt/>` component when creating a layout to actually include the page component.
+<b>Info:</b> Pastikan untuk menambahkan komponen `<nuxt/>` saat membuat tata letak untuk memasukkan komponen halaman secara benar.
 
 </div>
 
-The default layout that comes out of the box is just three lines long and simply renders the page component:
+Tata letak default yang keluar dari kotak hanya tiga baris panjang dan cukup merender komponen halaman:
 
 ```html
 <template>
@@ -69,11 +69,11 @@ The default layout that comes out of the box is just three lines long and simply
 </template>
 ```
 
-### Custom Layout
+### Tata Letak Kustom (Custom Layout)
 
-Every file (*top-level*) in the `layouts` directory will create a custom layout accessible with the `layout` property in the page components.
+Every file (*top-level*) di dalam direktori `layouts` akan membuat tata letak kustom yang dapat diakses dengan properti `layout` pada komponen halaman.
 
-Let's say we want to create a blog layout and save it to `layouts/blog.vue`:
+Katakanlah kita ingin membuat tata letak blog dan menyimpannya ke `layouts/blog.vue`:
 
 ```html
 <template>
@@ -84,70 +84,70 @@ Let's say we want to create a blog layout and save it to `layouts/blog.vue`:
 </template>
 ```
 
-Then we have to tell the pages (i.e. `pages/posts.vue`) to use your custom layout:
+Maka kita harus memberitahu halaman (i.e. `pages/posts.vue`) untuk menggunakan tata letak kustom Anda:
 
 ```html
 <template>
-<!-- Your template -->
+<!-- Templat Anda -->
 </template>
 <script>
 export default {
   layout: 'blog'
-  // page component definitions
+  // definisikan komponen halaman
 }
 </script>
 ```
 
-More information about the `layout` property: [API Pages `layout`](/api/pages-layout)
+Informasi lebih lanjut tentang properti `layout`: [API Halaman `layout`](/api/pages-layout)
 
-Check out the [demonstration video](https://www.youtube.com/watch?v=YOKnSTp7d38) to see custom layouts in action.
+Lihat [video demontrasi](https://www.youtube.com/watch?v=YOKnSTp7d38) untuk melihat tata letak kustom dalam aksi.
 
 <!-- TODO: Scoped styles best practice -->
 
-### Error Page
+### Halaman eror
 
-The error page is a *page component* which is always displayed when an error occurs (that does not happen while server-side rendering).
+Halaman kesalahan adalah *komponen halaman* yang selalu ditampilkan ketika kesalahan terjadi (itu tidak terjadi saat rendering sisi server).
 
 <div class="Alert Alert--orange">
 
-<b>Warning:</b> Though this file is placed in the <code>layouts</code> folder, it should be treated as a <b>page</b>.
+<b>Peringatan:</b> Walaupun file ini ditempatkan di folder <code>layouts</code>, itu harus diperlakukan sebagai <b>halaman</b>.
 
 </div>
 
-As mentioned above, this layout is special, since you **should not** include `<nuxt/>` inside its template.
-You must see this layout as a component displayed when an error occurs (`404`, `500`, etc.).
-Similar to other page components, you can set a custom layout for the error page as well in the usual way.
+Seperti disebutkan di atas, tata letak ini istimewa, semenjak Anda **tidak** memasukan `<nuxt/>` di dalam templatnya.
+Anda harus melihat tata letak ini sebagai komponen yang ditampilkan ketika terjadi eror (`404`, `500`, dll.).
+Mirip dengan komponen halaman lainnya, Anda dapat mengatur tata letak khusus untuk halaman eror juga dengan cara biasa.
 
-The default error page source code is [available on GitHub](https://github.com/nuxt/nuxt.js/blob/dev/packages/vue-app/template/components/nuxt-error.vue).
+Kode sumber halaman kesalahan default [tersedia di GitHub](https://github.com/nuxt/nuxt.js/blob/dev/packages/vue-app/template/components/nuxt-error.vue).
 
-You can customize the error page by adding a `layouts/error.vue` file:
+Anda dapat menyesuaikan halaman kesalahan dengan menambahkan file `layouts/error.vue`:
 
 ```html
 <template>
   <div class="container">
-    <h1 v-if="error.statusCode === 404">Page not found</h1>
-    <h1 v-else>An error occurred</h1>
-    <nuxt-link to="/">Home page</nuxt-link>
+    <h1 v-if="error.statusCode === 404">Halaman tidak ditemukan</h1>
+    <h1 v-else>Terjadi kesalahan</h1>
+    <nuxt-link to="/">Halaman utama</nuxt-link>
   </div>
 </template>
 
 <script>
 export default {
   props: ['error'],
-  layout: 'blog' // you can set a custom layout for the error page
+  layout: 'blog' // Anda dapat mengatur tata letak khusus untuk halaman eror
 }
 </script>
 ```
 
 
-## Pages
+## Halaman (Pages)
 
-Every Page component is a Vue component but Nuxt.js adds special attributes and functions to make the development of your universal application as easy as possible.
+Setiap komponen Halaman adalah komponen Vue tetapi Nuxt.js menambahkan atribut dan fungsi khusus untuk membuat pengembangan aplikasi universal Anda semudah mungkin.
 
 <div class="Promo__Video">
   <a href="https://vueschool.io/lessons/nuxtjs-page-components?friend=nuxt" target="_blank">
     <p class="Promo__Video__Icon">
-      Watch a free lesson about <strong>Nuxt.js Page Components</strong> on Vue School 
+      Silahkan lihat pembelajaran gratis tentang <strong>Componen Halaman Nuxt.js</strong> di Vue School 
     </p>
   </a>
 </div>
@@ -160,18 +160,18 @@ Every Page component is a Vue component but Nuxt.js adds special attributes and 
 <script>
 export default {
   asyncData (context) {
-    // called every time before loading the component
-    // as the name said, it can be async
-    // Also, the returned object will be merged with your data object
+    // dipanggil setiap kali sebelum memuat komponen
+    // seperti namanya, itu bisa async
+    // Juga, objek yang di-return akan digabungkan dengan objek data Anda
     return { name: 'World' }
   },
   fetch () {
-    // The `fetch` method is used to fill the store before rendering the page
+    // Metode `fetch` digunakan untuk mengisi store sebelum merender halaman
   },
   head () {
-    // Set Meta Tags for this Page
+    // Setel Tag Meta untuk Halaman ini
   },
-  // and more functionality to discover
+  // dan lakukan dengan lebih banyak fungsi untuk dijelajahi
   ...
 }
 </script>
@@ -183,38 +183,38 @@ export default {
 </style>
 ```
 
-| Attribute | Description | Documentation |
+| Atribut | Penjelasan | Dokumentasi |
 |-----------|-------------| ------------- |
-| `asyncData` | The most important key. It can be asynchronous and receives the context as argument. | [Guide: Async data](/guide/async-data) |
-| `fetch` | Used to fill the store before rendering the page. It's like the `asyncData` method, except it doesn't set the component data. | [API Pages `fetch`](/api/pages-fetch) |
-| `head` | Set specific `<meta>` tags for the current page. | [API Pages `head`](/api/pages-head) |
-| `layout` | Specify a layout defined in the `layouts` directory. | [API Pages `layout`](/api/pages-layout) |
-| `loading` | If set to `false`, prevents a page from automatically calling `this.$nuxt.$loading.finish()` as you enter it and `this.$nuxt.$loading.start()` as you leave it, allowing you to **manually** control the behavior, as [this example](/examples/custom-page-loading) shows. Only applies if `loading` is also set in `nuxt.config.js`. | [API Configuration `loading`](/api/configuration-loading) |
-| `transition` | Defines a specific transition for the page. | [API Pages `transition`](/api/pages-transition) |
-| `scrollToTop` | Boolean (default: `false`). Specify if you want the page to scroll to the top before rendering the page. It's used for [nested routes](/guide/routing#nested-routes). | [API Pages `scrollToTop`](/api/pages-scrolltotop#the-scrolltotop-property) |
-| `validate` | Validator function for [dynamic routes](/guide/routing#dynamic-routes). | [API Pages `validate`](/api/pages-validate#the-validate-method) |
-| `middleware` | Defines middleware for this page. The middleware will be called before rendering the page. | [Guide: middleware](/guide/routing#middleware) |
+| `asyncData` | Kunci yang paling penting. Bisa asinkron dan dapat menerima konteks sebagai argumen. | [Panduan: Async data](/guide/async-data) |
+| `fetch` | Digunakan untuk mengisi store sebelum merender halaman. Ini seperti metode `asyncData`, kecuali mengatur data komponen. | [Halaman API `fetch`](/api/pages-fetch) |
+| `head` | Atur tag `<meta>` spesifik untuk halaman saat ini. | [Halaman API `head`](/api/pages-head) |
+| `layout` | Spesifikasikan layout yang terdefinisi di dalam direktori `layouts`. | [Halaman API `layout`](/api/pages-layout) |
+| `loading` | Jika di set menjadi `false`, mencegah halaman untuk memanggil `this.$nuxt.$loading.finish()` secara otomatis saat Anda memasukkannya dan `this.$nuxt.$loading.start()` ketika Anda meninggalkannya, memungkinkan Anda untuk **secara manual** mengontrol tingkah laku, seperti yang ditampilkan pada [contoh ini](/examples/custom-page-loading). Hanya diterapkan apabila `loading` juga di atur di dalam `nuxt.config.js`. | [Konfigurasi API `loading`](/api/configuration-loading) |
+| `transition` | Menentukan transisi kustom untuk halaman. | [Halaman API `transition`](/api/pages-transition) |
+| `scrollToTop` | Boolean (default: `false`). Tentukan apakah Anda ingin halaman tersebut melakukan scroll ke atas sebelum merender halaman. Ini digunakan untuk [route bersarang](/guide/routing#nested-routes). | [Halaman API `scrollToTop`](/api/pages-scrolltotop#the-scrolltotop-property) |
+| `validate` | Fungsi validator untuk [route dinamis](/guide/routing#dynamic-routes). | [Halaman API `validate`](/api/pages-validate#the-validate-method) |
+| `middleware` | Tentukan middleware untuk halaman ini. Middleware akan dipanggil sebelum merender halaman. | [Panduan: middleware](/guide/routing#middleware) |
 
-More information about the pages properties usage: [API Pages](/api)
+Informasi lebih lanjut tentang penggunaan properti halaman: [Halaman API](/api)
 
 ## HTML Head
 
-Nuxt.js uses [vue-meta](https://vue-meta.nuxtjs.org/) to update the `document head` and `meta attributes` of your application.
+Nuxt.js menggunakan [vue-meta](https://vue-meta.nuxtjs.org/) untuk melakukan update `document head` dan `meta attributes` pada aplikasi anda.
 
-The `vue-meta` Nuxt.js uses can be found [on GitHub](https://github.com/nuxt/nuxt.js/blob/dev/packages/vue-app/template/index.js#L42-L48).
+Penggunaan `vue-meta` Nuxt.js dapat anda lihat [di GitHub](https://github.com/nuxt/nuxt.js/blob/dev/packages/vue-app/template/index.js#L42-L48).
 
 <div class="Alert Alert--teal">
 
-<b>Info:</b> Nuxt.js uses <code>hid</code> instead of the default <code>vmid</code> key to identify meta elements
+<b>Info:</b> Nuxt.js menggunakan <code>hid</code> daripada menggunakan default key <code>vmid</code> untuk mengidentifikasi meta elemen
 
 </div>
 
 
 ### Default Meta Tags
 
-Nuxt.js lets you define all default `<meta>` tags for your application inside `nuxt.config.js`. Define them using the same `head` property:
+Nuxt.js memungkinkan Anda mendefinisikan semua tag `<meta>` default untuk aplikasi Anda di dalam `nuxt.config.js`. Definisikan menggunakan properti `head` yang sama:
 
-Example of a custom viewport with a custom Google font:
+Contoh viewport khusus dengan font Google kustom:
 
 ```js
 head: {
@@ -228,10 +228,10 @@ head: {
 }
 ```
 
-To learn more about the options available for `head`, take a look at [vue-meta documentation](https://vue-meta.nuxtjs.org/api/#metainfo-properties).
+Untuk mempelajari lebih lanjut tentang opsi yang tersedia untuk `head`, silahkan lihat [dokumentasi vue-meta](https://vue-meta.nuxtjs.org/api/#metainfo-properties).
 
-More information about the `head` method are available on the [API Configuration `head`](/api/configuration-head) page.
+Informasi lebih lanjut tentang metode `head` tersedia di halaman [Konfigurasi API `head`](/api/configuration-head).
 
-### Custom Meta Tags for a Page
+### Meta Tag Kustom untuk Halaman
 
-More information about the head method can be found on the [API Pages `head`](/api/pages-head) page.
+Informasi lebih lanjut tentang metode head dapat ditemukan di [Halaman API `head`](/api/pages-head).
