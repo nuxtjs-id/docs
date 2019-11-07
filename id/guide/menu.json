@@ -5,17 +5,18 @@
       {
         "to": "", "name": "Pengenalan",
         "contents": [
-          { "to": "#what-is-nuxt-js-", "name": "Apa itu Nuxt.js ?" },
-          { "to": "#how-it-works", "name": "Bagaimana Nuxt.js bekerja" },
-          { "to": "#features", "name": "Fitur-fitur" },
+          { "to": "#what-is-nuxtjs-", "name": "Apa itu Nuxt.js?" },
+          { "to": "#features", "name": "Fitur" },
+          { "to": "#how-it-works", "name": "Bagaimana ia bekerja" },
           { "to": "#schema", "name": "Skema" },
-          { "to": "#server-rendered-universal-ssr-", "name": "Server Render" },
-          { "to": "#single-page-applications-spa-", "name": "Aplikasi Halaman Tunggal (SPA)" },
-          { "to": "#static-generated-pre-rendering-", "name": "Digenerate statis" }
+          { "to": "#server-rendered-universal-ssr-", "name": "Server Rendered" },
+          { "to": "#single-page-applications-spa-", "name": "Single Page Application" },
+          { "to": "#static-generated-pre-rendering-", "name": "Static Generated" }
         ]
       },
       { "to": "/contribution-guide", "name": "Panduan Kontribusi" },
-      { "to": "/release-notes", "name": "Catatan Rilis" }
+      { "to": "/release-notes", "name": "Catatan Rilis" },
+      { "to": "/upgrading", "name": "Upgrade" }
     ]
   },
   {
@@ -24,25 +25,26 @@
       {
         "to": "/installation", "name": "Instalasi",
         "contents": [
-          { "to": "#using-nuxt-js-starter-template", "name": "Menggunakan template pemula Nuxt.js" },
+          { "to": "#using-code-create-nuxt-app-code-", "name": "Menggunakan create-nuxt-app" },
           { "to": "#starting-from-scratch", "name": "Memulai dari awal" }
         ]
       },
       {
-        "to": "/directory-structure", "name": "Struktur Direktori",
+        "to": "/directory-structure", "name": "Struktur direktori",
         "contents": [
           { "to": "#directories", "name": "Direktori" },
           { "to": "#aliases", "name": "Alias" }
         ]
       },
-      { "to": "/configuration", "name": "Pengaturan" },
+      { "to": "/configuration", "name": "Konfigurasi" },
       {
-        "to": "/routing", "name": "Rute",
+        "to": "/routing", "name": "Routing",
         "contents": [
-          { "to": "#basic-routes", "name": "Rute Dasar" },
+          { "to": "#basic-routes", "name": "Rute dasar" },
           { "to": "#dynamic-routes", "name": "Rute Dinamis" },
-          { "to": "#nested-routes", "name": "Rute Bersarang" },
-          { "to": "#dynamic-nested-routes", "name": "Rute Dinamis Bersarang" },
+          { "to": "#nested-routes", "name": "Rute Bersarang (nested)" },
+          { "to": "#dynamic-nested-routes", "name": "Rute Bersarang Dinamis" },
+          { "to": "#named-views", "name": "Tampilan Bernama (Named Views)" },
           { "to": "#transitions", "name": "Transisi" },
           { "to": "#middleware", "name": "Middleware" }
         ]
@@ -50,68 +52,75 @@
       {
         "to": "/views", "name": "Tampilan",
         "contents": [
-          { "to": "#document", "name": "Dokumen" },
-          { "to": "#layouts", "name": "Tata Letak" },
-          { "to": "#pages", "name": "Halaman-halaman" },
+          { "to": "#app-template", "name": "Template App" },
+          { "to": "#layouts", "name": "Tata letak (layouts)" },
+          { "to": "#pages", "name": "Halaman (pages)" },
           { "to": "#html-head", "name": "HTML Head" }
         ]
       },
       {
         "to": "/async-data", "name": "Async Data",
         "contents": [
-          { "to": "#the-data-method", "name": "Metode asyncData" },
-          { "to": "#the-context", "name": "Konteks" },
-          { "to": "#handling-errors", "name": "Menghandle Eror" }
+          { "to": "#the-asyncdata-method", "name": "Metode asyncData" },
+          { "to": "#the-context", "name": "Konteks (Context)" },
+          { "to": "#handling-errors", "name": "Melakukan Penanganan Kesalahan (error handling)" }
         ]
       },
       {
-        "to": "/assets", "name": "Assets",
+        "to": "/assets", "name": "Aset",
         "contents": [
-          { "to": "#webpacked", "name": "Webpacked" },
-          { "to": "#static", "name": "Statis" }
+          { "to": "#webpack", "name": "Webpack" },
+          { "to": "#static", "name": "Static" }
         ]
       },
       {
         "to": "/plugins", "name": "Plugin",
         "contents": [
-          { "to": "#external-packages", "name": "Paket Eksternal" },
+          { "to": "#external-packages", "name": "Paket Eksternal (External Packages)" },
           { "to": "#vue-plugins", "name": "Plugin Vue" },
-          { "to": "#inject-in-root-amp-context", "name": "Injeksi didalam $root & konteks" },
-          { "to": "#client-side-only", "name": "Hanya client-side" }
+          { "to": "#inject-in-root-amp-context", "name": "Injek di dalam $root & context" },
+          { "to": "#client-side-only", "name": "Plugin pada Sisi Klien" }
         ]
       },
       {
-        "to": "/modules", "name": "Modul-modul",
+        "to": "/modules", "name": "Modul",
         "contents": [
           { "to": "#introduction", "name": "Pengenalan" },
-          { "to": "#write-a-basic-module", "name": "Penulisan modul dasar" },
-          { "to": "#async-modules", "name": "Modul-modul Async" },
-          { "to": "#common-snippets", "name": "Cuplikan Umum" }
+          { "to": "#list-of-nuxt-js-modules", "name": "Daftar modul Nuxt.js" },
+          { "to": "#write-a-basic-module", "name": "Menulis modul dasar" },
+          { "to": "#async-modules", "name": "Modul Async" },
+          { "to": "#build-only-modules", "name": "Modul Build-Only" },
+          { "to": "#common-snippets", "name": "Snippets Umum" },
+          { "to": "#run-tasks-on-specific-hooks", "name": "Jalankan Tugas pada hooks spesifik" },
+          { "to": "#module-package-commands", "name": "Perintah paket modul (Module package commands)" }
         ]
       },
       {
         "to": "/vuex-store", "name": "Vuex Store",
         "contents": [
-          { "to": "#activate-the-store", "name": "Mengaktifkan Store" },
-          { "to": "#classic-mode", "name": "Mode klasik" },
-          { "to": "#modules-mode", "name": "Mode modul" },
-          { "to": "#the-fetch-method", "name": "Metode Fetch" },
-          { "to": "#the-nuxtserverinit-action", "name": "nuxtServerInit Action" }
+          { "to": "#activate-the-store", "name": "Aktifkan Store" },
+          { "to": "#modules-mode", "name": "Mode Modules" },
+          { "to": "#the-fetch-method", "name": "Metode fetch" },
+          { "to": "#the-nuxtserverinit-action", "name": "nuxtServerInit Action" },
+          { "to": "#classic-mode", "name": "Mode Classic" }
         ]
       },
       {
-        "to": "/commands", "name": "Perintah-perintah dan Penyebaran",
+        "to": "/typescript", "name": "Dukungan TypeScript"
+      },
+      {
+        "to": "/commands", "name": "Perintah dan Penempatan",
         "contents": [
-          { "to": "#list-of-commands", "name": "Daftar Perintah" },
-          { "to": "#development-environment", "name": "Lingkungan Pengembangan" },
-          { "to": "#production-deployment", "name": "Lingkungan Produksi" }
+          { "to": "#list-of-commands", "name": "Daftar perintah (commands)" },
+          { "to": "#development-environment", "name": "Lingkungan Development (Enviroment)" },
+          { "to": "#production-deployment", "name": "Lingkungan Production (Enviroment)" }
         ]
       },
       {
-        "to": "/development-tools", "name": "Alat-alat Pengembangan",
+        "to": "/development-tools", "name": "Alat pengembangan",
         "contents": [
-          { "to": "#end-to-end-testing", "name": "Pengetesan End-to-End" },
-          { "to": "#eslint", "name": "ESLint" }
+          { "to": "#end-to-end-testing", "name": "Pengujian End-to-End" },
+          { "to": "#eslint-and-prettier", "name": "ESLint dan Prettier" }
         ]
       }
     ]

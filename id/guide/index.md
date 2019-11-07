@@ -1,60 +1,56 @@
 ---
 title: Pengenalan
-description: "Pada tanggal 25 Oktober 2016, tim dibelakang zeit.co, mengumumkan Next.js, sebagai framework server-rendering aplikasi React. Beberapa jam setelah pengumuman tersebut, muncul ide untuk membuat server-rendering aplikas Vue.js seperti Next.js: maka lahirlah Nuxt.js."
+description: "Nuxt adalah kerangka kerja progresif berdasarkan Vue.js untuk membuat aplikasi web modern. Ini didasarkan pada librari resmi Vue.js (vue, vue-router dan vuex) dan alat pengembangan yang solid (webpack, Babel dan PostCSS)."
 ---
 
-> Pada tanggal 25 Oktober 2016, tim dibelakang [zeit.co](https://zeit.co/), mengumumkan [Next.js](https://zeit.co/blog/next), framework untuk server-rendering aplikasi React. Beberapa jam kemudian setelah pengumuman tersebut, muncul ide untuk membuat server-rendering aplikasi [Vue.js](https://vuejs.org) seperti Next.js: maka lahirlah **Nuxt.js**.
+> Nuxt adalah kerangka kerja progresif berdasarkan Vue.js untuk membuat aplikasi web modern. Ini didasarkan pada librari resmi Vue.js (vue, vue-router dan vuex) dan alat pengembangan yang solid (webpack, Babel dan PostCSS). Tujuan Nuxt adalah membuat pengembangan web yang solid dan berkinerja dengan pengalaman pengembang yang hebat.
 
-## Apa itu Nuxt.js ?
+## Apa itu NuxtJS?
 
-Nuxt.js adalah framework untuk membuat aplikasi Universal Vue.js.
+Nuxt adalah kerangka kerja yang dirancang untuk memberi Anda arsitektur yang solid mengikuti panduan Vue resmi. Dapat diadopsi secara bertahap, dapat digunakan untuk membuat dari landing page statis ke aplikasi web yang siap digunakan untuk perusahaan.
 
-Lingkup utamanya adalah **UI rendering** sembari mengabstraksi distribusi klien / server.
+Serbaguna secara alami, mendukung target yang berbeda (server, serverless atau statis) dan rendering sisi server dapat dialihkan.
 
-Tujuan kami adalah membuat kerangka kerja yang cukup fleksibel sehingga Anda dapat menggunakannya sebagai basis proyek utama atau sebagai tambahan untuk proyek Anda saat ini berbasis Node.js.
+Dapat diperluas dengan ekosistem modul yang kuat, membuatnya mudah untuk menghubungkan titik akhir REST atau GraphQL Anda, CMS favorit, kerangka kerja CSS dan banyak lagi. Dukungan PWA dan AMP hanya berjarak satu modul dari proyek Nuxt Anda.
 
-Nuxt.js mengatur semua konfigurasi yang diperlukan untuk membuat pengembangan Aplikasi Vue.js Anda **Server Rendering** menjadi lebih menyenangkan.
+NuxtJS adalah tulang punggung proyek Vue.js Anda, memberikan struktur untuk membangun proyek Anda dengan percaya diri sambil bersikap fleksibel.
 
-Selain itu, kami juga menyediakan opsi penempatan lain yang disebut: *nuxt generate*. Ini akan membangun Aplikasi **Statis** Vue.js.
-Kami percaya bahwa opsi ini dapat menjadi langkah besar berikutnya dalam pengembangan Aplikasi Web dengan layanan microservis.
+## Fitur
 
-
-Sebagai kerangka kerja, Nuxt.js hadir dengan banyak fitur untuk membantu Anda dalam pengembangan Anda antara sisi klien dan sisi server seperti Asynchronous Data, Middleware, Tata letak, dll.
+- Menulis file Vue (`*.vue`)
+- Code Splitting Otomatis
+- Server-Side Rendering
+- Sistem Routing Yang Powerful dengan Asynchronous Data
+- Penyajian (serving) File Statis
+- Transpilasi [ES2015+](https://babeljs.io/docs/en/learn/)
+- Bundling dan minifying JS & CSS Anda
+- Mengelola elemen `<head>` (`<title>`, `<meta>`, dll.)
+- Penggantian hot-modul dalam Pengembangan
+- Pre-processor: Sass, Less, Stylus, etc.
+- HTTP/2 push header
+- Memperluas dengan arsitektur Modular
 
 ## Bagaimana itu bekerja ?
-
-![Vue with webpack and Babel](https://i.imgur.com/avEUftE.png)
 
 Nuxt.js meliputi yang berikut ini untuk membuat pengembangan aplikasi web yang kaya:
 
 - [Vue 2](https://vuejs.org/)
 - [Vue Router](https://router.vuejs.org/en/)
-- [Vuex](https://vuex.vuejs.org/en/) (dimsaukan ketika menggunakan [opsi store](/guide/vuex-store))
-- [Vue Server Renderer](https://ssr.vuejs.org/en/) (tidak dimasukan ketika [`mode: 'spa'`](/api/configuration-mode))
-- [vue-meta](https://github.com/nuxt/vue-meta)
+- [Vuex](https://vuex.vuejs.org/en/) (hanya disertakan saat menggunakan [opsi store](/guide/vuex-store))
+- [Vue Server Renderer](https://ssr.vuejs.org/en/) (dikecualikan saat menggunakan [`mode: 'spa'`](/api/configuration-mode))
+- [Vue Meta](https://github.com/nuxt/vue-meta)
 
-Dengan total hanya **57kB min+gzip** (53kB with Vuex).
+Totalnya hanya **57kB min+gzip** (60kB dengan Vuex).
 
-Kami menggunakan [webpack](https://github.com/webpack/webpack) dengan [vue-loader](https://github.com/vuejs/vue-loader) dan [babel-loader](https://github.com/babel/babel-loader) untuk bundle, code-split dan kode minify.
+<div class="Alert">
 
-## Fitur-fitur
+Di bawahnya kami menggunakan [webpack](https://github.com/webpack/webpack) dengan [vue-loader](https://github.com/vuejs/vue-loader) dan [babel-loader](https://github.com/babel/babel-loader) untuk membundel, memecah kode dan memperkecil kode Anda.
 
-- Menulis file Vue (`*.vue`)
-- Spliting Kode Otomatis
-- Render Server-Side
-- Sistem Powerful Routing dengan Asynchronous Data
-- Penyajian File Statis
-- ES2015+ Transpilasi
-- Bundling dan minifying JS & CSS Anda
-- Mengatur elemen `<head>` (`<title>`, `<meta>`, dll.)
-- Penggantian hot-module ketika Pengembangan
-- Pre-processor: Sass, Less, Stylus, dll.
-- Sudah tersedia HTTP/2 push headers
-- Memperluas dengan arsitektur Modular
+</div>
 
 ## Skema
 
-Skema adalah apa yang disebut oleh Nuxt.js ketika server dipanggil atau ketika pengguna menavigasi aplikasi melalui `<nuxt-link>`:
+Skema ini menunjukkan apa yang disebut oleh Nuxt.js ketika server dipanggil atau ketika pengguna menavigasi aplikasi melalui `<nuxt-link>`:
 
 ![nuxt-schema](/nuxt-schema.svg)
 
@@ -62,23 +58,34 @@ Skema adalah apa yang disebut oleh Nuxt.js ketika server dipanggil atau ketika p
 
 Anda dapat menggunakan Nuxt.js sebagai kerangka kerja untuk menangani semua rendering UI proyek Anda.
 
-Ketika mengetikan `nuxt`, itu akan memulai server pengembangan dengan hot-reload dan [Vue Server Renderer](https://ssr.vuejs.org/en/) terkonfigurasi server-render secara otomatis aplikasi Anda.
+Ketika menjalankan `nuxt`, itu akan memulai server pengembangan dengan hot-reload dan [Vue Server Renderer](https://ssr.vuejs.org/en/) dikonfigurasikan untuk secara otomatis merender-server aplikasi Anda.
 
-### Aplikasi Halaman Tunggal (SPA)
+## Single Page Applications (SPA)
 
-Jika karena alasan apa pun, Anda memilih untuk tidak menggunakan rendering server atau memerlukan hosting statis untuk aplikasi Anda, Anda cukup menggunakan mode SPA `nuxt --spa`. Dikombinasikan dengan fitur *generate*, itu memberi Anda mekanisme penyebaran SPA yang kokoh tanpa perlu menggunakan runtime Node.js atau penanganan server khusus.
+Jika, karena alasan apa pun, Anda memilih untuk tidak menggunakan rendering sisi server atau memerlukan hosting statis untuk aplikasi Anda, Anda cukup menggunakan mode SPA menggunakan `nuxt --spa`. Dikombinasikan dengan fitur *generate*, itu memberi Anda mekanisme penyebaran SPA yang kuat tanpa perlu menggunakan runtime Node.js atau penanganan server khusus.
 
-Lihatlah [perintah ini](/guide/commands) untuk mempelajari cara penggunaan.
+Lihat [perintah (command)](/guide/commands) untuk mempelajari lebih lanjut tentang penggunaannya.
 
-Jika Anda sudah memiliki server, Anda dapat memasang Nuxt.js dengan menggunakannya sebagai middleware. Tidak ada batasan sama sekali ketika menggunakan Nuxt.js untuk mengembangkan Aplikasi Web Universal Anda. Lihat panduan [Menggunakan Nuxt.js Secara Programatis](/api/nuxt).
+Jika Anda sudah memiliki server, Anda dapat memasang Nuxt.js dengan menggunakannya sebagai middleware. Tidak ada batasan sama sekali ketika menggunakan Nuxt.js untuk mengembangkan Aplikasi Web Universal Anda. Lihat panduan [Menggunakan Nuxt.js Secara programatis](/api/nuxt).
 
-## Generate secara Statis (Pre Rendering)
+## Static Generated (Pre Rendering)
 
 Inovasi besar Nuxt.js hadir dengan perintah `nuxt generate`.
 
 Saat membangun aplikasi Anda, itu akan menghasilkan HTML untuk setiap rute Anda dan menyimpannya dalam file.
 
-Sebagai contoh, struktur file berikut ini:
+<div>
+  <a href="https://vueschool.io/courses/static-site-generation-with-nuxtjs?friend=nuxt" target="_blank" class="Promote">
+    <img src="/static-site-generation-with-nuxtjs.png" alt="Static Site Generation with Nuxt.js by vueschool"/>
+    <div class="Promote__Content">
+      <h4 class="Promote__Content__Title">Static Site Generation with Nuxt.js</h4>
+      <p class="Promote__Content__Description">Learn how to generate static websites (pre rendering) to improve both performance and SEO while eliminating hosting costs.</p>
+      <p class="Promote__Content__Signature">Video courses made by VueSchool to support Nuxt.js development.</p>
+    </div>
+  </a>
+</div>
+
+Sebagai contoh, struktur file berikut:
 
 ```bash
 -| pages/
@@ -86,7 +93,7 @@ Sebagai contoh, struktur file berikut ini:
 ----| index.vue
 ```
 
-Akan meng-generate:
+Akan digenerate menjadi:
 
 ```
 -| dist/
@@ -95,26 +102,23 @@ Akan meng-generate:
 ----| index.html
 ```
 
-Dengan ini, anda dapat langsung menyimpan aplikasi pada hosting statis manapun!
+Dengan ini, Anda dapat meng-host aplikasi web yang dihasilkan di hosting statis apa pun!
 
-Contoh terbaik adalah situs web ini yang dihasilkan dan dihosting di Halaman GitHub:
+Contoh terbaik adalah situs web ini yang digenerate dan di-host di [Netlify](https://www.netlify.com), cek [source code](https://github.com/nuxt/nuxtjs.org) kami atau [Bagaimana melakukan deploy Nuxt.js di Netlify](https://vueschool.io/lessons/how-to-deploy-nuxtjs-to-netlify?friend=nuxt) dari Vue School.
 
-- [Kode Sumber](https://github.com/nuxt/nuxtjs.org)
-- [Kode yang sudah di generate](https://github.com/nuxt/nuxtjs.org/tree/gh-pages)
+Kami tidak ingin membuat aplikasi secara manual setiap kali kami memperbarui [repositori dokumentasi](https://github.com/nuxt/docs), itu memicu hook ke Netlify yang:
 
-Kami tidak ingin membuat aplikasi secara manual setiap kali kami memperbarui [docs repository](https://github.com/nuxt/docs), jadi setiap push yang dibuat akan memanggil fungsi AWS Lambda yang mana:
+1. Melakukan kloning [repositori nuxtjs.org](https://github.com/nuxt/nuxtjs.org)
+2. Install dependensi melalui `npm install`
+3. Jalankan `npm run generate`
+4. Melakukan serve direktori `dist`
 
-1. Melakukan clone [repositori nuxtjs.org](https://github.com/nuxt/nuxtjs.org)
-2. Install dependensi `npm install`
-3. Jalankan `nuxt generate`
-4. Push folder `dist` ke branch `gh-pages`
+Sekarang kita memiliki **Aplikasi Web yang di Generate** secara otomatis :)
 
-Sekarang kita punya **Aplikasi Web Yang Dihasilkan secara Serverless Statis** :)
-
-Kita dapat melangkah lebih jauh dengan memikirkan aplikasi web e-commerce yang dibuat dengan `nuxt generate` yang kemudian dihosting di CDN. Setiap kali produk kehabisan stok atau melakukan re-stok kembali, kita akan membuat ulang aplikasi web. Tetapi jika pengguna melakukan navigasi melalui aplikasi web, itu akan diperbarui dengan panggilan API yang dibuat ke API e-commerce. Sehingga tidak perlu lagi memiliki banyak instance dari server + cache!
+Kita dapat melangkah lebih jauh dengan memikirkan aplikasi web e-commerce yang dibuat dengan `nuxt generate` dan di-host pada sebuah CDN. Setiap kali produk kehabisan stok atau melakukan restock, kami membuat ulang aplikasi web. Tetapi jika pengguna menavigasi melalui aplikasi web pada saat itu, itu akan diperbarui berkat panggilan API yang dibuat ke API e-commerce. Tidak perlu lagi memiliki banyak instance server + cache!
 
 <div class="Alert">
 
-Lihat [Bagaimana cara melakukan penyebaran (deploy) ke Halaman GitHub?](/faq/github-pages) untuk detail lebih lanjut tentang cara melakukan penyebaran ke Halaman GitHub.
+Lihat [Bagaimana melakukan deploy pada Netlify?](/faq/netlify-deployment) untuk detail lebih lanjut tentang cara melakukan deploy ke Netlify.
 
 </div>

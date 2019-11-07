@@ -1,110 +1,122 @@
 ---
-title: Modul-modul
-description: Modul-modul adalah ekstensi Nuxt.js yang dapat memperluas fungsionalitas inti dan menambahkan integrasi tanpa akhir.
+title: Modul
+description: Modul adalah ekstensi Nuxt.js yang dapat memperluas fungsionalitas inti dari Nuxt.js dan menambahkan integrasi tanpa akhir.
 ---
 
-> Modules are Nuxt.js extensions which can extend its core functionality and add endless integrations.
+> Modul adalah ekstensi Nuxt.js yang dapat memperluas fungsionalitas inti dari Nuxt.js dan menambahkan integrasi tanpa akhir.
 
-## Introduction
+## Pengenalan
 
-Saat mengembangkan aplikasi tingkat produksi dengan Nuxt, Anda akan segera menemukan bahwa inti dari kerangka (framework)
-itu tidak hanya fungsi. Nuxt dapat diperluas menggunakan opsi konfigurasi dan plugin, tetapi mempertahankan penyesuaian ini di berbagai proyek itu membosankan, berulang-ulang dan memakan waktu.
-Di sisi lain, mendukung kebutuhan setiap proyek secara langsung akan membuat Nuxt sangat kompleks dan sulit digunakan.
+Saat mengembangkan aplikasi pada tingkat produksi dengan Nuxt, Anda akan segera menemukan bahwa core framework
+secara fungsional saja tidak cukup. Nuxt dapat diperluas dengan opsi konfigurasi dan plugin,
+tetapi jika mempertahankan penyesuaian ini di berbagai proyek itu akan membosankan, berulang-ulang dan memakan waktu.
+Di samping itu, mendukung setiap kebutuhan proyek secara langsung akan membuat Nuxt sangat kompleks dan sulit digunakan.
 
-Ini adalah salah satu alasan mengapa Nuxt menyediakan sistem modul tingkat tinggi yang membuatnya mudah untuk memperluas inti.
-Modul adalah **fungsi** sederhana yang disebut berurutan ketika mem-boot Nuxt.
-Kerangka kerja (framework) akan menunggu masing-masing modul selesai sebelum dilanjutkan.
-Dengan cara tersebut, modul dapat menyesuaikan hampir semua aspek Nuxt.
-Terimakasih untuk design modular Nuxt's (berbasis webpack [Tapable](https://github.com/webpack/tapable)),
-modul dapat dengan mudah mendaftarkan hooks sebagai entri-poin tertentu seperti inisialisasi build.
-Modul juga dapat mengesampingkan templat, mengkonfigurasi webpack-loader, menambahkan librari CSS, dan melakukan banyak tugas bermanfaat lainnya.
+Ini adalah salah satu alasan mengapa Nuxt menyediakan sistem modul tingkat tinggi yang membuatnya mudah untuk memperluas core fungsi nya.
+Modul adalah **functions** sederhana yang dipanggil secara berurutan ketika melakukan boot Nuxt.
+Framework akan menunggu setiap modul selesai sebelum dapat melanjutkan.
+Melalui ini, modul dapat menyesuaikan hampir semua aspek Nuxt.
+Terimakasih untuk desain modular Nuxt (berbasis pada webpack's [Tapable](https://github.com/webpack/tapable)),
+modul dapat dengan mudah mendaftarkan (register) hooks untuk titik masuk tertentu seperti inisialisasi builder.
+Modules can also override templates, configure webpack loaders, add CSS libraries, and perform many other useful tasks.
+Modul juga dapat melakukan overide template, mengkonfigurasi pemuat webpack, menambahkan librari CSS, dan melakukan banyak tugas bermanfaat lainnya.
 
-Yang terbaik dari semuanya, modul Nuxt dapat dimasukkan ke dalam paket npm.
+Yang terbaik dari itu semua, Modul nuxt dapat dimasukkan ke dalam paket npm.
 Ini membuatnya mudah untuk digunakan kembali di seluruh proyek dan untuk berbagi dengan komunitas Nuxt,
-membantu menciptakan ekosistem pengaya Nuxt berkualitas tinggi.
+membantu menciptakan ekosistem add-ons Nuxt berkualitas tinggi.
 
-Modul akan bagus jika Anda:
+Modul bagus jika Anda:
 
-- Anggota dari **tim agile** yang perlu mem-bootstrap proyek baru dengan cepat.
-- Sudah lelah **membuat ulang** pengerjaan tugas-tugas umum seperti mengintegrasikan Google Analytics.
-- Adalah penggila **Open Source** yang ingin dengan mudah **berbagi** pekerjaan anda dengan komunitas.
-- Adalah anggota suatu perusahaan **enterprise** yang menjunjung nilai **kualitas** dan **dapat digunakan kembali**.
-- Sering menghadapi tenggat waktu pendek dan tidak punya waktu untuk menggali rincian setiap perpustakaan atau integrasi baru.
-- Bosan berurusan dengan pemecahan perubahan antarmuka tingkat rendah, dan hanya membutuhkan untuk **sekedar bekerja™**.
+- Adalah anggota **agile team** yang perlu mem-bootstrap proyek baru secara cepat.
+- Bosan **membuat secara berulang-ulang** tugas-tugas yang umum seperti mengintegrasikan Google Analytics.
+- Adalah pecinta **Open Source** yang ingin dengan mudah **membagikan** pekerjaan anda dengan komunitas.
+- Adalah anggota perusahaan **enterprise** yang mengedepankan nilai-nilai **kualitas** dan **dapat digunakan kembali**.
+- Sering menghadapi tenggat waktu yang singkat dan tidak punya waktu untuk menggali rincian setiap librari atau integrasi baru.
+- Bosan berurusan dengan perubahan antarmuka tingkat rendah, dan membutuhkan hal-hal yang hanya **sekedar berfungsi**.
 
-## Daftar modul-modul Nuxt.js
+## Daftar modul Nuxt.js
 
-Tim Nuxt.js menawarkan modul-modul **resmi** sebagai berikut:
-- [@nuxt/http](https://http.nuxtjs.org): Cara ringan dan universal untuk membuat request HTTP, berbasis [ky-universal](https://github.com/sindresorhus/ky-universal)
+Tim Nuxt.js mempersembahkan modul **official**:
+- [@nuxt/http](https://http.nuxtjs.org): Cara ringan dan universal untuk membuat request HTTP, berbasis pada [ky-universal](https://github.com/sindresorhus/ky-universal)
 - [@nuxtjs/axios](https://axios.nuxtjs.org): Integrasi Axios yang Aman dan Mudah dengan Nuxt.js untuk membuat request HTTP
-- [@nuxtjs/pwa](https://pwa.nuxtjs.org): Supercharge Nuxt dengan solusi PWA yang sangat teruji, terbarukan dan stabil
+- [@nuxtjs/pwa](https://pwa.nuxtjs.org): Supercharge Nuxt dengan solusi PWA yang sangat teruji, diperbarui dan stabil
 - [@nuxtjs/auth](https://auth.nuxtjs.org): Modul otentikasi untuk Nuxt.js, menawarkan skema dan strategi yang berbeda
 
-Daftar modul-modul Nuxt.js yang dibuat oleh komunitas, tersedia di https://github.com/topics/nuxt-module
+Daftar modul Nuxt.js di atas dibuat oleh komunitas yang ada di https://github.com/topics/nuxt-module
 
 ## Menulis modul dasar
 
-Seperti yang telah disebutkan diatas, modul hanyalah fungsi sederhana. Mereka dapat dikemas sebagai modul npm atau langsung dimasukkan dalam kode sumber proyek.
+Seperti yang telah disebutkan modul hanyalah fungsi sederhana. Mereka dapat dikemas sebagai modul npm atau langsung dimasukkan dalam kode sumber proyek.
 
 **modules/simple.js**
 
 ```js
 export default function SimpleModule (moduleOptions) {
-  // Tulis kode anda disini
+  // Tulis kode anda di sini
 }
 
-// DIBUTUHKAN jika menerbitkan modul sebagai paket npm
+// Dibawah ini akan dibutuhkan (REQUIRED) jika menerbitkan modul sebagai paket npm
 // module.exports.meta = require('./package.json')
 ```
 
 **`moduleOptions`**
 
-Ini adalah objek yang menggunakan array `modules` oleh pengguna, kita dapat menggunakannya untuk menyesuaikan sebuah perilaku.
+Ini adalah objek berbentuk array `modules`, kita dapat menggunakannya untuk menyesuaikan perilaku.
 
 **`this.options`**
 
-Anda dapat langsung mengakses opsi Nuxt menggunakan referensi ini. Ini adalah konten `nuxt.config.js` pengguna dengan semua opsi default yang ditetapkan. Dapat digunakan sebagai opsi bersama antar modul.
+Anda dapat langsung mengakses opsi Nuxt menggunakan referensi ini. This is the content of the user's `nuxt.config.js` dengan semua opsi default yang ditetapkan. Dapat digunakan untuk opsi sharing antar modul.
 
 **`this.nuxt`**
 
-Ini adalah referensi ke instance Nuxt saat ini. Lihat [Dokumentasi kelas pada Nuxt yang tersedia](/api/internals-nuxt).
+Ini adalah referensi ke instance Nuxt saat ini. Mengacu pada [Class Nuxt untuk metode yang tersedia](/api/internals-nuxt).
 
 **`this`**
 
-Konteks pada modul-modul. Silahkan lihat dokumentasi kelas [ModuleContainer](/api/internals-module-container) untuk metode yang tersedia.
+Konteks modul. Silakan lihat dokumentasi Class [ModuleContainer](/api/internals-module-container) untuk metode yang tersedia.
 
 **`module.exports.meta`**
 
-Baris ini **dibutuhkan** jika Anda menerbitkan modul sebagai paket di npm. Secara internal, Nuxt menggunakan meta untuk bekerja lebih baik dengan paket Anda.
+Baris ini **dibutuhkan** jika Anda menerbitkan modul sebagai paket npm. Nuxt secara internal menggunakan meta untuk bekerja lebih baik dengan paket Anda.
 
 **nuxt.config.js**
 
 ```js
 export default {
   modules: [
-    // Penggunaan secara mudah
+    // Penggunaan dasar
     '~/modules/simple'
 
-    // Opsi secara langsung
+    // Passing opsi secara langsung
       ['~/modules/simple', { token: '123' }]
   ]
 }
 ```
 
-Kami kemudian memberitahu Nuxt untuk memuat beberapa modul spesifik untuk proyek dengan parameter opsional sebagai opsi.
-Silahkan lihat dokumentasi [pengaturan modul-modul](/api/configuration-modules) untuk informasi lebih detail!
+Kemudian kita beritahu Nuxt untuk memuat beberapa modul spesifik untuk proyek dengan parameter opsional sebagai opsi.
+Silakan merujuk ke dokumentasi [konfigurasi modul](/api/configuration-modules) untuk info detail!
 
-## Modul-modul Async
+## Modul Async
 
-Tidak semua modul akan melakukan semuanya secara synchronous. Misalnya Anda mungkin ingin mengembangkan modul yang perlu mengambil beberapa API atau melakukan async IO. Untuk ini, Nuxt mendukung modul async yang dapat mengembalikan Promise atau callback.
+Tidak semua modul akan melakukan semuanya secara sinkron (synchronous). Misalnya Anda mungkin ingin mengembangkan modul yang perlu mengambil beberapa API atau melakukan IO async. Untuk ini, Nuxt mendukung modul async yang dapat mengembalikan Promise atau callback.
 
-### Gunakan async/await
+## Modul Build-only
+
+Biasanya, modul hanya diperlukan selama pengembangan dan waktu build. Menggunakan bantuak `buildModules` untuk membuat production startup lebih cepat dan jugasecara signifikan mengurangi size `node_modules` untuk deploy production. Jika Anda seorang penulis modul, Sangat disarankan untuk mengarahkan pengguna menginstal paket Anda sebagai `devDependency` dan gunakan `buildModules` dari pada `modules` untuk `nuxt.config.js`.
+
+Modul Anda adalah `buildModule` kecuali:
+- Menyediakan serverMiddleware
+- Harus mendaftarkan hooks runtime Node.js (Seperti sentry)
+- Memengaruhi perilaku vue-renderer atau menggunakan hook dari `server:` atau namespace `vue-renderer:`
+- Atau apapun diluar webpack scope (Hint: plugins and templates are compiled and are in webpack scope)
 
 <div class="Alert Alert--orange">
 
-Sadarilah bahwa `async`/`await` hanya didukung di Node.js > 7.2. Jadi, jika Anda seorang pengembang modul, setidaknya peringatkan pengguna anda tentang hal itu ketika menggunakannya. Untuk modul async yang berat atau dukungan lawas yang lebih baik, Anda dapat menggunakan bundler untuk mengubahnya mengikuti kompatibilitas versi Node.js yang lebih lama atau metode promise.
+<b>Catatan:</b> Jika Anda akan menggunakan <code>buildModules</code> harus di ingat bahwa fitur ini hanya tersedia sejak Nuxt <b>v2.9</b>. Untuk versi lama harus melakukan upgrade Nuxt atau menggunakan section <code>modules</code>.
 
 </div>
+
+### Gunakan async/await
 
 ```js
 import fse from 'fs-extra'
@@ -124,16 +136,16 @@ export default function asyncModule () {
   return axios.get('https://jsonplaceholder.typicode.com/users')
     .then(res => res.data.map(user => '/users/' + user.username))
     .then((routes) => {
-      // Lakukan sesuatu dengan memperluas rute Nuxt
+      // Lakukan sesuatu dengan melakukan extend Nuxt Route
     })
 }
 ```
 
-## Cuplikan umum
+## Snippets Umum
 
-### Opsi tingkat atas
+### Opsi level Atas
 
-Terkadang lebih nyaman jika kita dapat menggunakan opsi tingkat atas ketika mendaftarkan modul pada `nuxt.config.js`.
+Terkadang lebih nyaman jika kita dapat menggunakan opsi tingkat atas saat me-register modul `nuxt.config.js`.
 Ini memungkinkan kita untuk menggabungkan beberapa sumber opsi.
 
 **nuxt.config.js**
@@ -163,10 +175,10 @@ export default function (moduleOptions) {
 }
 ```
 
-### Menyediakan plugin-plugin
+### Menyediakan plugin
 
 Adalah umum bahwa modul menyediakan satu atau lebih plugin ketika ditambahkan.
-Sebagai contoh pada modul [bootstrap-vue](https://bootstrap-vue.js.org) memerlukan register sendiri ke Vue.
+Sebagai contoh modul [bootstrap-vue](https://bootstrap-vue.js.org), perlu mendaftar sendiri ke Vue.
 Dalam situasi seperti itu kita dapat menggunakan bantuan `this.addPlugin`.
 
 **plugin.js**
@@ -189,18 +201,18 @@ export default function nuxtBootstrapVue (moduleOptions) {
 }
 ```
 
-### Plugin Templat
+### Plugin Template
 
-Templat dan plugin yang sudah terdaftar dapat meningkatkan [templat-templat lodash](https://lodash.com/docs/4.17.4#template) untuk secara kondisional mengubah output plugin yang sudah terdaftar.
+Templat dan plugin yang sudah terdaftar akan meningkatkan [lodash templates](https://lodash.com/docs/4.17.4#template) untuk secara kondisional mengubah output plugin terdaftar.
 
 **plugin.js**
 
 ```js
-// Set Google Analytics UA
+// Atur Google Analytics UA
 ga('create', '<%= options.ua %>', 'auto')
 
 <% if (options.debug) { %>
-// Dev only code
+// Development code only
 <% } %>
 ```
 
@@ -210,23 +222,23 @@ ga('create', '<%= options.ua %>', 'auto')
 import path from 'path'
 
 export default function nuxtBootstrapVue (moduleOptions) {
-  // Daftarkan templat `plugin.js`
+  // Register `plugin.js` template
   this.addPlugin({
     src: path.resolve(__dirname, 'plugin.js'),
     options: {
-      // Nuxt akan mengganti `options.ua` dengan` 123` saat menyalin plugin ke proyek
+      // Nuxt akan mengganti `options.ua` dengan `123` saat menyalin plugin ke proyek
       ua: 123,
 
-      // bagian kondisional dengan dev akan dicopot dari kode plugin pada saat build produksi
+      // sebagian kondisi dengan dev akan di strip dari kode plugin pada saat production build
       debug: this.options.dev
     }
   })
 }
 ```
 
-### Menambahkan pustaka CSS
+### Tambahkan Librari CSS
 
-Jika modul Anda akan menyediakan pustaka CSS, pastikan untuk melakukan pemeriksaan jika pengguna sudah memasukkannya untuk menghindari duplikasi, dan tambahkan **opsi untuk menonaktifkan** pustaka css pada modul.
+Jika modul Anda akan menyediakan librari CSS, pastikan untuk melakukan pemeriksaan jika pengguna sudah memasukkan librari untuk menghindari duplikasi, dan tambahkan **opsi untuk men-disable** librari CSS di dalam modul.
 
 **module.js**
 
@@ -239,23 +251,23 @@ export default function (moduleOptions) {
 }
 ```
 
-### Emit assets
+### Aset Emit
 
 <!-- todo: up2date? -->
 
-Kita dapat mendaftarkan plugin webpack untuk melakukan emit aset ketika build.
+Kita dapat mendaftarkan plugin webpack untuk memancarkan aset selama build.
 
 **module.js**
 
 ```js
 export default function (moduleOptions) {
-  const info = 'Dibangun dengan modul yang luar biasa - 1.3 alpha pada ' + Date.now()
+  const info = 'Built by awesome module - 1.3 alpha on ' + Date.now()
 
   this.options.build.plugins.push({
     apply (compiler) {
       compiler.plugin('emit', (compilation, cb) => {
-        // Ini akan menghasilkan `.nuxt / dist / info.txt 'dengan isi variabel info.
-        // Sumber juga bisa menjadi penyangga (buffer)
+        // Ini akan meng-generate `.nuxt/dist/info.txt' dengan isi variabel info.
+        // Sumber juga bisa menjadi penyangga
         compilation.assets['info.txt'] = { source: () => info, size: () => info.length }
 
         cb()
@@ -267,7 +279,7 @@ export default function (moduleOptions) {
 
 ### Daftarkan loader webpack custom
 
-Kita dapat melakukan hal yang sama seperti `build.extend` pada `nuxt.config.js` menggunakan `this.extendBuild`.
+Kita dapat melakukan hal yang sama seperti `build.extend` di dalam `nuxt.config.js` menggunakan `this.extendBuild`.
 
 **module.js**
 
@@ -280,21 +292,21 @@ export default function (moduleOptions) {
         use: [...]
       })
 
-      // Kustomisasi loader yang sudah ada
-      // Lihat kode sumber untuk internal Nuxt:
+      // Customize existing loaders
+      // Refer to source code for Nuxt internals:
       // https://github.com/nuxt/nuxt.js/tree/dev/packages/builder/src/webpack/base.js
       const barLoader = config.module.rules.find(rule => rule.loader === 'bar-loader')
   })
 }
 ```
 
-## Jalankan Tugas pada hooks tertentu
+## Menjalankan Tugas pada spesifik hooks
 
-Modul Anda mungkin perlu melakukan hal-hal pada kondisi tertentu dan tidak hanya ketika inisialisasi Nuxt.
-Kita bisa menggunakan [Hookable](https://github.com/nuxt/nuxt.js/blob/dev/packages/core/src/hookable.js) Nuxt.js sistem untuk melakukan tugas pada events spesifik.
+Modul Anda mungkin perlu melakukan hal-hal hanya pada kondisi tertentu dan tidak hanya selama inisialisasi Nuxt.
+Kita dapat menggunaka sistem Nuxt.js powerful [Hookable](https://github.com/nuxt/nuxt.js/blob/dev/packages/core/src/hookable.js) Nuxt.js untuk melakukan tugas pada acara tertentu.
 Nuxt akan menunggu fungsi Anda jika mengembalikan Promise atau didefinisikan sebagai `async`.
 
-Berikut beberapa contoh dasar:
+Berikut ini beberapa contoh dasar:
 
 ```js
 export default function myModule () {
@@ -303,7 +315,7 @@ export default function myModule () {
   })
 
   this.nuxt.hook('render:before', (renderer) => {
-    // Dipanggil setelah penyaji dibuat
+    // Dipanggil setelah penyaji (renderer) dibuat
   })
 
   this.nuxt.hook('build:compile', async ({ name, compiler }) => {
@@ -316,11 +328,11 @@ export default function myModule () {
 }
 ```
 
-## Perintah-perintah pada paket modul
+## Perintah modul package
 
-**Percobaan**
+**Uji coba**
 
-Dimulai pada versi `v2.4.0`, Anda dapat menambahkan perintah nuxt khusus melalui paket modul Nuxt. Untuk melakukannya, Anda harus mengikuti API `NuxtCommand` pada saat mendefinisikan perintah Anda. Contoh sederhana yang secara hipotetis ditempatkan di `my-module/bin/command.js` akan terlihat seperti ini:
+Mulai `v2.4.0`, Anda dapat menambahkan perintah nuxt khusus melalui paket modul Nuxt. Untuk melakukannya, Anda harus mengikuti API `NuxtCommand` saat mendefinisikan perintah Anda. Contoh sederhana secara hipotetis yang ditempatkan di `my-module/bin/command.js` terlihat seperti ini:
 
 ```js
 #!/usr/bin/env node
@@ -336,7 +348,7 @@ NuxtCommand.run({
     foobar: {
       alias: 'fb',
       type: 'string',
-      description: 'Test string sederhana'
+      description: 'Pengujian sederhana'
     }
   },
   run (cmd) {
@@ -345,14 +357,14 @@ NuxtCommand.run({
 })
 ```
 
-Beberapa hal yang perlu diperhatikan di sini. Pertama, perhatikan panggilan ke `/usr/bin/env` untuk mengambil Node yang dapat dieksekusi. Perhatikan juga bahwa sintaks modul ES tidak dapat digunakan untuk perintah kecuali Anda secara manual memasukkan [`esm`](https://github.com/standard-things/esm) kedalam kode anda.
+Beberapa hal yang perlu diperhatikan di sini. Pertama, perhatikan panggilan ke `/usr/bin/env` untuk mengambil Node yang dapat dieksekusi. Juga perhatikan bahwa sintaks modul ES tidak dapat digunakan untuk perintah kecuali jika Anda memasukkan [`esm`](https://github.com/standard-things/esm) secara manual ke dalam kode Anda.
 
-Selanjutnya, Anda akan melihat bagaimana `NuxtCommand.run()` digunakan untuk menentukan pengaturan dan perilaku perintah.Opsi didefinisikan dalam `options`, yang bisa diurai melalui [`minimist`](https://github.com/substack/minimist).
+Selanjutnya, Anda perhatikan bagaimana `NuxtCommand.run()` digunakan untuk menentukan pengaturan dan perilaku perintah. Opsi didefinisikan pada `options`, yang bisa diurai melalui [`minimist`](https://github.com/substack/minimist).
 Setelah argumen diuraikan, `run()` secara otomatis dipanggil dengan instance `NuxtCommand` sebagai parameter pertama.
 
-Pada contoh diatas, `cmd.argv` digunakan untuk mengambil uraian argumen baris perintah. Ada lebih banyak metode dan properti pada `NuxtCommand` -- dokumentasi tentang itu semua akan diberikan nanti karena fitur ini masih diuji lebih lanjut dan diperbaiki.
+Pada contoh di atas, `cmd.argv` digunakan untuk mengambil argumen baris perintah parsed. Ada lebih banyak metode dan properti pada `NuxtCommand` -- dokumentasi tentang mereka akan diberikan nanti karena fitur ini masih diuji lebih lanjut dan diperbaiki.
 
-Untuk membuat perintah Anda dikenali oleh Nuxt CLI, masukan dibawah bagian `bin` pada package.json anda, menggunakan konvensi `nuxt-module`, dimana `module` berhubungan dengan nama paket. Dengan ini, Anda dapat menggunakan `argv` untuk mem-parsing lebih banyak `subcommands` untuk perintah Anda jika Anda mau.
+Untuk membuat perintah Anda dikenali oleh Nuxt CLI, daftarkan di bawah section `bin` di package.json Anda, menggunakan konvensi `nuxt-module`, dimana `module` berkaitan dengan nama package Anda. Dengan binary sentral ini, anda dapat menggunakan `argv` untuk mem-parsing lebih lanjut `subcommands` untuk perintah Anda jika Anda menginginkannya.
 
 ```js
 {
@@ -362,10 +374,10 @@ Untuk membuat perintah Anda dikenali oleh Nuxt CLI, masukan dibawah bagian `bin`
 }
 ```
 
-Setelah paket Anda diinstal (melalui NPM atau Yarn), Anda akan dapat mengeksekusi `nuxt foobar ...` pada baris perintah.
+Setelah paket Anda diinstal (melalui NPM atau Yarn), Anda dapat mengeksekusi `nuxt foobar ...` pada command-line.
 
 <div class="Alert">
 
-Ada banyak cara hooks dan kemungkinan untuk modul. Silahkan baca [Nuxt Internal](/api/internals) untuk mengetahui lebih lanjut tentang API nuxt-internal.
+Ada banyak cara hooks dan kemungkinan untuk modul. Silahkan baca [Internal Nuxt](/api/internals) untuk mengetahui lebih lanjut tentang API nuxt-internal.
 
 </div>

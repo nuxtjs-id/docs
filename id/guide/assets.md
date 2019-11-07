@@ -1,17 +1,16 @@
 ---
 title: Aset
-description: Secara default, Nuxt menggunakan vue-loader, file-loader dan url-loader
-  webpack loaders untuk penyimpanan aset yang kukuh. Kamu juga dapat menggunakan direktori
-  Static untuk aset yang statis.
+description: Secara default, Nuxt menggunakan webpack loader vue-loader, file-loader, dan url-loader untuk penyajian aset yang kokoh. Anda juga dapat menggunakan direktori Static untuk kebutuhan aset statis.
 ---
 
-> Secara default, Nuxt menggunakan vue-loader, file-loader dan url-loader webpack loaders untuk penyimpanan aset yang kukuh. Kamu juga dapat menggunakan direktori Static untuk aset yang statis.
+> Secara default, Nuxt menggunakan webpack loader vue-loader, file-loader, dan url-loader untuk penyajian aset yang kokoh. Anda juga dapat menggunakan direktori Static untuk kebutuhan aset `statis`.
 
-## webpacked
+## Webpack
 
-Secara default, [vue-loader](http://vue-loader.vuejs.org/en/) akan memproses file style dan templat kamu secara otomatis menggunakan css-loader dan kompiler templat Vue. Dalam proses kompilasi ini, semua aset URL seperti pemanggilan gambar pada komponen HTML atau CSS ( `<img src="...">`, `background: url(...)`, dan `CSS @import` ) akan dipecahkan sebagai modul dependensi.
+[vue-loader](http://vue-loader.vuejs.org/) secara otomatis memproses file style dan templat Anda dengan `css-loader` dan kompiler template Vue secara out of the box.
+Dalam proses kompilasi ini, semua URL aset seperti `<img src="...">`, `background: url(...)` dan CSS `@import` diselesaikan sebagai dependensi modul.
 
-Contoh, kita memiliki pohon (tree) file seperti berikut:
+Sebagai contoh, kita memiliki urutan file sebagai berikut:
 
 ```bash
 -| assets/
@@ -20,9 +19,17 @@ Contoh, kita memiliki pohon (tree) file seperti berikut:
 ----| index.vue
 ```
 
-Dalam CSS kamu, jika kamu menggunakan `url('~/assets/image.png')` , itu akan diterjemahkan menjadi `require('~/assets/image.png')`.
+jika Anda menggunakan `url('~assets/image.png')` di dalam CSS Anda, akan *diterjemahkan* ke `require('~/assets/image.png')`.
 
-Atau jika pada `pages/index.vue` Anda menggunakan:
+<div class="Alert Alert--orange">
+
+**Peringatan:** Mulai dari Nuxt 2.0 alias `~/` tidak akan diselesaikan dengan benar di file CSS Anda.
+Anda harus menggunakan `~assets` (tanpa slash) atau alias `@` di dalam referensi CSS `url`, sebagai contoh: `background: url("~assets/banner.svg")`
+
+</div>
+
+
+Atau jika Anda merujuk gambar di dalam `pages/index.vue` Anda:
 
 ```html
 <template>
@@ -30,25 +37,26 @@ Atau jika pada `pages/index.vue` Anda menggunakan:
 </template>
 ```
 
-Maka akan dikompilasikan menjadi:
+Ini akan di kompilasi menjadi:
 
 ```js
 createElement('img', { attrs: { src: require('~/assets/image.png') } })
 ```
 
-Karena `.png` bukan file dari JavaScript, Nuxt.js mengonfigurasi webpack untuk menggunakan [file-loader](https://github.com/webpack/file-loader) dan [url-loader](https://github.com/webpack/url-loader) untuk menanganinya untuk Anda.
+Karena `.png` bukan merupakan file JavaScript, Nuxt.js mengkonfigurasikan webpack untuk menggunakan [file-loader](https://github.com/webpack/file-loader) dan [url-loader](https://github.com/webpack/url-loader).
 
-Manfaat menggunakan file-loader dan url-loader adalah:
+Manfaat dari loader ini adalah:
 
-- file-loader memungkinkan Anda menentukan tempat untuk menyalin dan menempatkan file aset, dan bagaimana cara menamainya menggunakan version hashes untuk caching (memori sementara) yang lebih baik.
-- url-loader memungkinkan Anda untuk menyamakan inline file sebagai data URL base-64 jika ukurannya lebih kecil dari batas yang diberikan. Hal ini dapat mengurangi sejumlah permintaan HTTP untuk file yang kurang berarti. Jika file lebih besar dari batas, maka secara otomatis akan kembali ke file-loader.
+- `file-loader` memungkinkan Anda menentukan tempat untuk menyalin dan menempatkan file aset, dan bagaimana menamainya menggunakan versi hash untuk caching yang lebih baik. Dalam produksi, Anda akan mendapat manfaat dari caching jangka panjang secara default!
+- `url-loader` memungkinkan Anda untuk menyatukan file sebagai URL data base-64 secara kondisional jika lebih kecil dari ambang yang diberikan. Ini dapat mengurangi sejumlah request HTTP untuk file yang ringan. Jika file lebih besar, otomatis akan dikembalikan ke file-loader.
 
-Sebenarnya, konfigurasi pemindah aset yang default dari Nuxt.js adalah:
+Untuk kedua loader itu, konfigurasi defaultnya adalah:
 
 ```js
+// https://github.com/nuxt/nuxt.js/blob/dev/packages/webpack/src/config/base.js#L297-L316
 [
   {
-    test: /\.(png|jpe?g|gif|svg)$/,
+    test: /\.(png|jpe?g|gif|svg|webp)$/,
     loader: 'url-loader',
     query: {
       limit: 1000, // 1kB
@@ -66,9 +74,11 @@ Sebenarnya, konfigurasi pemindah aset yang default dari Nuxt.js adalah:
 ]
 ```
 
-Yang berarti setiap file di bawah 1 KB akan digaris bawahi sebagai data URL base-64. Jika tidak, gambar/font akan disalin di foldernya yang sesuai (di bawah direktori `.nuxt`) dengan nama yang berisi version hash untuk caching yang lebih baik.
+Yang berarti bahwa setiap file di bawah 1 KB akan diuraikan sebagai URL data base-64.
+Jika tidak, gambar / font akan disalin dalam folder yang sesuai (di bawah direktori `.nuxt`)
+dengan nama yang mengandung versi hash untuk caching yang lebih baik.
 
-Saat menjalankan aplikasi kita dengan `nuxt`, templat kita berada pada `pages/index.vue`:
+Ketika meluncurkan aplikasi kita dengan `nuxt`, templat kita di `pages/index.vue` sebagai berikut:
 
 ```html
 <template>
@@ -76,28 +86,29 @@ Saat menjalankan aplikasi kita dengan `nuxt`, templat kita berada pada `pages/in
 </template>
 ```
 
-Maka akan menjadi:
+Akan diterjemahkan menjadi:
 
 ```html
 <img src="/_nuxt/img/image.0c61159.png">
 ```
 
-Jika Anda ingin memperbarui loader ini atau menonaktifkannya, silakan menggunakan [build.extend](/api/configuration-build#extend).
+Jika Anda ingin mengubah konfigurasi loader, silahkan gunakan [build.extend](/api/configuration-build#extend).
+
 
 ## Static
 
-Jika Anda tidak ingin menggunakan Aset webpacked dari direktori `assets`, Anda dapat membuat dan menggunakan direktori `static` pada direktori root Anda.
+Jika Anda tidak ingin menggunakan aset Webpack dari direktori `aset`, Anda dapat membuat dan menggunakan direktori `static` (di dalam folder root proyek Anda).
 
-File-file ini akan secara otomatis dilayani oleh Nuxt dan dapat diakses di URL root proyek Anda.
+Semua file yang disertakan akan secara otomatis dilayani oleh Nuxt dan dapat diakses melalui URL root proyek Anda. (`static/favicon.ico` akan tersedia di `localhost:3000/favicon.ico`)
 
-Pilihan ini sangat membantu untuk file seperti `robots.txt`, `sitemap.xml`, atau `CNAME` (seperti halaman-halaman GitHub).
+Opsi ini bermanfaat untuk file seperti `robots.txt`, `sitemap.xml` atau `CNAME` (yang penting untuk penyebaran (deploy) Halaman GitHub).
 
-Dari kode Anda, Anda bisa merujuk file tersebut dengan `/` URL di bawah ini:
+Dalam kode Anda, Anda dapat merujuk file-file ini relatif ke root (`/`):
 
 ```html
-<!-- Gambar statis dari direktori static -->
+<!-- Gambar statis dari direktori statis -->
 <img src="/my-image.png"/>
 
-<!-- Gambar webpacked dari direktori assets -->
+<!-- gambar webpacked dari direktori assets -->
 <img src="~/assets/my-image-2.png"/>
 ```
